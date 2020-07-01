@@ -1,0 +1,20 @@
+# system info FP_LessThan on 2018.12.29.16:49:40
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for FP_LessThan on 2018.12.29.16:49:40
+files:
+filepath,kind,attributes,module,is_top
+sim/FP_LessThan.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,FP_LessThan,true
+altera_fp_functions_180/sim/dspba_library_package.vhd,VHDL,,FP_LessThan_altera_fp_functions_180_yaat3mq,false
+altera_fp_functions_180/sim/dspba_library.vhd,VHDL,,FP_LessThan_altera_fp_functions_180_yaat3mq,false
+altera_fp_functions_180/sim/FP_LessThan_altera_fp_functions_180_yaat3mq.vhd,VHDL,,FP_LessThan_altera_fp_functions_180_yaat3mq,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+FP_LessThan.fp_functions_0,FP_LessThan_altera_fp_functions_180_yaat3mq

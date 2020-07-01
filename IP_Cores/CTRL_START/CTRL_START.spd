@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="ram_1port_180/sim/CTRL_START_ram_1port_180_uhhnf6q.v"
+   type="VERILOG"
+   library="ram_1port_180" />
+ <file
+   path="sim/CTRL_START.v"
+   type="VERILOG"
+   library="CTRL_START"
+   hasInlineConfiguration="true" />
+ <topLevel name="CTRL_START.CTRL_START" />
+ <deviceFamily name="stratix10" />
+</simPackage>

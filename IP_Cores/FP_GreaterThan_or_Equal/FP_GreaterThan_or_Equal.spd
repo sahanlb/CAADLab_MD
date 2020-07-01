@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="altera_fp_functions_180/sim/dspba_library_package.vhd"
+   type="VHDL"
+   library="altera_fp_functions_180" />
+ <file
+   path="altera_fp_functions_180/sim/dspba_library.vhd"
+   type="VHDL"
+   library="altera_fp_functions_180" />
+ <file
+   path="altera_fp_functions_180/sim/FP_GreaterThan_or_Equal_altera_fp_functions_180_nqpmigq.vhd"
+   type="VHDL"
+   library="altera_fp_functions_180" />
+ <file
+   path="sim/FP_GreaterThan_or_Equal.v"
+   type="VERILOG"
+   library="FP_GreaterThan_or_Equal"
+   hasInlineConfiguration="true" />
+ <topLevel name="FP_GreaterThan_or_Equal.FP_GreaterThan_or_Equal" />
+ <deviceFamily name="stratix10" />
+</simPackage>

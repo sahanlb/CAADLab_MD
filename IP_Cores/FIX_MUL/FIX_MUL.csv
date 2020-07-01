@@ -1,0 +1,20 @@
+# system info FIX_MUL on 2019.03.28.18:38:49
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for FIX_MUL on 2019.03.28.18:38:49
+files:
+filepath,kind,attributes,module,is_top
+sim/FIX_MUL.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,FIX_MUL,true
+altera_fxp_functions_180/sim/dspba_library_package.vhd,VHDL,,FIX_MUL_altera_fxp_functions_180_ua7mybq,false
+altera_fxp_functions_180/sim/dspba_library.vhd,VHDL,,FIX_MUL_altera_fxp_functions_180_ua7mybq,false
+altera_fxp_functions_180/sim/FIX_MUL_altera_fxp_functions_180_ua7mybq.vhd,VHDL,,FIX_MUL_altera_fxp_functions_180_ua7mybq,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+FIX_MUL.fxp_functions_0,FIX_MUL_altera_fxp_functions_180_ua7mybq

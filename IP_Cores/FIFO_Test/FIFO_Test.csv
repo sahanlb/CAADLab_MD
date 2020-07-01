@@ -1,0 +1,18 @@
+# system info FIFO_Test on 2018.10.10.17:56:20
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for FIFO_Test on 2018.10.10.17:56:20
+files:
+filepath,kind,attributes,module,is_top
+sim/FIFO_Test.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,FIFO_Test,true
+fifo_180/sim/FIFO_Test_fifo_180_hp7qwka.v,VERILOG,,FIFO_Test_fifo_180_hp7qwka,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+FIFO_Test.fifo_0,FIFO_Test_fifo_180_hp7qwka

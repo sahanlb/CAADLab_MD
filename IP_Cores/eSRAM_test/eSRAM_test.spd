@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="altera_iopll_180/sim/eSRAM_test_altera_iopll_180_gwcwgdi.vo"
+   type="VERILOG"
+   library="altera_iopll_180" />
+ <file
+   path="altera_iopll_180/sim/stratix10_altera_iopll.v"
+   type="VERILOG"
+   library="altera_iopll_180" />
+ <file
+   path="esram_180/sim/iopll.v"
+   type="VERILOG"
+   library="esram_180"
+   hasInlineConfiguration="true" />
+ <file
+   path="esram_180/sim/eSRAM_test_esram_180_nuaykua.sv"
+   type="SYSTEM_VERILOG"
+   library="esram_180" />
+ <file
+   path="esram_180/sim/stratix10_esram_sdc_parameters.tcl"
+   type="TCL_ENTITY"
+   library="esram_180" />
+ <file
+   path="esram_180/sim/stratix10_esram.sdc"
+   type="SDC_ENTITY"
+   library="esram_180" />
+ <file
+   path="sim/eSRAM_test.v"
+   type="VERILOG"
+   library="eSRAM_test"
+   hasInlineConfiguration="true" />
+ <topLevel name="eSRAM_test.eSRAM_test" />
+ <deviceFamily name="stratix10" />
+</simPackage>

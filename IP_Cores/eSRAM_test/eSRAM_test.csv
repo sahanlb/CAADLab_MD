@@ -1,0 +1,25 @@
+# system info eSRAM_test on 2019.01.26.21:24:07
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for eSRAM_test on 2019.01.26.21:24:07
+files:
+filepath,kind,attributes,module,is_top
+sim/eSRAM_test.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,eSRAM_test,true
+esram_180/sim/eSRAM_test_esram_180_nuaykua.sv,SYSTEM_VERILOG,,eSRAM_test_esram_180_nuaykua,false
+esram_180/sim/stratix10_esram_sdc_parameters.tcl,TCL_ENTITY,,eSRAM_test_esram_180_nuaykua,false
+esram_180/sim/stratix10_esram.sdc,SDC_ENTITY,NO_AUTO_INSTANCE_DISCOVERY NO_SDC_PROMOTION,eSRAM_test_esram_180_nuaykua,false
+esram_180/sim/iopll.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,iopll,false
+altera_iopll_180/sim/eSRAM_test_altera_iopll_180_gwcwgdi.vo,VERILOG,,eSRAM_test_altera_iopll_180_gwcwgdi,false
+altera_iopll_180/sim/stratix10_altera_iopll.v,VERILOG,,eSRAM_test_altera_iopll_180_gwcwgdi,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+eSRAM_test.esram_0,eSRAM_test_esram_180_nuaykua
+eSRAM_test.esram_0.iopll,iopll
+eSRAM_test.esram_0.iopll.iopll,eSRAM_test_altera_iopll_180_gwcwgdi

@@ -1,0 +1,18 @@
+# system info ForceEval_FIFO on 2019.08.12.14:04:15
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for ForceEval_FIFO on 2019.08.12.14:04:15
+files:
+filepath,kind,attributes,module,is_top
+sim/ForceEval_FIFO.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,ForceEval_FIFO,true
+fifo_180/sim/ForceEval_FIFO_fifo_180_zggjfyi.v,VERILOG,,ForceEval_FIFO_fifo_180_zggjfyi,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+ForceEval_FIFO.fifo_0,ForceEval_FIFO_fifo_180_zggjfyi

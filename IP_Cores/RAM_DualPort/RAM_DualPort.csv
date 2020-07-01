@@ -1,0 +1,18 @@
+# system info RAM_DualPort on 2019.02.08.16:26:32
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for RAM_DualPort on 2019.02.08.16:26:32
+files:
+filepath,kind,attributes,module,is_top
+sim/RAM_DualPort.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,RAM_DualPort,true
+ram_2port_180/sim/RAM_DualPort_ram_2port_180_l4n36dy.v,VERILOG,,RAM_DualPort_ram_2port_180_l4n36dy,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+RAM_DualPort.ram_2port_0,RAM_DualPort_ram_2port_180_l4n36dy

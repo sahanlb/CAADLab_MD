@@ -1,0 +1,25 @@
+# system info FIX_SQRT on 2019.03.28.19:12:04
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for FIX_SQRT on 2019.03.28.19:12:04
+files:
+filepath,kind,attributes,module,is_top
+sim/FIX_SQRT.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,FIX_SQRT,true
+altera_fxp_functions_180/sim/FIX_SQRT_altera_fxp_functions_180_gf6zify_a0Table_uid33_sqrt_lutmem_part0.hex,HEX,,FIX_SQRT_altera_fxp_functions_180_gf6zify,false
+altera_fxp_functions_180/sim/FIX_SQRT_altera_fxp_functions_180_gf6zify_a0Table_uid33_sqrt_lutmem_part1.hex,HEX,,FIX_SQRT_altera_fxp_functions_180_gf6zify,false
+altera_fxp_functions_180/sim/FIX_SQRT_altera_fxp_functions_180_gf6zify_a0Table_uid34_sqrt_lutmem_part0.hex,HEX,,FIX_SQRT_altera_fxp_functions_180_gf6zify,false
+altera_fxp_functions_180/sim/FIX_SQRT_altera_fxp_functions_180_gf6zify_a0Table_uid34_sqrt_lutmem_part1.hex,HEX,,FIX_SQRT_altera_fxp_functions_180_gf6zify,false
+altera_fxp_functions_180/sim/FIX_SQRT_altera_fxp_functions_180_gf6zify_a1Table_uid37_sqrt_lutmem.hex,HEX,,FIX_SQRT_altera_fxp_functions_180_gf6zify,false
+altera_fxp_functions_180/sim/dspba_library_package.vhd,VHDL,,FIX_SQRT_altera_fxp_functions_180_gf6zify,false
+altera_fxp_functions_180/sim/dspba_library.vhd,VHDL,,FIX_SQRT_altera_fxp_functions_180_gf6zify,false
+altera_fxp_functions_180/sim/FIX_SQRT_altera_fxp_functions_180_gf6zify.vhd,VHDL,,FIX_SQRT_altera_fxp_functions_180_gf6zify,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+FIX_SQRT.fxp_functions_0,FIX_SQRT_altera_fxp_functions_180_gf6zify

@@ -1,0 +1,18 @@
+# system info RAM_Resource_Test on 2019.03.29.15:39:03
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for RAM_Resource_Test on 2019.03.29.15:39:03
+files:
+filepath,kind,attributes,module,is_top
+sim/RAM_Resource_Test.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,RAM_Resource_Test,true
+ram_1port_180/sim/RAM_Resource_Test_ram_1port_180_jftw4ca.v,VERILOG,,RAM_Resource_Test_ram_1port_180_jftw4ca,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+RAM_Resource_Test.ram_1port_0,RAM_Resource_Test_ram_1port_180_jftw4ca

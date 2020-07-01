@@ -1,0 +1,18 @@
+# system info Int_Mul_Add on 2019.01.21.16:26:46
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for Int_Mul_Add on 2019.01.21.16:26:46
+files:
+filepath,kind,attributes,module,is_top
+sim/Int_Mul_Add.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,Int_Mul_Add,true
+altera_mult_add_180/sim/Int_Mul_Add_altera_mult_add_180_7hdzzqq.v,VERILOG,,Int_Mul_Add_altera_mult_add_180_7hdzzqq,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+Int_Mul_Add.mult_add_0,Int_Mul_Add_altera_mult_add_180_7hdzzqq

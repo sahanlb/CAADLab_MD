@@ -1,0 +1,1355 @@
+<?xml version="1.0" ?>
+<spirit:component xmlns:altera="http://www.altera.com/XMLSchema/IPXact/extensions" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009">
+  <spirit:vendor>Intel Corporation</spirit:vendor>
+  <spirit:library>eSRAM_test</spirit:library>
+  <spirit:name>esram_0</spirit:name>
+  <spirit:version>18.0</spirit:version>
+  <spirit:busInterfaces>
+    <spirit:busInterface>
+      <spirit:name>ram_input</spirit:name>
+      <spirit:busType spirit:vendor="altera" spirit:library="altera" spirit:name="conduit" spirit:version="18.0"></spirit:busType>
+      <spirit:slave></spirit:slave>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c0_da_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c0_data_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c0_adrb_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c0_rdaddress_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c0_meb_n_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c0_rden_n_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c0_sd_n_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c0_sd_n_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c0_adra_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c0_wraddress_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c0_mea_n_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c0_wren_n_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c1_da_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c1_data_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c1_adrb_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c1_rdaddress_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c1_meb_n_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c1_rden_n_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c1_sd_n_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c1_sd_n_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c1_adra_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c1_wraddress_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c1_mea_n_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c1_wren_n_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c2_da_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c2_data_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c2_adrb_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c2_rdaddress_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c2_meb_n_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c2_rden_n_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c2_sd_n_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c2_sd_n_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c2_adra_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c2_wraddress_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c2_mea_n_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c2_wren_n_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>clock</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>refclk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>associatedClock</spirit:name>
+          <spirit:displayName>associatedClock</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="associatedClock"></spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>associatedReset</spirit:name>
+          <spirit:displayName>associatedReset</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="associatedReset"></spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>prSafe</spirit:name>
+          <spirit:displayName>Partial Reconfiguration Safe</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="prSafe">false</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+      <spirit:vendorExtensions>
+        <altera:altera_assignments>
+          <spirit:parameters>
+            <spirit:parameter>
+              <spirit:name>ui.blockdiagram.direction</spirit:name>
+              <spirit:value spirit:format="string" spirit:id="ui.blockdiagram.direction">input</spirit:value>
+            </spirit:parameter>
+          </spirit:parameters>
+        </altera:altera_assignments>
+      </spirit:vendorExtensions>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>ram_output</spirit:name>
+      <spirit:busType spirit:vendor="altera" spirit:library="altera" spirit:name="conduit" spirit:version="18.0"></spirit:busType>
+      <spirit:slave></spirit:slave>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c0_qb_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c0_q_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c1_qb_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c1_q_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>s2c2_qb_0</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>c2_q_0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>esram2f_clk</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>esram2f_clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>iopll_lock2core</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>iopll_lock2core</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>associatedClock</spirit:name>
+          <spirit:displayName>associatedClock</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="associatedClock"></spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>associatedReset</spirit:name>
+          <spirit:displayName>associatedReset</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="associatedReset"></spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>prSafe</spirit:name>
+          <spirit:displayName>Partial Reconfiguration Safe</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="prSafe">false</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+      <spirit:vendorExtensions>
+        <altera:altera_assignments>
+          <spirit:parameters>
+            <spirit:parameter>
+              <spirit:name>ui.blockdiagram.direction</spirit:name>
+              <spirit:value spirit:format="string" spirit:id="ui.blockdiagram.direction">output</spirit:value>
+            </spirit:parameter>
+          </spirit:parameters>
+        </altera:altera_assignments>
+      </spirit:vendorExtensions>
+    </spirit:busInterface>
+  </spirit:busInterfaces>
+  <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>QUARTUS_SYNTH</spirit:name>
+        <spirit:envIdentifier>:quartus.altera.com:</spirit:envIdentifier>
+        <spirit:modelName>esram</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>QUARTUS_SYNTH</spirit:localName>
+        </spirit:fileSetRef>
+      </spirit:view>
+    </spirit:views>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>c0_q_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>0</spirit:left>
+            <spirit:right>35</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC_VECTOR</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c1_q_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>0</spirit:left>
+            <spirit:right>35</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC_VECTOR</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c2_q_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>0</spirit:left>
+            <spirit:right>35</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC_VECTOR</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>esram2f_clk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>iopll_lock2core</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c0_data_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>0</spirit:left>
+            <spirit:right>35</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC_VECTOR</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c0_rdaddress_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>0</spirit:left>
+            <spirit:right>14</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC_VECTOR</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c0_rden_n_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c0_sd_n_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c0_wraddress_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>0</spirit:left>
+            <spirit:right>14</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC_VECTOR</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c0_wren_n_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c1_data_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>0</spirit:left>
+            <spirit:right>35</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC_VECTOR</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c1_rdaddress_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>0</spirit:left>
+            <spirit:right>14</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC_VECTOR</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c1_rden_n_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c1_sd_n_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c1_wraddress_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>0</spirit:left>
+            <spirit:right>14</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC_VECTOR</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c1_wren_n_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c2_data_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>0</spirit:left>
+            <spirit:right>35</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC_VECTOR</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c2_rdaddress_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>0</spirit:left>
+            <spirit:right>14</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC_VECTOR</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c2_rden_n_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c2_sd_n_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c2_wraddress_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>0</spirit:left>
+            <spirit:right>14</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC_VECTOR</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>c2_wren_n_0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>refclk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>STD_LOGIC</spirit:typeName>
+              <spirit:viewNameRef>QUARTUS_SYNTH</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+  </spirit:model>
+  <spirit:vendorExtensions>
+    <altera:entity_info>
+      <spirit:vendor>Intel Corporation</spirit:vendor>
+      <spirit:library>eSRAM_test</spirit:library>
+      <spirit:name>esram</spirit:name>
+      <spirit:version>18.0</spirit:version>
+    </altera:entity_info>
+    <altera:altera_module_parameters>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>device_family</spirit:name>
+          <spirit:displayName>device_family</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="device_family">Stratix 10</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>device_part</spirit:name>
+          <spirit:displayName>device_part</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="device_part">1SG280LU2F50E2VG</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>device_speedgrade</spirit:name>
+          <spirit:displayName>device_speedgrade</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="device_speedgrade">2</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c0_enable</spirit:name>
+          <spirit:displayName>Enable Channel 0</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c0_enable">true</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c1_enable</spirit:name>
+          <spirit:displayName>Enable Channel 1</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c1_enable">true</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c2_enable</spirit:name>
+          <spirit:displayName>Enable Channel 2</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c2_enable">true</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c3_enable</spirit:name>
+          <spirit:displayName>Enable Channel 3</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c3_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c4_enable</spirit:name>
+          <spirit:displayName>Enable Channel 4</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c4_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c5_enable</spirit:name>
+          <spirit:displayName>Enable Channel 5</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c5_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c6_enable</spirit:name>
+          <spirit:displayName>Enable Channel 6</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c6_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c7_enable</spirit:name>
+          <spirit:displayName>Enable Channel 7</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c7_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c0_ecc_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable ECC Encoder & Decoder]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c0_ecc_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c1_ecc_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable ECC Encoder & Decoder]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c1_ecc_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c2_ecc_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable ECC Encoder & Decoder]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c2_ecc_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c3_ecc_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable ECC Encoder & Decoder]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c3_ecc_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c4_ecc_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable ECC Encoder & Decoder]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c4_ecc_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c5_ecc_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable ECC Encoder & Decoder]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c5_ecc_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c6_ecc_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable ECC Encoder & Decoder]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c6_ecc_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c7_ecc_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable ECC Encoder & Decoder]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c7_ecc_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c0_ecc_byp_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable Dynamic ECC Encoder & Decoder bypass]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c0_ecc_byp_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c1_ecc_byp_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable Dynamic ECC Encoder & Decoder bypass]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c1_ecc_byp_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c2_ecc_byp_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable Dynamic ECC Encoder & Decoder bypass]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c2_ecc_byp_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c3_ecc_byp_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable Dynamic ECC Encoder & Decoder bypass]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c3_ecc_byp_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c4_ecc_byp_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable Dynamic ECC Encoder & Decoder bypass]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c4_ecc_byp_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c5_ecc_byp_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable Dynamic ECC Encoder & Decoder bypass]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c5_ecc_byp_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c6_ecc_byp_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable Dynamic ECC Encoder & Decoder bypass]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c6_ecc_byp_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c7_ecc_byp_enable</spirit:name>
+          <spirit:displayName><![CDATA[Enable Dynamic ECC Encoder & Decoder bypass]]></spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c7_ecc_byp_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c0_wr_fwd_enable</spirit:name>
+          <spirit:displayName>Enable Write Forwarding</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c0_wr_fwd_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c1_wr_fwd_enable</spirit:name>
+          <spirit:displayName>Enable Write Forwarding</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c1_wr_fwd_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c2_wr_fwd_enable</spirit:name>
+          <spirit:displayName>Enable Write Forwarding</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c2_wr_fwd_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c3_wr_fwd_enable</spirit:name>
+          <spirit:displayName>Enable Write Forwarding</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c3_wr_fwd_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c4_wr_fwd_enable</spirit:name>
+          <spirit:displayName>Enable Write Forwarding</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c4_wr_fwd_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c5_wr_fwd_enable</spirit:name>
+          <spirit:displayName>Enable Write Forwarding</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c5_wr_fwd_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c6_wr_fwd_enable</spirit:name>
+          <spirit:displayName>Enable Write Forwarding</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c6_wr_fwd_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c7_wr_fwd_enable</spirit:name>
+          <spirit:displayName>Enable Write Forwarding</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c7_wr_fwd_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c0_lpmode_enable</spirit:name>
+          <spirit:displayName>Enable Low Power Mode</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c0_lpmode_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c1_lpmode_enable</spirit:name>
+          <spirit:displayName>Enable Low Power Mode</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c1_lpmode_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c2_lpmode_enable</spirit:name>
+          <spirit:displayName>Enable Low Power Mode</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c2_lpmode_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c3_lpmode_enable</spirit:name>
+          <spirit:displayName>Enable Low Power Mode</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c3_lpmode_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c4_lpmode_enable</spirit:name>
+          <spirit:displayName>Enable Low Power Mode</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c4_lpmode_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c5_lpmode_enable</spirit:name>
+          <spirit:displayName>Enable Low Power Mode</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c5_lpmode_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c6_lpmode_enable</spirit:name>
+          <spirit:displayName>Enable Low Power Mode</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c6_lpmode_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_c7_lpmode_enable</spirit:name>
+          <spirit:displayName>Enable Low Power Mode</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="gui_c7_lpmode_enable">false</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_refclk_freq</spirit:name>
+          <spirit:displayName>PLL Reference Clock Frequency:</spirit:displayName>
+          <spirit:value spirit:format="float" spirit:id="gui_refclk_freq">100.0</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_desired_freq</spirit:name>
+          <spirit:displayName>PLL Desired Clock Frequency:</spirit:displayName>
+          <spirit:value spirit:format="float" spirit:id="gui_desired_freq">500.0</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_width_c0</spirit:name>
+          <spirit:displayName>How wide should the data bus be?</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="gui_width_c0">36</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_width_c1</spirit:name>
+          <spirit:displayName>How wide should the data bus be?</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="gui_width_c1">36</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_width_c2</spirit:name>
+          <spirit:displayName>How wide should the data bus be?</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="gui_width_c2">36</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_width_c3</spirit:name>
+          <spirit:displayName>How wide should the data bus be?</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="gui_width_c3">72</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_width_c4</spirit:name>
+          <spirit:displayName>How wide should the data bus be?</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="gui_width_c4">72</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_width_c5</spirit:name>
+          <spirit:displayName>How wide should the data bus be?</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="gui_width_c5">72</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_width_c6</spirit:name>
+          <spirit:displayName>How wide should the data bus be?</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="gui_width_c6">72</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_width_c7</spirit:name>
+          <spirit:displayName>How wide should the data bus be?</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="gui_width_c7">72</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_numwords_c0</spirit:name>
+          <spirit:displayName>How many words of memory?</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="gui_numwords_c0">20480</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_numwords_c1</spirit:name>
+          <spirit:displayName>How many words of memory?</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="gui_numwords_c1">20480</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_numwords_c2</spirit:name>
+          <spirit:displayName>How many words of memory?</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="gui_numwords_c2">20480</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_numwords_c3</spirit:name>
+          <spirit:displayName>How many words of memory?</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="gui_numwords_c3">2048</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_numwords_c4</spirit:name>
+          <spirit:displayName>How many words of memory?</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="gui_numwords_c4">2048</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_numwords_c5</spirit:name>
+          <spirit:displayName>How many words of memory?</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="gui_numwords_c5">2048</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_numwords_c6</spirit:name>
+          <spirit:displayName>How many words of memory?</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="gui_numwords_c6">2048</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_numwords_c7</spirit:name>
+          <spirit:displayName>How many words of memory?</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="gui_numwords_c7">2048</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>gui_module_name</spirit:name>
+          <spirit:displayName>gui_module_name</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="gui_module_name">fourteennm_esram</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c0_address_width</spirit:name>
+          <spirit:displayName>c0_address_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c0_address_width">15</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c1_address_width</spirit:name>
+          <spirit:displayName>c1_address_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c1_address_width">15</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c2_address_width</spirit:name>
+          <spirit:displayName>c2_address_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c2_address_width">15</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c3_address_width</spirit:name>
+          <spirit:displayName>c3_address_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c3_address_width">11</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c4_address_width</spirit:name>
+          <spirit:displayName>c4_address_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c4_address_width">11</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c5_address_width</spirit:name>
+          <spirit:displayName>c5_address_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c5_address_width">11</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c6_address_width</spirit:name>
+          <spirit:displayName>c6_address_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c6_address_width">11</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c7_address_width</spirit:name>
+          <spirit:displayName>c7_address_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c7_address_width">11</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c0_data_width</spirit:name>
+          <spirit:displayName>c0_data_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c0_data_width">36</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c1_data_width</spirit:name>
+          <spirit:displayName>c1_data_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c1_data_width">36</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c2_data_width</spirit:name>
+          <spirit:displayName>c2_data_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c2_data_width">36</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c3_data_width</spirit:name>
+          <spirit:displayName>c3_data_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c3_data_width">72</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c4_data_width</spirit:name>
+          <spirit:displayName>c4_data_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c4_data_width">72</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c5_data_width</spirit:name>
+          <spirit:displayName>c5_data_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c5_data_width">72</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c6_data_width</spirit:name>
+          <spirit:displayName>c6_data_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c6_data_width">72</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c7_data_width</spirit:name>
+          <spirit:displayName>c7_data_width</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="c7_data_width">72</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c0_disable</spirit:name>
+          <spirit:displayName>c0_disable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c0_disable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c1_disable</spirit:name>
+          <spirit:displayName>c1_disable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c1_disable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c2_disable</spirit:name>
+          <spirit:displayName>c2_disable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c2_disable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c3_disable</spirit:name>
+          <spirit:displayName>c3_disable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c3_disable">TRUE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c4_disable</spirit:name>
+          <spirit:displayName>c4_disable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c4_disable">TRUE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c5_disable</spirit:name>
+          <spirit:displayName>c5_disable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c5_disable">TRUE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c6_disable</spirit:name>
+          <spirit:displayName>c6_disable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c6_disable">TRUE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c7_disable</spirit:name>
+          <spirit:displayName>c7_disable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c7_disable">TRUE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c0_bank_enable</spirit:name>
+          <spirit:displayName>c0_bank_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c0_bank_enable">C0_EN_10BANK</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c1_bank_enable</spirit:name>
+          <spirit:displayName>c1_bank_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c1_bank_enable">C1_EN_10BANK</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c2_bank_enable</spirit:name>
+          <spirit:displayName>c2_bank_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c2_bank_enable">C2_EN_10BANK</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c3_bank_enable</spirit:name>
+          <spirit:displayName>c3_bank_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c3_bank_enable">C3_EN_0BANK</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c4_bank_enable</spirit:name>
+          <spirit:displayName>c4_bank_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c4_bank_enable">C4_EN_0BANK</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c5_bank_enable</spirit:name>
+          <spirit:displayName>c5_bank_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c5_bank_enable">C5_EN_0BANK</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c6_bank_enable</spirit:name>
+          <spirit:displayName>c6_bank_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c6_bank_enable">C6_EN_0BANK</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c7_bank_enable</spirit:name>
+          <spirit:displayName>c7_bank_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c7_bank_enable">C7_EN_0BANK</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c0_ecc_enable</spirit:name>
+          <spirit:displayName>c0_ecc_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c0_ecc_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c1_ecc_enable</spirit:name>
+          <spirit:displayName>c1_ecc_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c1_ecc_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c2_ecc_enable</spirit:name>
+          <spirit:displayName>c2_ecc_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c2_ecc_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c3_ecc_enable</spirit:name>
+          <spirit:displayName>c3_ecc_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c3_ecc_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c4_ecc_enable</spirit:name>
+          <spirit:displayName>c4_ecc_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c4_ecc_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c5_ecc_enable</spirit:name>
+          <spirit:displayName>c5_ecc_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c5_ecc_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c6_ecc_enable</spirit:name>
+          <spirit:displayName>c6_ecc_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c6_ecc_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c7_ecc_enable</spirit:name>
+          <spirit:displayName>c7_ecc_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c7_ecc_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c0_ecc_byp_enable</spirit:name>
+          <spirit:displayName>c0_ecc_byp_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c0_ecc_byp_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c1_ecc_byp_enable</spirit:name>
+          <spirit:displayName>c1_ecc_byp_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c1_ecc_byp_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c2_ecc_byp_enable</spirit:name>
+          <spirit:displayName>c2_ecc_byp_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c2_ecc_byp_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c3_ecc_byp_enable</spirit:name>
+          <spirit:displayName>c3_ecc_byp_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c3_ecc_byp_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c4_ecc_byp_enable</spirit:name>
+          <spirit:displayName>c4_ecc_byp_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c4_ecc_byp_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c5_ecc_byp_enable</spirit:name>
+          <spirit:displayName>c5_ecc_byp_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c5_ecc_byp_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c6_ecc_byp_enable</spirit:name>
+          <spirit:displayName>c6_ecc_byp_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c6_ecc_byp_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c7_ecc_byp_enable</spirit:name>
+          <spirit:displayName>c7_ecc_byp_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c7_ecc_byp_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c0_wr_fwd_enable</spirit:name>
+          <spirit:displayName>c0_wr_fwd_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c0_wr_fwd_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c1_wr_fwd_enable</spirit:name>
+          <spirit:displayName>c1_wr_fwd_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c1_wr_fwd_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c2_wr_fwd_enable</spirit:name>
+          <spirit:displayName>c2_wr_fwd_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c2_wr_fwd_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c3_wr_fwd_enable</spirit:name>
+          <spirit:displayName>c3_wr_fwd_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c3_wr_fwd_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c4_wr_fwd_enable</spirit:name>
+          <spirit:displayName>c4_wr_fwd_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c4_wr_fwd_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c5_wr_fwd_enable</spirit:name>
+          <spirit:displayName>c5_wr_fwd_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c5_wr_fwd_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c6_wr_fwd_enable</spirit:name>
+          <spirit:displayName>c6_wr_fwd_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c6_wr_fwd_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c7_wr_fwd_enable</spirit:name>
+          <spirit:displayName>c7_wr_fwd_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c7_wr_fwd_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c0_lpmode_enable</spirit:name>
+          <spirit:displayName>c0_lpmode_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c0_lpmode_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c1_lpmode_enable</spirit:name>
+          <spirit:displayName>c1_lpmode_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c1_lpmode_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c2_lpmode_enable</spirit:name>
+          <spirit:displayName>c2_lpmode_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c2_lpmode_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c3_lpmode_enable</spirit:name>
+          <spirit:displayName>c3_lpmode_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c3_lpmode_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c4_lpmode_enable</spirit:name>
+          <spirit:displayName>c4_lpmode_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c4_lpmode_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c5_lpmode_enable</spirit:name>
+          <spirit:displayName>c5_lpmode_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c5_lpmode_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c6_lpmode_enable</spirit:name>
+          <spirit:displayName>c6_lpmode_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c6_lpmode_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>c7_lpmode_enable</spirit:name>
+          <spirit:displayName>c7_lpmode_enable</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="c7_lpmode_enable">FALSE</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>clock_rate</spirit:name>
+          <spirit:displayName>Clock rate</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="clock_rate">FULLRATE</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+    </altera:altera_module_parameters>
+    <altera:altera_system_parameters>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>device</spirit:name>
+          <spirit:displayName>Device</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="device">1SG280LU2F50E2VG</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>deviceFamily</spirit:name>
+          <spirit:displayName>Device family</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="deviceFamily">Stratix 10</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>deviceSpeedGrade</spirit:name>
+          <spirit:displayName>Device Speed Grade</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="deviceSpeedGrade">2</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>generationId</spirit:name>
+          <spirit:displayName>Generation Id</spirit:displayName>
+          <spirit:value spirit:format="long" spirit:id="generationId">0</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>bonusData</spirit:name>
+          <spirit:displayName>bonusData</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="bonusData">bonusData 
+{
+   element esram_0
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+}
+</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>hideFromIPCatalog</spirit:name>
+          <spirit:displayName>Hide from IP Catalog</spirit:displayName>
+          <spirit:value spirit:format="bool" spirit:id="hideFromIPCatalog">true</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>lockedInterfaceDefinition</spirit:name>
+          <spirit:displayName>lockedInterfaceDefinition</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="lockedInterfaceDefinition"></spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>systemInfos</spirit:name>
+          <spirit:displayName>systemInfos</spirit:displayName>
+          <spirit:value spirit:format="string" spirit:id="systemInfos"><![CDATA[<systemInfosDefinition>
+    <connPtSystemInfos/>
+</systemInfosDefinition>]]></spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+    </altera:altera_system_parameters>
+    <altera:altera_interface_boundary>
+      <altera:interface_mapping altera:name="ram_input" altera:internal="esram_0.ram_input" altera:type="conduit" altera:dir="end">
+        <altera:port_mapping altera:name="c0_data_0" altera:internal="c0_data_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c0_rdaddress_0" altera:internal="c0_rdaddress_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c0_rden_n_0" altera:internal="c0_rden_n_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c0_sd_n_0" altera:internal="c0_sd_n_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c0_wraddress_0" altera:internal="c0_wraddress_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c0_wren_n_0" altera:internal="c0_wren_n_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c1_data_0" altera:internal="c1_data_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c1_rdaddress_0" altera:internal="c1_rdaddress_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c1_rden_n_0" altera:internal="c1_rden_n_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c1_sd_n_0" altera:internal="c1_sd_n_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c1_wraddress_0" altera:internal="c1_wraddress_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c1_wren_n_0" altera:internal="c1_wren_n_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c2_data_0" altera:internal="c2_data_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c2_rdaddress_0" altera:internal="c2_rdaddress_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c2_rden_n_0" altera:internal="c2_rden_n_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c2_sd_n_0" altera:internal="c2_sd_n_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c2_wraddress_0" altera:internal="c2_wraddress_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c2_wren_n_0" altera:internal="c2_wren_n_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="refclk" altera:internal="refclk"></altera:port_mapping>
+      </altera:interface_mapping>
+      <altera:interface_mapping altera:name="ram_output" altera:internal="esram_0.ram_output" altera:type="conduit" altera:dir="end">
+        <altera:port_mapping altera:name="c0_q_0" altera:internal="c0_q_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c1_q_0" altera:internal="c1_q_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="c2_q_0" altera:internal="c2_q_0"></altera:port_mapping>
+        <altera:port_mapping altera:name="esram2f_clk" altera:internal="esram2f_clk"></altera:port_mapping>
+        <altera:port_mapping altera:name="iopll_lock2core" altera:internal="iopll_lock2core"></altera:port_mapping>
+      </altera:interface_mapping>
+    </altera:altera_interface_boundary>
+    <altera:altera_has_warnings>false</altera:altera_has_warnings>
+    <altera:altera_has_errors>false</altera:altera_has_errors>
+  </spirit:vendorExtensions>
+</spirit:component>

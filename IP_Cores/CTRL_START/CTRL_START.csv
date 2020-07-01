@@ -1,0 +1,18 @@
+# system info CTRL_START on 2018.10.09.16:17:21
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for CTRL_START on 2018.10.09.16:17:21
+files:
+filepath,kind,attributes,module,is_top
+sim/CTRL_START.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,CTRL_START,true
+ram_1port_180/sim/CTRL_START_ram_1port_180_uhhnf6q.v,VERILOG,,CTRL_START_ram_1port_180_uhhnf6q,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+CTRL_START.ram_1port_0,CTRL_START_ram_1port_180_uhhnf6q

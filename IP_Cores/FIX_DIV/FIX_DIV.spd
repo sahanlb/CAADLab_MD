@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="altera_fxp_functions_180/sim/FIX_DIV_altera_fxp_functions_180_z7uu2xi_memoryC0_uid74_invTabGen_lutmem.hex"
+   type="HEX"
+   library="altera_fxp_functions_180" />
+ <file
+   path="altera_fxp_functions_180/sim/FIX_DIV_altera_fxp_functions_180_z7uu2xi_memoryC1_uid77_invTabGen_lutmem.hex"
+   type="HEX"
+   library="altera_fxp_functions_180" />
+ <file
+   path="altera_fxp_functions_180/sim/FIX_DIV_altera_fxp_functions_180_z7uu2xi_memoryC2_uid80_invTabGen_lutmem.hex"
+   type="HEX"
+   library="altera_fxp_functions_180" />
+ <file
+   path="altera_fxp_functions_180/sim/FIX_DIV_altera_fxp_functions_180_z7uu2xi_memoryC3_uid83_invTabGen_lutmem.hex"
+   type="HEX"
+   library="altera_fxp_functions_180" />
+ <file
+   path="altera_fxp_functions_180/sim/dspba_library_package.vhd"
+   type="VHDL"
+   library="altera_fxp_functions_180" />
+ <file
+   path="altera_fxp_functions_180/sim/dspba_library.vhd"
+   type="VHDL"
+   library="altera_fxp_functions_180" />
+ <file
+   path="altera_fxp_functions_180/sim/FIX_DIV_altera_fxp_functions_180_z7uu2xi.vhd"
+   type="VHDL"
+   library="altera_fxp_functions_180" />
+ <file
+   path="sim/FIX_DIV.v"
+   type="VERILOG"
+   library="FIX_DIV"
+   hasInlineConfiguration="true" />
+ <topLevel name="FIX_DIV.FIX_DIV" />
+ <deviceFamily name="stratix10" />
+</simPackage>

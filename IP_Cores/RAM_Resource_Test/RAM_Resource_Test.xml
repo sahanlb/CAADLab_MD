@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy
+ date="2019.03.29.15:39:07"
+ outputDirectory="F:/Dropbox/CAAD_Server/MD_RL_Pipeline/Ethan_RL_Pipeline_1st_Order_SingleFloat_18.0/IP_Cores/RAM_Resource_Test/">
+ <perimeter>
+  <parameter
+     name="AUTO_GENERATION_ID"
+     type="Integer"
+     defaultValue="0"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_UNIQUE_ID"
+     type="String"
+     defaultValue=""
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_FAMILY"
+     type="String"
+     defaultValue="Stratix 10"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE"
+     type="String"
+     defaultValue="1SG280LU2F50E2VG"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_SPEEDGRADE"
+     type="String"
+     defaultValue="2"
+     onHdl="0"
+     affectsHdl="1" />
+  <interface name="ram_input" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="data" direction="input" role="datain" width="96" />
+   <port name="address" direction="input" role="address" width="15" />
+   <port name="wren" direction="input" role="wren" width="1" />
+   <port name="clock" direction="input" role="clk" width="1" />
+  </interface>
+  <interface name="ram_output" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="q" direction="output" role="dataout" width="96" />
+  </interface>
+ </perimeter>
+ <entity kind="RAM_Resource_Test" version="1.0" name="RAM_Resource_Test">
+  <parameter name="AUTO_GENERATION_ID" value="0" />
+  <parameter name="AUTO_DEVICE" value="1SG280LU2F50E2VG" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix 10" />
+  <parameter name="AUTO_UNIQUE_ID" value="" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
+  <generatedFiles>
+   <file
+       path="F:\Dropbox\CAAD_Server\MD_RL_Pipeline\Ethan_RL_Pipeline_1st_Order_SingleFloat_18.0\IP_Cores\RAM_Resource_Test\synth\RAM_Resource_Test.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="F:\Dropbox\CAAD_Server\MD_RL_Pipeline\Ethan_RL_Pipeline_1st_Order_SingleFloat_18.0\IP_Cores\RAM_Resource_Test\synth\RAM_Resource_Test.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="F:/Dropbox/CAAD_Server/MD_RL_Pipeline/Ethan_RL_Pipeline_1st_Order_SingleFloat_18.0/IP_Cores/RAM_Resource_Test.ip" />
+  </sourceFiles>
+  <childSourceFiles>
+   <file
+       path="D:/Program_Files/altera/18.0pro/ip/altera/megafunctions/ram_1port/ram_1_port_hw.tcl" />
+  </childSourceFiles>
+  <messages>
+   <message level="Info" culprit="RAM_Resource_Test">"Generating: RAM_Resource_Test"</message>
+   <message level="Info" culprit="RAM_Resource_Test">"Generating: RAM_Resource_Test_ram_1port_180_jftw4ca"</message>
+  </messages>
+ </entity>
+ <entity
+   kind="ram_1port"
+   version="18.0"
+   name="RAM_Resource_Test_ram_1port_180_jftw4ca">
+  <parameter name="GUI_CLOCK_ENABLE_INPUT_A" value="false" />
+  <parameter name="GUI_AclrData" value="false" />
+  <parameter name="GUI_NUMWORDS_A" value="20000" />
+  <parameter name="DEVICE_FAMILY" value="Stratix 10" />
+  <parameter name="GUI_RAM_BLOCK_TYPE" value="Auto" />
+  <parameter name="GUI_SingleClock" value="0" />
+  <parameter name="GUI_AclrAddr" value="false" />
+  <parameter name="GUI_INIT_FILE_LAYOUT" value="PORT_A" />
+  <parameter name="GUI_IMPLEMENT_IN_LES" value="0" />
+  <parameter name="GUI_X_MASK" value="false" />
+  <parameter name="GUI_MAXIMUM_DEPTH" value="128" />
+  <parameter name="GUI_RegOutput" value="true" />
+  <parameter name="GUI_READ_DURING_WRITE_MODE_PORT_A" value="0" />
+  <parameter name="GUI_CLOCK_ENABLE_OUTPUT_A" value="false" />
+  <parameter name="GUI_BYTE_SIZE" value="8" />
+  <parameter name="GUI_RESOURCE_USAGE" value="157 M20K" />
+  <parameter name="GUI_rden" value="false" />
+  <parameter name="GUI_JTAG_ID" value="NONE" />
+  <parameter name="GUI_WIDTH_A" value="96" />
+  <parameter name="GUI_RegData" value="true" />
+  <parameter name="GUI_FORCE_TO_ZERO" value="false" />
+  <parameter name="GUI_PR" value="false" />
+  <parameter name="GUI_MIFfilename" value="" />
+  <parameter name="GUI_Clken" value="false" />
+  <parameter name="GUI_AclrByte" value="false" />
+  <parameter name="GUI_RegAddr" value="true" />
+  <parameter name="GUI_JTAG_ENABLED" value="true" />
+  <parameter name="GUI_INIT_TO_SIM_X" value="false" />
+  <parameter name="GUI_BYTE_WIDTH" value="12" />
+  <parameter name="GUI_WRCONTROL_ACLR_A" value="false" />
+  <parameter name="GUI_AclrOutput" value="false" />
+  <parameter name="GUI_WIDTHAD_A" value="15" />
+  <parameter name="GUI_ADDRESSSTALL_A" value="false" />
+  <parameter name="GUI_FILE_REFERENCE" value="0" />
+  <parameter name="GUI_BYTE_ENABLE" value="false" />
+  <parameter name="GUI_TBENCH" value="false" />
+  <parameter name="GUI_SclrOutput" value="false" />
+  <parameter name="GUI_MODULE_NAME" value="altera_syncram" />
+  <parameter name="GUI_BlankMemory" value="0" />
+  <generatedFiles>
+   <file
+       path="F:\Dropbox\CAAD_Server\MD_RL_Pipeline\Ethan_RL_Pipeline_1st_Order_SingleFloat_18.0\IP_Cores\RAM_Resource_Test\ram_1port_180\synth\RAM_Resource_Test_ram_1port_180_jftw4ca.v"
+       attributes="" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="F:\Dropbox\CAAD_Server\MD_RL_Pipeline\Ethan_RL_Pipeline_1st_Order_SingleFloat_18.0\IP_Cores\RAM_Resource_Test\ram_1port_180\synth\RAM_Resource_Test_ram_1port_180_jftw4ca.v"
+       attributes="" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="D:/Program_Files/altera/18.0pro/ip/altera/megafunctions/ram_1port/ram_1_port_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator instantiator="RAM_Resource_Test" as="ram_1port_0" />
+  <messages>
+   <message level="Info" culprit="RAM_Resource_Test">"Generating: RAM_Resource_Test_ram_1port_180_jftw4ca"</message>
+  </messages>
+ </entity>
+</deploy>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="altera_fp_functions_180/sim/FP_Sqrt_altera_fp_functions_180_vxsqyia_memoryC1_uid65_sqrtTables_lutmem.hex"
+   type="HEX"
+   library="altera_fp_functions_180" />
+ <file
+   path="altera_fp_functions_180/sim/FP_Sqrt_altera_fp_functions_180_vxsqyia_memoryC0_uid62_sqrtTables_lutmem.hex"
+   type="HEX"
+   library="altera_fp_functions_180" />
+ <file
+   path="altera_fp_functions_180/sim/FP_Sqrt_altera_fp_functions_180_vxsqyia_memoryC2_uid68_sqrtTables_lutmem.hex"
+   type="HEX"
+   library="altera_fp_functions_180" />
+ <file
+   path="altera_fp_functions_180/sim/dspba_library_package.vhd"
+   type="VHDL"
+   library="altera_fp_functions_180" />
+ <file
+   path="altera_fp_functions_180/sim/dspba_library.vhd"
+   type="VHDL"
+   library="altera_fp_functions_180" />
+ <file
+   path="altera_fp_functions_180/sim/FP_Sqrt_altera_fp_functions_180_vxsqyia.vhd"
+   type="VHDL"
+   library="altera_fp_functions_180" />
+ <file
+   path="sim/FP_Sqrt.v"
+   type="VERILOG"
+   library="FP_Sqrt"
+   hasInlineConfiguration="true" />
+ <topLevel name="FP_Sqrt.FP_Sqrt" />
+ <deviceFamily name="stratix10" />
+</simPackage>

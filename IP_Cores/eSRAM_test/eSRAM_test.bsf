@@ -1,0 +1,235 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 0 0 400 392)
+	(text "eSRAM_test" (rect 163 -1 218 11)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 376 20 388)(font "Arial" ))
+	(port
+		(pt 0 72)
+		(input)
+		(text "c0_data_0[35..0]" (rect 0 0 67 12)(font "Arial" (font_size 8)))
+		(text "c0_data_0[35..0]" (rect 4 61 100 72)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 128 72)(line_width 3))
+	)
+	(port
+		(pt 0 88)
+		(input)
+		(text "c0_rdaddress_0[14..0]" (rect 0 0 90 12)(font "Arial" (font_size 8)))
+		(text "c0_rdaddress_0[14..0]" (rect 4 77 130 88)(font "Arial" (font_size 8)))
+		(line (pt 0 88)(pt 128 88)(line_width 3))
+	)
+	(port
+		(pt 0 104)
+		(input)
+		(text "c0_rden_n_0" (rect 0 0 54 12)(font "Arial" (font_size 8)))
+		(text "c0_rden_n_0" (rect 4 93 70 104)(font "Arial" (font_size 8)))
+		(line (pt 0 104)(pt 128 104)(line_width 1))
+	)
+	(port
+		(pt 0 120)
+		(input)
+		(text "c0_sd_n_0" (rect 0 0 46 12)(font "Arial" (font_size 8)))
+		(text "c0_sd_n_0" (rect 4 109 58 120)(font "Arial" (font_size 8)))
+		(line (pt 0 120)(pt 128 120)(line_width 1))
+	)
+	(port
+		(pt 0 136)
+		(input)
+		(text "c0_wraddress_0[14..0]" (rect 0 0 92 12)(font "Arial" (font_size 8)))
+		(text "c0_wraddress_0[14..0]" (rect 4 125 130 136)(font "Arial" (font_size 8)))
+		(line (pt 0 136)(pt 128 136)(line_width 3))
+	)
+	(port
+		(pt 0 152)
+		(input)
+		(text "c0_wren_n_0" (rect 0 0 55 12)(font "Arial" (font_size 8)))
+		(text "c0_wren_n_0" (rect 4 141 70 152)(font "Arial" (font_size 8)))
+		(line (pt 0 152)(pt 128 152)(line_width 1))
+	)
+	(port
+		(pt 0 168)
+		(input)
+		(text "c1_data_0[35..0]" (rect 0 0 66 12)(font "Arial" (font_size 8)))
+		(text "c1_data_0[35..0]" (rect 4 157 100 168)(font "Arial" (font_size 8)))
+		(line (pt 0 168)(pt 128 168)(line_width 3))
+	)
+	(port
+		(pt 0 184)
+		(input)
+		(text "c1_rdaddress_0[14..0]" (rect 0 0 89 12)(font "Arial" (font_size 8)))
+		(text "c1_rdaddress_0[14..0]" (rect 4 173 130 184)(font "Arial" (font_size 8)))
+		(line (pt 0 184)(pt 128 184)(line_width 3))
+	)
+	(port
+		(pt 0 200)
+		(input)
+		(text "c1_rden_n_0" (rect 0 0 53 12)(font "Arial" (font_size 8)))
+		(text "c1_rden_n_0" (rect 4 189 70 200)(font "Arial" (font_size 8)))
+		(line (pt 0 200)(pt 128 200)(line_width 1))
+	)
+	(port
+		(pt 0 216)
+		(input)
+		(text "c1_sd_n_0" (rect 0 0 44 12)(font "Arial" (font_size 8)))
+		(text "c1_sd_n_0" (rect 4 205 58 216)(font "Arial" (font_size 8)))
+		(line (pt 0 216)(pt 128 216)(line_width 1))
+	)
+	(port
+		(pt 0 232)
+		(input)
+		(text "c1_wraddress_0[14..0]" (rect 0 0 90 12)(font "Arial" (font_size 8)))
+		(text "c1_wraddress_0[14..0]" (rect 4 221 130 232)(font "Arial" (font_size 8)))
+		(line (pt 0 232)(pt 128 232)(line_width 3))
+	)
+	(port
+		(pt 0 248)
+		(input)
+		(text "c1_wren_n_0" (rect 0 0 54 12)(font "Arial" (font_size 8)))
+		(text "c1_wren_n_0" (rect 4 237 70 248)(font "Arial" (font_size 8)))
+		(line (pt 0 248)(pt 128 248)(line_width 1))
+	)
+	(port
+		(pt 0 264)
+		(input)
+		(text "c2_data_0[35..0]" (rect 0 0 67 12)(font "Arial" (font_size 8)))
+		(text "c2_data_0[35..0]" (rect 4 253 100 264)(font "Arial" (font_size 8)))
+		(line (pt 0 264)(pt 128 264)(line_width 3))
+	)
+	(port
+		(pt 0 280)
+		(input)
+		(text "c2_rdaddress_0[14..0]" (rect 0 0 90 12)(font "Arial" (font_size 8)))
+		(text "c2_rdaddress_0[14..0]" (rect 4 269 130 280)(font "Arial" (font_size 8)))
+		(line (pt 0 280)(pt 128 280)(line_width 3))
+	)
+	(port
+		(pt 0 296)
+		(input)
+		(text "c2_rden_n_0" (rect 0 0 54 12)(font "Arial" (font_size 8)))
+		(text "c2_rden_n_0" (rect 4 285 70 296)(font "Arial" (font_size 8)))
+		(line (pt 0 296)(pt 128 296)(line_width 1))
+	)
+	(port
+		(pt 0 312)
+		(input)
+		(text "c2_sd_n_0" (rect 0 0 46 12)(font "Arial" (font_size 8)))
+		(text "c2_sd_n_0" (rect 4 301 58 312)(font "Arial" (font_size 8)))
+		(line (pt 0 312)(pt 128 312)(line_width 1))
+	)
+	(port
+		(pt 0 328)
+		(input)
+		(text "c2_wraddress_0[14..0]" (rect 0 0 92 12)(font "Arial" (font_size 8)))
+		(text "c2_wraddress_0[14..0]" (rect 4 317 130 328)(font "Arial" (font_size 8)))
+		(line (pt 0 328)(pt 128 328)(line_width 3))
+	)
+	(port
+		(pt 0 344)
+		(input)
+		(text "c2_wren_n_0" (rect 0 0 55 12)(font "Arial" (font_size 8)))
+		(text "c2_wren_n_0" (rect 4 333 70 344)(font "Arial" (font_size 8)))
+		(line (pt 0 344)(pt 128 344)(line_width 1))
+	)
+	(port
+		(pt 0 360)
+		(input)
+		(text "refclk" (rect 0 0 22 12)(font "Arial" (font_size 8)))
+		(text "refclk" (rect 4 349 40 360)(font "Arial" (font_size 8)))
+		(line (pt 0 360)(pt 128 360)(line_width 1))
+	)
+	(port
+		(pt 400 72)
+		(output)
+		(text "c0_q_0[35..0]" (rect 0 0 55 12)(font "Arial" (font_size 8)))
+		(text "c0_q_0[35..0]" (rect 330 61 408 72)(font "Arial" (font_size 8)))
+		(line (pt 400 72)(pt 272 72)(line_width 3))
+	)
+	(port
+		(pt 400 88)
+		(output)
+		(text "c1_q_0[35..0]" (rect 0 0 54 12)(font "Arial" (font_size 8)))
+		(text "c1_q_0[35..0]" (rect 332 77 410 88)(font "Arial" (font_size 8)))
+		(line (pt 400 88)(pt 272 88)(line_width 3))
+	)
+	(port
+		(pt 400 104)
+		(output)
+		(text "c2_q_0[35..0]" (rect 0 0 55 12)(font "Arial" (font_size 8)))
+		(text "c2_q_0[35..0]" (rect 330 93 408 104)(font "Arial" (font_size 8)))
+		(line (pt 400 104)(pt 272 104)(line_width 3))
+	)
+	(port
+		(pt 400 120)
+		(output)
+		(text "esram2f_clk" (rect 0 0 50 12)(font "Arial" (font_size 8)))
+		(text "esram2f_clk" (rect 337 109 403 120)(font "Arial" (font_size 8)))
+		(line (pt 400 120)(pt 272 120)(line_width 1))
+	)
+	(port
+		(pt 400 136)
+		(output)
+		(text "iopll_lock2core" (rect 0 0 56 12)(font "Arial" (font_size 8)))
+		(text "iopll_lock2core" (rect 326 125 416 136)(font "Arial" (font_size 8)))
+		(line (pt 400 136)(pt 272 136)(line_width 1))
+	)
+	(drawing
+		(text "ram_input" (rect 70 43 194 99)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "s2c0_da_0" (rect 133 67 320 144)(font "Arial" (color 0 0 0)))
+		(text "s2c0_adrb_0" (rect 133 83 332 176)(font "Arial" (color 0 0 0)))
+		(text "s2c0_meb_n_0" (rect 133 99 338 208)(font "Arial" (color 0 0 0)))
+		(text "s2c0_sd_n_0" (rect 133 115 332 240)(font "Arial" (color 0 0 0)))
+		(text "s2c0_adra_0" (rect 133 131 332 272)(font "Arial" (color 0 0 0)))
+		(text "s2c0_mea_n_0" (rect 133 147 338 304)(font "Arial" (color 0 0 0)))
+		(text "s2c1_da_0" (rect 133 163 320 336)(font "Arial" (color 0 0 0)))
+		(text "s2c1_adrb_0" (rect 133 179 332 368)(font "Arial" (color 0 0 0)))
+		(text "s2c1_meb_n_0" (rect 133 195 338 400)(font "Arial" (color 0 0 0)))
+		(text "s2c1_sd_n_0" (rect 133 211 332 432)(font "Arial" (color 0 0 0)))
+		(text "s2c1_adra_0" (rect 133 227 332 464)(font "Arial" (color 0 0 0)))
+		(text "s2c1_mea_n_0" (rect 133 243 338 496)(font "Arial" (color 0 0 0)))
+		(text "s2c2_da_0" (rect 133 259 320 528)(font "Arial" (color 0 0 0)))
+		(text "s2c2_adrb_0" (rect 133 275 332 560)(font "Arial" (color 0 0 0)))
+		(text "s2c2_meb_n_0" (rect 133 291 338 592)(font "Arial" (color 0 0 0)))
+		(text "s2c2_sd_n_0" (rect 133 307 332 624)(font "Arial" (color 0 0 0)))
+		(text "s2c2_adra_0" (rect 133 323 332 656)(font "Arial" (color 0 0 0)))
+		(text "s2c2_mea_n_0" (rect 133 339 338 688)(font "Arial" (color 0 0 0)))
+		(text "clock" (rect 133 355 296 720)(font "Arial" (color 0 0 0)))
+		(text "ram_output" (rect 273 43 606 99)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "s2c0_qb_0" (rect 222 67 498 144)(font "Arial" (color 0 0 0)))
+		(text "s2c1_qb_0" (rect 223 83 500 176)(font "Arial" (color 0 0 0)))
+		(text "s2c2_qb_0" (rect 222 99 498 208)(font "Arial" (color 0 0 0)))
+		(text "esram2f_clk" (rect 215 115 496 240)(font "Arial" (color 0 0 0)))
+		(text "iopll_lock2core" (rect 206 131 502 272)(font "Arial" (color 0 0 0)))
+		(text " eSRAM_test " (rect 340 376 752 762)(font "Arial" ))
+		(line (pt 128 32)(pt 272 32)(line_width 1))
+		(line (pt 272 32)(pt 272 376)(line_width 1))
+		(line (pt 128 376)(pt 272 376)(line_width 1))
+		(line (pt 128 32)(pt 128 376)(line_width 1))
+		(line (pt 129 52)(pt 129 364)(line_width 1))
+		(line (pt 130 52)(pt 130 364)(line_width 1))
+		(line (pt 271 52)(pt 271 140)(line_width 1))
+		(line (pt 270 52)(pt 270 140)(line_width 1))
+		(line (pt 0 0)(pt 400 0)(line_width 1))
+		(line (pt 400 0)(pt 400 392)(line_width 1))
+		(line (pt 0 392)(pt 400 392)(line_width 1))
+		(line (pt 0 0)(pt 0 392)(line_width 1))
+	)
+)

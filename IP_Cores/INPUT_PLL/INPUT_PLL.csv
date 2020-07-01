@@ -1,0 +1,19 @@
+# system info INPUT_PLL on 2018.12.10.12:08:10
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for INPUT_PLL on 2018.12.10.12:08:10
+files:
+filepath,kind,attributes,module,is_top
+sim/INPUT_PLL.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,INPUT_PLL,true
+altera_iopll_180/sim/INPUT_PLL_altera_iopll_180_ojuwjmy.vo,VERILOG,,INPUT_PLL_altera_iopll_180_ojuwjmy,false
+altera_iopll_180/sim/stratix10_altera_iopll.v,VERILOG,,INPUT_PLL_altera_iopll_180_ojuwjmy,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+INPUT_PLL.iopll_0,INPUT_PLL_altera_iopll_180_ojuwjmy

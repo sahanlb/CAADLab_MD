@@ -1,0 +1,20 @@
+# system info FP_GreaterThan_or_Equal on 2018.12.29.16:45:42
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for FP_GreaterThan_or_Equal on 2018.12.29.16:45:42
+files:
+filepath,kind,attributes,module,is_top
+sim/FP_GreaterThan_or_Equal.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,FP_GreaterThan_or_Equal,true
+altera_fp_functions_180/sim/dspba_library_package.vhd,VHDL,,FP_GreaterThan_or_Equal_altera_fp_functions_180_nqpmigq,false
+altera_fp_functions_180/sim/dspba_library.vhd,VHDL,,FP_GreaterThan_or_Equal_altera_fp_functions_180_nqpmigq,false
+altera_fp_functions_180/sim/FP_GreaterThan_or_Equal_altera_fp_functions_180_nqpmigq.vhd,VHDL,,FP_GreaterThan_or_Equal_altera_fp_functions_180_nqpmigq,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+FP_GreaterThan_or_Equal.fp_functions_0,FP_GreaterThan_or_Equal_altera_fp_functions_180_nqpmigq

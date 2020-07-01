@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="altera_iopll_180/sim/INPUT_PLL_altera_iopll_180_ojuwjmy.vo"
+   type="VERILOG"
+   library="altera_iopll_180" />
+ <file
+   path="altera_iopll_180/sim/stratix10_altera_iopll.v"
+   type="VERILOG"
+   library="altera_iopll_180" />
+ <file
+   path="sim/INPUT_PLL.v"
+   type="VERILOG"
+   library="INPUT_PLL"
+   hasInlineConfiguration="true" />
+ <topLevel name="INPUT_PLL.INPUT_PLL" />
+ <deviceFamily name="stratix10" />
+</simPackage>

@@ -1,0 +1,18 @@
+# system info FP_MUL_Test on 2018.10.11.15:25:53
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for FP_MUL_Test on 2018.10.11.15:25:53
+files:
+filepath,kind,attributes,module,is_top
+sim/FP_MUL_Test.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,FP_MUL_Test,true
+altera_s10fpdsp_block_180/sim/FP_MUL_Test_altera_s10fpdsp_block_180_kayiiky.sv,SYSTEM_VERILOG,TOP_LEVEL_FILE,FP_MUL_Test_altera_s10fpdsp_block_180_kayiiky,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+FP_MUL_Test.s10fpdsp_block_0,FP_MUL_Test_altera_s10fpdsp_block_180_kayiiky

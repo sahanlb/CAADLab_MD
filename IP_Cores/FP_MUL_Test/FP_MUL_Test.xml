@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy
+ date="2018.10.11.15:25:56"
+ outputDirectory="/home/jiayi/Dropbox/CAAD_Server/MD_RL_Pipeline/Ethan_RL_Pipeline_1st_Order_SingleFloat_18.0/FP_MUL_Test/">
+ <perimeter>
+  <parameter
+     name="AUTO_GENERATION_ID"
+     type="Integer"
+     defaultValue="0"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_UNIQUE_ID"
+     type="String"
+     defaultValue=""
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_FAMILY"
+     type="String"
+     defaultValue="Stratix 10"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE"
+     type="String"
+     defaultValue="1SG280LU2F50E2VG"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_SPEEDGRADE"
+     type="String"
+     defaultValue="2"
+     onHdl="0"
+     affectsHdl="1" />
+  <interface name="ay" kind="conduit" start="0">
+   <property name="associatedClock" value="clk" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="ay" direction="input" role="ay" width="32" />
+  </interface>
+  <interface name="az" kind="conduit" start="0">
+   <property name="associatedClock" value="clk" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="az" direction="input" role="az" width="32" />
+  </interface>
+  <interface name="clk" kind="conduit" start="0">
+   <property name="associatedClock" value="clk" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="clk" direction="input" role="clk" width="1" />
+  </interface>
+  <interface name="clr" kind="conduit" start="0">
+   <property name="associatedClock" value="clk" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="clr" direction="input" role="clr" width="1" />
+  </interface>
+  <interface name="ena" kind="conduit" start="0">
+   <property name="associatedClock" value="clk" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="ena" direction="input" role="ena" width="1" />
+  </interface>
+  <interface name="result" kind="conduit" start="0">
+   <property name="associatedClock" value="clk" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="result" direction="output" role="result" width="32" />
+  </interface>
+ </perimeter>
+ <entity kind="FP_MUL_Test" version="1.0" name="FP_MUL_Test">
+  <parameter name="AUTO_GENERATION_ID" value="0" />
+  <parameter name="AUTO_DEVICE" value="1SG280LU2F50E2VG" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix 10" />
+  <parameter name="AUTO_UNIQUE_ID" value="" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
+  <generatedFiles>
+   <file
+       path="/home/jiayi/Dropbox/CAAD_Server/MD_RL_Pipeline/Ethan_RL_Pipeline_1st_Order_SingleFloat_18.0/FP_MUL_Test/synth/FP_MUL_Test.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="/home/jiayi/Dropbox/CAAD_Server/MD_RL_Pipeline/Ethan_RL_Pipeline_1st_Order_SingleFloat_18.0/FP_MUL_Test/synth/FP_MUL_Test.v"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="/home/jiayi/Dropbox/CAAD_Server/MD_RL_Pipeline/Ethan_RL_Pipeline_1st_Order_SingleFloat_18.0/FP_MUL_Test.ip" />
+  </sourceFiles>
+  <childSourceFiles>
+   <file
+       path="/opt/altera/18.0/ip/altera/dsp/altera_fpdsp_block/S10/S10FPDSP_hw.tcl" />
+  </childSourceFiles>
+  <messages>
+   <message level="Info" culprit="FP_MUL_Test">"Generating: FP_MUL_Test"</message>
+   <message level="Info" culprit="FP_MUL_Test">"Generating: FP_MUL_Test_altera_s10fpdsp_block_180_kayiiky"</message>
+  </messages>
+ </entity>
+ <entity
+   kind="altera_s10fpdsp_block"
+   version="18.0"
+   name="FP_MUL_Test_altera_s10fpdsp_block_180_kayiiky">
+  <parameter name="mult_2nd_pipeline_clock" value="0" />
+  <parameter name="adder_input_clock_2" value="0" />
+  <parameter name="az_clock" value="0" />
+  <parameter name="clk0_used" value="true" />
+  <parameter name="ay_clock_derived" value="0" />
+  <parameter name="ax_clock" value="0" />
+  <parameter name="ax_chainin_pl_clock" value="0" />
+  <parameter name="accum_2nd_pipeline_clock" value="0" />
+  <parameter name="adder_subtract" value="false" />
+  <parameter name="chain_mux" value="0" />
+  <parameter name="accumulate_clock" value="0" />
+  <parameter name="ax_chainin_2nd_pl_clock" value="0" />
+  <parameter name="mult_pipeline_clock_derived" value="0" />
+  <parameter name="use_chainout" value="false" />
+  <parameter name="VIEW" value="Register Enables" />
+  <parameter name="adder_input_clock_derived" value="NONE" />
+  <parameter name="total_clks_used" value="1" />
+  <parameter name="accum_adder_clock" value="0" />
+  <parameter name="output_clock" value="0" />
+  <parameter name="clk1_used" value="false" />
+  <parameter name="mult_2nd_pipeline_clock_derived" value="0" />
+  <parameter name="output_clock_2" value="0" />
+  <parameter name="output_clock_derived" value="0" />
+  <parameter name="az_clock_derived" value="0" />
+  <parameter name="single_clear" value="true" />
+  <parameter name="ax_clock_derived" value="NONE" />
+  <parameter name="ay_clock" value="0" />
+  <parameter name="mult_exceptions" value="false" />
+  <parameter name="mult_pipeline_clock" value="0" />
+  <parameter name="accum_adder_clock_derived" value="NONE" />
+  <parameter name="adder_exceptions" value="false" />
+  <parameter name="accum_pipeline_clock_derived" value="NONE" />
+  <parameter name="accum_2nd_pipeline_clock_derived" value="NONE" />
+  <parameter
+     name="possible_registers"
+     value="ay_clock,az_clock,mult_pipeline_clock,mult_2nd_pipeline_clock,output_clock,output_clock_2" />
+  <parameter name="accumulate_clock_derived" value="NONE" />
+  <parameter name="design_env" value="NATIVE" />
+  <parameter name="ax_chainin_pl_clock_derived" value="NONE" />
+  <parameter name="use_chainin" value="false" />
+  <parameter name="ax_chainin_2nd_pl_clock_derived" value="NONE" />
+  <parameter name="OPERATION" value="sp_mult" />
+  <parameter name="adder_input_clock" value="0" />
+  <parameter name="clk2_used" value="false" />
+  <parameter name="exception_flags" value="false" />
+  <parameter name="clear_type" value="sclr" />
+  <parameter name="accum_pipeline_clock" value="0" />
+  <parameter name="chain_out_mux" value="0" />
+  <generatedFiles>
+   <file
+       path="/home/jiayi/Dropbox/CAAD_Server/MD_RL_Pipeline/Ethan_RL_Pipeline_1st_Order_SingleFloat_18.0/FP_MUL_Test/altera_s10fpdsp_block_180/synth/FP_MUL_Test_altera_s10fpdsp_block_180_kayiiky.sv"
+       attributes="TOP_LEVEL_FILE" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="/home/jiayi/Dropbox/CAAD_Server/MD_RL_Pipeline/Ethan_RL_Pipeline_1st_Order_SingleFloat_18.0/FP_MUL_Test/altera_s10fpdsp_block_180/synth/FP_MUL_Test_altera_s10fpdsp_block_180_kayiiky.sv"
+       attributes="TOP_LEVEL_FILE" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="/opt/altera/18.0/ip/altera/dsp/altera_fpdsp_block/S10/S10FPDSP_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator instantiator="FP_MUL_Test" as="s10fpdsp_block_0" />
+  <messages>
+   <message level="Info" culprit="FP_MUL_Test">"Generating: FP_MUL_Test_altera_s10fpdsp_block_180_kayiiky"</message>
+  </messages>
+ </entity>
+</deploy>

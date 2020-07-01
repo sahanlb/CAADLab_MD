@@ -1,0 +1,24 @@
+# system info FIX_DIV on 2019.03.28.19:07:57
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for FIX_DIV on 2019.03.28.19:07:57
+files:
+filepath,kind,attributes,module,is_top
+sim/FIX_DIV.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,FIX_DIV,true
+altera_fxp_functions_180/sim/FIX_DIV_altera_fxp_functions_180_z7uu2xi_memoryC0_uid74_invTabGen_lutmem.hex,HEX,,FIX_DIV_altera_fxp_functions_180_z7uu2xi,false
+altera_fxp_functions_180/sim/FIX_DIV_altera_fxp_functions_180_z7uu2xi_memoryC1_uid77_invTabGen_lutmem.hex,HEX,,FIX_DIV_altera_fxp_functions_180_z7uu2xi,false
+altera_fxp_functions_180/sim/FIX_DIV_altera_fxp_functions_180_z7uu2xi_memoryC2_uid80_invTabGen_lutmem.hex,HEX,,FIX_DIV_altera_fxp_functions_180_z7uu2xi,false
+altera_fxp_functions_180/sim/FIX_DIV_altera_fxp_functions_180_z7uu2xi_memoryC3_uid83_invTabGen_lutmem.hex,HEX,,FIX_DIV_altera_fxp_functions_180_z7uu2xi,false
+altera_fxp_functions_180/sim/dspba_library_package.vhd,VHDL,,FIX_DIV_altera_fxp_functions_180_z7uu2xi,false
+altera_fxp_functions_180/sim/dspba_library.vhd,VHDL,,FIX_DIV_altera_fxp_functions_180_z7uu2xi,false
+altera_fxp_functions_180/sim/FIX_DIV_altera_fxp_functions_180_z7uu2xi.vhd,VHDL,,FIX_DIV_altera_fxp_functions_180_z7uu2xi,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+FIX_DIV.fxp_functions_0,FIX_DIV_altera_fxp_functions_180_z7uu2xi

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="fifo_180/sim/ForceEval_FIFO_fifo_180_zggjfyi.v"
+   type="VERILOG"
+   library="fifo_180" />
+ <file
+   path="sim/ForceEval_FIFO.v"
+   type="VERILOG"
+   library="ForceEval_FIFO"
+   hasInlineConfiguration="true" />
+ <topLevel name="ForceEval_FIFO.ForceEval_FIFO" />
+ <deviceFamily name="stratix10" />
+</simPackage>

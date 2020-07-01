@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="fifo_180/sim/FIFO_Test_fifo_180_hp7qwka.v"
+   type="VERILOG"
+   library="fifo_180" />
+ <file
+   path="sim/FIFO_Test.v"
+   type="VERILOG"
+   library="FIFO_Test"
+   hasInlineConfiguration="true" />
+ <topLevel name="FIFO_Test.FIFO_Test" />
+ <deviceFamily name="stratix10" />
+</simPackage>

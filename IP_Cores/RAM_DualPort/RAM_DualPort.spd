@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="ram_2port_180/sim/RAM_DualPort_ram_2port_180_l4n36dy.v"
+   type="VERILOG"
+   library="ram_2port_180" />
+ <file
+   path="sim/RAM_DualPort.v"
+   type="VERILOG"
+   library="RAM_DualPort"
+   hasInlineConfiguration="true" />
+ <topLevel name="RAM_DualPort.RAM_DualPort" />
+ <deviceFamily name="stratix10" />
+</simPackage>

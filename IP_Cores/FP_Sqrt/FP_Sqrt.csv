@@ -1,0 +1,23 @@
+# system info FP_Sqrt on 2018.09.06.19:08:01
+system_info:
+name,value
+DEVICE,1SG280LU3F50E3VGS2
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for FP_Sqrt on 2018.09.06.19:08:01
+files:
+filepath,kind,attributes,module,is_top
+sim/FP_Sqrt.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,FP_Sqrt,true
+altera_fp_functions_180/sim/FP_Sqrt_altera_fp_functions_180_vxsqyia_memoryC1_uid65_sqrtTables_lutmem.hex,HEX,,FP_Sqrt_altera_fp_functions_180_vxsqyia,false
+altera_fp_functions_180/sim/FP_Sqrt_altera_fp_functions_180_vxsqyia_memoryC0_uid62_sqrtTables_lutmem.hex,HEX,,FP_Sqrt_altera_fp_functions_180_vxsqyia,false
+altera_fp_functions_180/sim/FP_Sqrt_altera_fp_functions_180_vxsqyia_memoryC2_uid68_sqrtTables_lutmem.hex,HEX,,FP_Sqrt_altera_fp_functions_180_vxsqyia,false
+altera_fp_functions_180/sim/dspba_library_package.vhd,VHDL,,FP_Sqrt_altera_fp_functions_180_vxsqyia,false
+altera_fp_functions_180/sim/dspba_library.vhd,VHDL,,FP_Sqrt_altera_fp_functions_180_vxsqyia,false
+altera_fp_functions_180/sim/FP_Sqrt_altera_fp_functions_180_vxsqyia.vhd,VHDL,,FP_Sqrt_altera_fp_functions_180_vxsqyia,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+FP_Sqrt.fp_functions_0,FP_Sqrt_altera_fp_functions_180_vxsqyia

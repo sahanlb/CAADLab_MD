@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="ram_1port_180/sim/CTRL_RST_ram_1port_180_63z2w3q.v"
+   type="VERILOG"
+   library="ram_1port_180" />
+ <file
+   path="sim/CTRL_RST.v"
+   type="VERILOG"
+   library="CTRL_RST"
+   hasInlineConfiguration="true" />
+ <topLevel name="CTRL_RST.CTRL_RST" />
+ <deviceFamily name="stratix10" />
+</simPackage>

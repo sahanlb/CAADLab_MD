@@ -1,0 +1,18 @@
+# system info DualPort_RAM_Test on 2018.11.26.16:09:46
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for DualPort_RAM_Test on 2018.11.26.16:09:46
+files:
+filepath,kind,attributes,module,is_top
+sim/DualPort_RAM_Test.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,DualPort_RAM_Test,true
+ram_2port_180/sim/DualPort_RAM_Test_ram_2port_180_bi2xvuy.v,VERILOG,,DualPort_RAM_Test_ram_2port_180_bi2xvuy,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+DualPort_RAM_Test.ram_2port_0,DualPort_RAM_Test_ram_2port_180_bi2xvuy

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="altera_s10fpdsp_block_180/sim/FP_MUL_Test_altera_s10fpdsp_block_180_kayiiky.sv"
+   type="SYSTEM_VERILOG"
+   library="altera_s10fpdsp_block_180" />
+ <file
+   path="sim/FP_MUL_Test.v"
+   type="VERILOG"
+   library="FP_MUL_Test"
+   hasInlineConfiguration="true" />
+ <topLevel name="FP_MUL_Test.FP_MUL_Test" />
+ <deviceFamily name="stratix10" />
+</simPackage>

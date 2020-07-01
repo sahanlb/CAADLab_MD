@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="ram_2port_180/sim/DualPort_RAM_Test_ram_2port_180_bi2xvuy.v"
+   type="VERILOG"
+   library="ram_2port_180" />
+ <file
+   path="sim/DualPort_RAM_Test.v"
+   type="VERILOG"
+   library="DualPort_RAM_Test"
+   hasInlineConfiguration="true" />
+ <topLevel name="DualPort_RAM_Test.DualPort_RAM_Test" />
+ <deviceFamily name="stratix10" />
+</simPackage>

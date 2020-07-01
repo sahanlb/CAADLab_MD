@@ -1,0 +1,11 @@
+	component FP_MUL_Test is
+		port (
+			ay     : in  std_logic_vector(31 downto 0) := (others => 'X'); -- ay
+			az     : in  std_logic_vector(31 downto 0) := (others => 'X'); -- az
+			clk    : in  std_logic                     := 'X';             -- clk
+			clr    : in  std_logic                     := 'X';             -- clr
+			ena    : in  std_logic                     := 'X';             -- ena
+			result : out std_logic_vector(31 downto 0)                     -- result
+		);
+	end component FP_MUL_Test;
+

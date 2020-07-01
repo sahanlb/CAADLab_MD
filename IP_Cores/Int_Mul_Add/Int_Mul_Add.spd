@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="altera_mult_add_180/sim/Int_Mul_Add_altera_mult_add_180_7hdzzqq.v"
+   type="VERILOG"
+   library="altera_mult_add_180" />
+ <file
+   path="sim/Int_Mul_Add.v"
+   type="VERILOG"
+   library="Int_Mul_Add"
+   hasInlineConfiguration="true" />
+ <topLevel name="Int_Mul_Add.Int_Mul_Add" />
+ <deviceFamily name="stratix10" />
+</simPackage>

@@ -1,0 +1,23 @@
+# system info FP_Div on 2018.09.06.18:37:46
+system_info:
+name,value
+DEVICE,1SG280LU3F50E3VGS2
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for FP_Div on 2018.09.06.18:37:46
+files:
+filepath,kind,attributes,module,is_top
+sim/FP_Div.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,FP_Div,true
+altera_fp_functions_180/sim/FP_Div_altera_fp_functions_180_dj5ikpq_memoryC0_uid146_invTables_lutmem.hex,HEX,,FP_Div_altera_fp_functions_180_dj5ikpq,false
+altera_fp_functions_180/sim/FP_Div_altera_fp_functions_180_dj5ikpq_memoryC1_uid149_invTables_lutmem.hex,HEX,,FP_Div_altera_fp_functions_180_dj5ikpq,false
+altera_fp_functions_180/sim/FP_Div_altera_fp_functions_180_dj5ikpq_memoryC2_uid152_invTables_lutmem.hex,HEX,,FP_Div_altera_fp_functions_180_dj5ikpq,false
+altera_fp_functions_180/sim/dspba_library_package.vhd,VHDL,,FP_Div_altera_fp_functions_180_dj5ikpq,false
+altera_fp_functions_180/sim/dspba_library.vhd,VHDL,,FP_Div_altera_fp_functions_180_dj5ikpq,false
+altera_fp_functions_180/sim/FP_Div_altera_fp_functions_180_dj5ikpq.vhd,VHDL,,FP_Div_altera_fp_functions_180_dj5ikpq,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+FP_Div.fp_functions_0,FP_Div_altera_fp_functions_180_dj5ikpq

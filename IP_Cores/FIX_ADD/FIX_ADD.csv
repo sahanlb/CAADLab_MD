@@ -1,0 +1,20 @@
+# system info FIX_ADD on 2019.03.28.18:36:20
+system_info:
+name,value
+DEVICE,1SG280LU2F50E2VG
+DEVICE_FAMILY,Stratix 10
+GENERATION_ID,0
+#
+#
+# Files generated for FIX_ADD on 2019.03.28.18:36:20
+files:
+filepath,kind,attributes,module,is_top
+sim/FIX_ADD.v,VERILOG,CONTAINS_INLINE_CONFIGURATION,FIX_ADD,true
+altera_fxp_functions_180/sim/dspba_library_package.vhd,VHDL,,FIX_ADD_altera_fxp_functions_180_4lk6zii,false
+altera_fxp_functions_180/sim/dspba_library.vhd,VHDL,,FIX_ADD_altera_fxp_functions_180_4lk6zii,false
+altera_fxp_functions_180/sim/FIX_ADD_altera_fxp_functions_180_4lk6zii.vhd,VHDL,,FIX_ADD_altera_fxp_functions_180_4lk6zii,false
+#
+# Map from instance-path to kind of module
+instances:
+instancePath,module
+FIX_ADD.fxp_functions_0,FIX_ADD_altera_fxp_functions_180_4lk6zii

@@ -1,0 +1,10 @@
+	component CTRL_START is
+		port (
+			data    : in  std_logic_vector(0 downto 0) := (others => 'X'); -- datain
+			address : in  std_logic_vector(0 downto 0) := (others => 'X'); -- address
+			wren    : in  std_logic                    := 'X';             -- wren
+			clock   : in  std_logic                    := 'X';             -- clk
+			q       : out std_logic_vector(0 downto 0)                     -- dataout
+		);
+	end component CTRL_START;
+

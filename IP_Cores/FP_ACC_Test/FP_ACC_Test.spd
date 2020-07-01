@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="altera_s10fpdsp_block_180/sim/FP_ACC_Test_altera_s10fpdsp_block_180_n4zfgua.sv"
+   type="SYSTEM_VERILOG"
+   library="altera_s10fpdsp_block_180" />
+ <file
+   path="sim/FP_ACC_Test.v"
+   type="VERILOG"
+   library="FP_ACC_Test"
+   hasInlineConfiguration="true" />
+ <topLevel name="FP_ACC_Test.FP_ACC_Test" />
+ <deviceFamily name="stratix10" />
+</simPackage>
