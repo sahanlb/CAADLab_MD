@@ -1,0 +1,5 @@
+# ignore libraries
+**/libraries
+**/modelsim.ini
+**/transcript
+*.wlf
