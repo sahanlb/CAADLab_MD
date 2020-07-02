@@ -36,6 +36,7 @@ wire [NUM_CELLS-1:0] back_pressure;
 wire [NUM_CELLS-1:0] filter_buffer_empty; 
 wire [NUM_CELLS*NUM_FILTER*FORCE_BUFFER_WIDTH-1:0] force_data; 
 wire [NUM_CELLS*NUM_FILTER-1:0] force_valid;
+wire force_valid_and;
 
 always #1 clk <= ~clk;
 
@@ -91,7 +92,8 @@ RL_top
 	.back_pressure(back_pressure),
 	.filter_buffer_empty(filter_buffer_empty),
 	.force_data(force_data),
-	.force_valid(force_valid)
+	.force_valid(force_valid),
+	.force_valid_and(force_valid_and)
 );
 
 endmodule

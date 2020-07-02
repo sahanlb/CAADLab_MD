@@ -29,17 +29,18 @@ module RL_top
 	input rst, 
 	input start, 
 	
+  output [NUM_CELLS-1:0] reading_done,
+  output [NUM_CELLS*PARTICLE_ID_WIDTH-1:0] particle_num,
+  output [NUM_CELLS-1:0] back_pressure,
+  output [NUM_CELLS-1:0] filter_buffer_empty,
+  output [NUM_CELLS*NUM_FILTER*FORCE_BUFFER_WIDTH-1:0] force_data,
+  output [NUM_CELLS*NUM_FILTER-1:0] force_valid,
 	output force_valid_and
 );
-wire [NUM_CELLS*NUM_FILTER-1:0] force_valid;
+
 assign force_valid_and = &force_valid;
 
 // Output from PE
-wire [NUM_CELLS-1:0] reading_done;
-wire [NUM_CELLS*PARTICLE_ID_WIDTH-1:0] particle_num;
-wire [NUM_CELLS-1:0] back_pressure;
-wire [NUM_CELLS-1:0] filter_buffer_empty;
-wire [NUM_CELLS*NUM_FILTER*FORCE_BUFFER_WIDTH-1:0] force_data;
 
 // Input for broadcast controller
 //wire iter_start;
