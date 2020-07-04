@@ -73,7 +73,7 @@ wire [NUM_CELLS*POS_CACHE_WIDTH-1:0] rd_nb_position;
 wire all_force_wr_issued;		// all force writings are issued
 wire force_cache_input_buffer_empty;		// all force_wb_controller buffers are empty
 assign all_force_wr_issued = (force_wr_enable == 0 & force_cache_input_buffer_empty & all_filter_buffer_empty);
-assign motion_update_start = all_reading_done & all_force_wr_issued;
+assign motion_update_start = all_reading_done & all_force_wr_issued; //TODO: Add signal/modify to capture packets in the network.
 
 
 // MU outputs

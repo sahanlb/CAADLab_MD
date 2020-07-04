@@ -39,7 +39,7 @@ assign all_reading_done = (reading_done == {(NUM_CELLS){1'b1}}) ? 1'b1 : 1'b0;
 assign all_filter_buffer_empty = (filter_buffer_empty == {(NUM_CELLS){1'b1}}) ? 1'b1 : 1'b0;
 
 wire all_broadcast_done;
-assign all_broadcast_done = (broadcast_done == {(NUM_CELLS){1'b1}}) ? 1'b1 : 1'b0;
+assign all_broadcast_done = &broadcast_done;
 
 wire back_pressure_exist;
 assign back_pressure_exist = (back_pressure == 0) ? 1'b0 : 1'b1;
@@ -239,8 +239,8 @@ generate
 		)
 		check_broadcast_done
 		(
-			.particle_num(particle_num[(i+1)*PARTICLE_ID_WIDTH-1:i*PARTICLE_ID_WIDTH]), 
-			.particle_id(particle_id), 
+			.particle_count(particle_num[i*PARTICLE_ID_WIDTH +: PARTICLE_ID_WIDTH]), 
+			.ref_id(ref_id), 
 			
 			.broadcast_done(broadcast_done[i])
 		);
