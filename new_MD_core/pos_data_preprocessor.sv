@@ -20,22 +20,36 @@ module pos_data_preprocessor
 	input phase, 
 	input pause_reading, 
 	input reading_particle_num, 
-	// From data source
+	// From data source rd_nb_position
+  // Phase 0: {222, 123, 332, 211, 131, 331, 311}
+  // Phase 1: {111, 121, 231, 212, 322, 212, 223}
+  // Type:     03   22   22   22   31   31   31
+  //
+  // Cell ID order (MSB to LSB): 
+  // 223, 212, 322, 212, 231, 121, 111, 311, 331, 131, 211, 332, 123, 222
 	input [(NUM_NEIGHBOR_CELLS+1)*3*OFFSET_WIDTH-1:0] rd_nb_position, 
 	input [NUM_NEIGHBOR_CELLS:0] broadcast_done, 
 	input [PARTICLE_ID_WIDTH-1:0] ref_id, 
 	input [PARTICLE_ID_WIDTH-1:0] particle_id, 
 	
-	output reading_done, 
-	output [DATA_WIDTH-1:0] ref_x,
-	output [DATA_WIDTH-1:0] ref_y,
-	output [DATA_WIDTH-1:0] ref_z,
+	output [NUM_FILTER-1:0] reading_done, 
+	output [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_x,
+	output [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_y,
+	output [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_z,
 	output reg [PARTICLE_ID_WIDTH-1:0] prev_particle_id, 
 	output reg [PARTICLE_ID_WIDTH-1:0] prev_ref_id, 
-	output [PARTICLE_ID_WIDTH-1:0] ref_particle_num, 
+	output [NUM_FILTER-1:0][PARTICLE_ID_WIDTH-1:0] ref_particle_count, 
 	output [NUM_FILTER-1:0] pair_valid,
 	output [NUM_FILTER*3*DATA_WIDTH-1:0] assembled_position
 );
+//declare a struct to simplify handling neighbor particle data
+typedef struct packed{
+  logic [OFFSET_WIDTH-1:0] pos_x;
+  logic [OFFSET_WIDTH-1:0] pos_y;
+  logic [OFFSET_WIDTH-1:0] pos_z;
+}pos_data_t;
+
+genvar i;
 
 reg prev_phase;
 reg prev_pause_reading;
@@ -43,9 +57,17 @@ reg prev_reading_particle_num;
 reg [NUM_NEIGHBOR_CELLS:0] prev_broadcast_done;
 reg [(NUM_NEIGHBOR_CELLS+1)*3*OFFSET_WIDTH-1:0] prev_rd_nb_position;
 
-wire ref_not_read_yet;
-wire ref_valid;
+wire [NUM_FILTER-1:0] ref_not_read_yet;
+wire [NUM_FILTER-1:0] ref_valid;
 
+//array of position data structures
+pos_data_t [NUM_NEIGHBOR_CELLS:0] nb_position; //NUM_NEIGHBOR_CELLS+1
+pos_data_t [NUM_FILTER-1:0] ref_position; //connected to ref_data_extractors
+
+assign nb_position = rd_nb_position;
+
+assign ref_position = phase ? nb_position[NUM_NEIGHBOR_CELLS:NUM_FILTER] :
+                      nb_position[NUM_FILTER-1:0];
 
 always@(posedge clk)
 	begin
@@ -58,48 +80,61 @@ always@(posedge clk)
 	prev_rd_nb_position <= rd_nb_position;
 	end
 
+//Instantiate multiple ref_data_extractors
 // 1 cycle delay
-ref_data_extractor
-#(
-	.OFFSET_WIDTH(OFFSET_WIDTH), 
-	.DATA_WIDTH(DATA_WIDTH),
-	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH)
-)
-ref_data_extractor
-(
-	.clk(clk),
-	.rst(rst),
-	.phase(phase), 
-	.prev_phase(prev_phase), 
-	.reading_particle_num(reading_particle_num), 
-	.raw_home_pos_x(rd_nb_position[OFFSET_WIDTH-1:0]),
-	.raw_home_pos_y(rd_nb_position[2*OFFSET_WIDTH-1:OFFSET_WIDTH]),
-	.raw_home_pos_z(rd_nb_position[3*OFFSET_WIDTH-1:2*OFFSET_WIDTH]),
-	.particle_id(particle_id),
-	.ref_id(ref_id),
-	
-	.ref_particle_num(ref_particle_num), 
-	.ref_x(ref_x),
-	.ref_y(ref_y),
-	.ref_z(ref_z)
-);
+generate
+  for(i=0; i==NUM_NEIGHBOR_CELLS; i++)begin: ref_extractor_inst
+    ref_data_extractor
+    #(
+    	.OFFSET_WIDTH(OFFSET_WIDTH), 
+    	.DATA_WIDTH(DATA_WIDTH),
+    	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH)
+    )
+    ref_data_extractor
+    (
+    	.clk(clk),
+    	.rst(rst),
+    	.phase(phase), 
+    	.prev_phase(prev_phase), 
+    	.reading_particle_num(reading_particle_num), 
+    	.raw_home_pos_x(ref_position[i].pos_x),
+    	.raw_home_pos_y(ref_position[i].pos_y),
+    	.raw_home_pos_z(ref_position[i].pos_z),
+    	.particle_id(particle_id),
+    	.ref_id(ref_id),
+    	
+    	.ref_particle_count(ref_particle_count[i]), 
+    	.ref_x(ref_x[i]),
+    	.ref_y(ref_y[i]),
+    	.ref_z(ref_z[i])
+    );
+  end
+endgenerate
 
-pos_data_valid_checker
-#(
-	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH)
-)
-pos_data_valid_checker
-(
-	.phase(prev_phase),
-	.reading_particle_num(prev_reading_particle_num), 
-	.ref_id(prev_ref_id),
-	.particle_id(prev_particle_id),
-	.ref_particle_num(ref_particle_num),
-	
-	.ref_not_read_yet(ref_not_read_yet),
-	.reading_done(reading_done), 
-	.ref_valid(ref_valid)
-);
+
+//Instantiating multiple pos_data_valid_checker modules
+generate
+  for(i=0; i<NUM_FILTER; i++)begin: valid_checker_inst
+    pos_data_valid_checker
+    #(
+    	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH)
+    )
+    pos_data_valid_checker
+    (
+    	.phase(prev_phase),
+    	.reading_particle_num(prev_reading_particle_num), 
+    	.ref_id(prev_ref_id),
+    	.particle_id(prev_particle_id),
+    	.ref_particle_count(ref_particle_count[i]),
+    	
+    	.ref_not_read_yet(ref_not_read_yet[i]),
+    	.reading_done(reading_done[i]), 
+    	.ref_valid(ref_valid[i])
+    );
+  end
+endgenerate
+
+
 	
 // All except for the valid bits are delayed because it takes 1 cycle to get ref_id, 
 // so it takes 1 cycle to get valid bits
@@ -119,7 +154,7 @@ pos_data_distributor
 	.pause_reading(prev_pause_reading), 
 	.rd_nb_position(prev_rd_nb_position),
 	.broadcast_done(prev_broadcast_done),
-	.ref_not_read_yet(ref_not_read_yet),
+	.ref_not_read_yet(ref_not_read_yet[0]), //only useful for home cell
 	.ref_valid(ref_valid),
 	
 	.pair_valid(pair_valid),

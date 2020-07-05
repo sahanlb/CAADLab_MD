@@ -48,8 +48,8 @@ module PE_wrapper
 	input [NUM_FILTER-1:0] write_success, 
 	
 	// From preprocessor
-	output reading_done, 
-	output [PARTICLE_ID_WIDTH-1:0] ref_particle_num, 
+	output [NUM_FILTER-1:0] reading_done, 
+	output [NUM_FILTER-1:0][PARTICLE_ID_WIDTH-1:0] ref_particle_num, 
 	// From force evaluation
 	output back_pressure,
 	output all_buffer_empty,
@@ -67,9 +67,9 @@ module PE_wrapper
 //		end
 //endgenerate
 
-wire [DATA_WIDTH-1:0] ref_x;
-wire [DATA_WIDTH-1:0] ref_y;
-wire [DATA_WIDTH-1:0] ref_z;
+wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_x;
+wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_y;
+wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_z;
 wire [PARTICLE_ID_WIDTH-1:0] delay_particle_id;
 wire [PARTICLE_ID_WIDTH-1:0] delay_ref_id;
 wire [NUM_FILTER-1:0] pair_valid;
@@ -120,7 +120,7 @@ pos_data_preprocessor
 	.ref_y(ref_y),
 	.ref_z(ref_z),
 	.prev_ref_id(delay_ref_id), 
-	.ref_particle_num(ref_particle_num), 
+	.ref_particle_count(ref_particle_num), 
 	.prev_particle_id(delay_particle_id), 
 	.pair_valid(pair_valid),
 	.assembled_position(assembled_position)

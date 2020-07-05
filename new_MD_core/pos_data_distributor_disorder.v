@@ -39,7 +39,7 @@ module pos_data_distributor_disorder
 	// If the reference particle has just been read, set invalid since it does not interact with itself
 	input ref_not_read_yet, 
 	// If the reference particle is invalid, all neighbor particles are invalid
-	input ref_valid, 
+	input [NUM_FILTER-1:0] ref_valid, 
 	
 	output reg [NUM_FILTER-1:0] pair_valid, 
 	output [NUM_FILTER*3*DATA_WIDTH-1:0] assembled_position 
@@ -50,12 +50,12 @@ reg [3*CELL_ID_WIDTH*NUM_FILTER-1:0] nb_cell_id;
 // If done broadcasting, set invalid. If ref invalid, set invalid, special control for home cell
 always@(*)
 	begin
-	if (ref_valid && ~pause_reading)
+	if (~pause_reading)
 		begin
 		if (phase == 1'b0)
 			begin
-			pair_valid[0] = ~(broadcast_done[0] || ref_not_read_yet);
-			pair_valid[6:1] = ~broadcast_done[6:1];
+			pair_valid[0] = ~(broadcast_done[0] || ref_not_read_yet) & ref_valid[0];
+			pair_valid[6:1] = ~broadcast_done[6:1] & ref_valid[6:1];
 			// Order: Z, Y, X
 			nb_cell_id[1*FULL_CELL_ID_WIDTH-1:0*FULL_CELL_ID_WIDTH] = {CELL_2, CELL_2, CELL_2};
 			nb_cell_id[2*FULL_CELL_ID_WIDTH-1:1*FULL_CELL_ID_WIDTH] = {CELL_3, CELL_2, CELL_1};
@@ -67,7 +67,7 @@ always@(*)
 			end
 		else
 			begin
-			pair_valid = ~broadcast_done[13:7];
+			pair_valid = ~broadcast_done[13:7] & ref_valid;
 			nb_cell_id[1*FULL_CELL_ID_WIDTH-1:0*FULL_CELL_ID_WIDTH] = {CELL_1, CELL_1, CELL_1};
 			nb_cell_id[2*FULL_CELL_ID_WIDTH-1:1*FULL_CELL_ID_WIDTH] = {CELL_1, CELL_2, CELL_1};
 			nb_cell_id[3*FULL_CELL_ID_WIDTH-1:2*FULL_CELL_ID_WIDTH] = {CELL_1, CELL_3, CELL_2};

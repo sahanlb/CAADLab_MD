@@ -23,7 +23,7 @@ module ref_data_extractor
 	input [PARTICLE_ID_WIDTH-1:0] particle_id, 
 	input [PARTICLE_ID_WIDTH-1:0] ref_id, 
 	
-	output reg [PARTICLE_ID_WIDTH-1:0] ref_particle_num, 
+	output reg [PARTICLE_ID_WIDTH-1:0] ref_particle_count, 
 	output reg [DATA_WIDTH-1:0] ref_x, 
 	output reg [DATA_WIDTH-1:0] ref_y, 
 	output reg [DATA_WIDTH-1:0] ref_z
@@ -51,14 +51,14 @@ always@(posedge clk)
 		next_ref_x <= 0;
 		next_ref_y <= 0;
 		next_ref_z <= 0;
-		ref_particle_num <= 0;
+		ref_particle_count <= 0;
 		end
 	else 
 		begin
 		if (reading_particle_num)
 			begin
 			// Pick the lowest 7 bits as the number of particles
-			ref_particle_num <= raw_home_pos_x[PARTICLE_ID_WIDTH-1:0];
+			ref_particle_count <= raw_home_pos_x[PARTICLE_ID_WIDTH-1:0];
 			end
 		else
 			begin
