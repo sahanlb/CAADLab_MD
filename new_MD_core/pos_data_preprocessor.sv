@@ -21,12 +21,12 @@ module pos_data_preprocessor
 	input pause_reading, 
 	input reading_particle_num, 
 	// From data source rd_nb_position
-  // Phase 0: {222, 123, 332, 211, 131, 331, 311}
-  // Phase 1: {111, 121, 231, 212, 322, 212, 223}
+  // Phase 0: {113, 133, 131, 112, 233, 321, 222}
+  // Phase 1: {322, 212, 223, 231, 132, 121, 111}
   // Type:     03   22   22   22   31   31   31
   //
-  // Cell ID order (MSB to LSB): 
-  // 223, 212, 322, 212, 231, 121, 111, 311, 331, 131, 211, 332, 123, 222
+  // Cell ID order ZYX:		 
+  //{322, 212, 223, 231, 132, 121, 111, 113, 133, 131, 112, 233, 321, 222}
 	input [(NUM_NEIGHBOR_CELLS+1)*3*OFFSET_WIDTH-1:0] rd_nb_position, 
 	input [NUM_NEIGHBOR_CELLS:0] broadcast_done, 
 	input [PARTICLE_ID_WIDTH-1:0] ref_id, 
@@ -40,7 +40,8 @@ module pos_data_preprocessor
 	output reg [PARTICLE_ID_WIDTH-1:0] prev_ref_id, 
 	output [NUM_FILTER-1:0][PARTICLE_ID_WIDTH-1:0] ref_particle_count, 
 	output [NUM_FILTER-1:0] pair_valid,
-	output [NUM_FILTER*3*DATA_WIDTH-1:0] assembled_position
+	output [3*DATA_WIDTH-1:0] assembled_position,
+  output reg prev_phase
 );
 //declare a struct to simplify handling neighbor particle data
 typedef struct packed{
@@ -51,7 +52,6 @@ typedef struct packed{
 
 genvar i;
 
-reg prev_phase;
 reg prev_pause_reading;
 reg prev_reading_particle_num;
 reg [NUM_NEIGHBOR_CELLS:0] prev_broadcast_done;
@@ -88,7 +88,9 @@ generate
     #(
     	.OFFSET_WIDTH(OFFSET_WIDTH), 
     	.DATA_WIDTH(DATA_WIDTH),
-    	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH)
+    	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
+	    .CELL_ID_WIDTH(CELL_ID_WIDTH), 
+      .EXTRACTOR_ID(i)
     )
     ref_data_extractor
     (
@@ -138,7 +140,8 @@ endgenerate
 	
 // All except for the valid bits are delayed because it takes 1 cycle to get ref_id, 
 // so it takes 1 cycle to get valid bits
-pos_data_distributor_disorder
+// Using pos_data_distributor_simplified in this version of the design.
+pos_data_distributor_simplified
 #(
 	.OFFSET_WIDTH(OFFSET_WIDTH), 
 	.DATA_WIDTH(DATA_WIDTH),

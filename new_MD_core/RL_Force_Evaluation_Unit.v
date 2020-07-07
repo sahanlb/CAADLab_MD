@@ -28,12 +28,13 @@ module RL_Force_Evaluation_Unit
 (
 	input clk,
 	input rst,
+  input phase,
 	input [NUM_FILTER-1:0] pair_valid,
 	input [PARTICLE_ID_WIDTH-1:0] ref_particle_id,
 	input [PARTICLE_ID_WIDTH-1:0] nb_particle_id,
-	input [DATA_WIDTH-1:0] ref_x,
-	input [DATA_WIDTH-1:0] ref_y,
-	input [DATA_WIDTH-1:0] ref_z,
+	input [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_x,
+	input [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_y,
+	input [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_z,
 	input [NUM_FILTER*DATA_WIDTH-1:0] nb_x,
 	input [NUM_FILTER*DATA_WIDTH-1:0] nb_y,
 	input [NUM_FILTER*DATA_WIDTH-1:0] nb_z,
@@ -63,6 +64,8 @@ module RL_Force_Evaluation_Unit
 	wire [DATA_WIDTH-1:0] filter_bank_out_dy;
 	wire [DATA_WIDTH-1:0] filter_bank_out_dz;
 	wire filter_bank_out_r2_valid;
+
+  wire [2:0][CELL_ID_WIDTH-1:0] ref_cell_id;
 	
 	// Delay registers for particle IDs from r2_compute to force output
 	wire [ID_WIDTH-1:0] filter_bank_out_neighbor_particle_id;
@@ -183,6 +186,7 @@ module RL_Force_Evaluation_Unit
 	(
 		.clk(clk),
 		.rst(rst),
+    .phase(phase),
 		.input_valid(pair_valid),
 		.nb_id_in(nb_particle_id),
 		.ref_x(ref_x),
@@ -193,6 +197,7 @@ module RL_Force_Evaluation_Unit
 		.nb_z(nb_z),
 		
 		.nb_id_out(filter_bank_out_neighbor_particle_id),
+    .ref_cell_id_out(ref_cell_id),
 		.r2_out(filter_bank_out_r2),
 		.dx_out(filter_bank_out_dx),
 		.dy_out(filter_bank_out_dy),

@@ -74,13 +74,14 @@ module RL_LJ_Evaluation_Unit
 (
 	input  clk,
 	input  rst,
+  input  phase,
 	input  [NUM_FILTER-1:0] pair_valid,
 	input  [PARTICLE_ID_WIDTH-1:0] ref_particle_id,
 	input  [PARTICLE_ID_WIDTH-1:0] nb_particle_id,
-	input  [DATA_WIDTH-1:0] ref_x,
-	input  [DATA_WIDTH-1:0] ref_y,
-	input  [DATA_WIDTH-1:0] ref_z,
-	input  [NUM_FILTER*3*DATA_WIDTH-1:0] nb_position,	// {neighborz, neighbory, neighborx}
+	input  [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_x,
+	input  [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_y,
+	input  [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_z,
+	input  [3*DATA_WIDTH-1:0] nb_position,	// {neighborz, neighbory, neighborx}
 	
 	output [NUM_FILTER-1:0] out_back_pressure_to_input,						// backpressure signal to stop new data arrival from particle memory
 	output out_all_buffer_empty_to_input,											// Output to FSM that generate particle pairs. Only when all the filter buffers are empty, then the FSM will move on to the next reference particle
@@ -127,15 +128,16 @@ module RL_LJ_Evaluation_Unit
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Wires for assigning input particle data to Force Evaluation Unit
 	// Data alignment: {refz, refy, refx}, {neighborz, neighbory, neighborx}
+  // Same value is copied over and sent to each filter along with different reference particles.
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	wire [NUM_FILTER*DATA_WIDTH-1:0] nb_x, nb_y, nb_z;
 	genvar i;
 	generate 
 		for(i = 0; i < NUM_FILTER; i = i + 1)
 			begin: input_wire_assignment
-			assign nb_x[(i+1)*DATA_WIDTH-1:i*DATA_WIDTH] = nb_position[i*3*DATA_WIDTH+DATA_WIDTH-1:i*3*DATA_WIDTH];
-			assign nb_y[(i+1)*DATA_WIDTH-1:i*DATA_WIDTH] = nb_position[i*3*DATA_WIDTH+2*DATA_WIDTH-1:i*3*DATA_WIDTH+DATA_WIDTH];
-			assign nb_z[(i+1)*DATA_WIDTH-1:i*DATA_WIDTH] = nb_position[i*3*DATA_WIDTH+3*DATA_WIDTH-1:i*3*DATA_WIDTH+2*DATA_WIDTH];
+			assign nb_x[(i+1)*DATA_WIDTH-1:i*DATA_WIDTH] = nb_position[0*DATA_WIDTH +: DATA_WIDTH];
+			assign nb_y[(i+1)*DATA_WIDTH-1:i*DATA_WIDTH] = nb_position[1*DATA_WIDTH +: DATA_WIDTH];
+			assign nb_z[(i+1)*DATA_WIDTH-1:i*DATA_WIDTH] = nb_position[2*DATA_WIDTH +: DATA_WIDTH];
 			end
 	endgenerate
 	
@@ -166,6 +168,7 @@ module RL_LJ_Evaluation_Unit
 	(
 		.clk(clk),
 		.rst(rst),
+    .phase(phase),
 		.pair_valid(pair_valid),
 		.ref_particle_id(ref_particle_id),
 		.nb_particle_id(nb_particle_id),	

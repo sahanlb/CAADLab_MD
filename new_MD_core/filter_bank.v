@@ -10,25 +10,30 @@ module filter_bank
 	parameter FILTER_BUFFER_DATA_WIDTH = PARTICLE_ID_WIDTH+3*DATA_WIDTH, 
 	
 	// Constants
-	parameter SQRT_2 = 10'b0101101011,
-	parameter SQRT_3 = 10'b0110111100,
-	parameter NUM_FILTER = 7, 
+  parameter CELL_1      = 3'b001
+  parameter CELL_2      = 3'b010
+  parameter CELL_3      = 3'b011
+	parameter SQRT_2      = 10'b0101101011,
+	parameter SQRT_3      = 10'b0110111100,
+	parameter NUM_FILTER  = 7, 
 	parameter ARBITER_MSB = 64, 
-	parameter EXP_0 = 8'b01111111
+	parameter EXP_0       = 8'b01111111
 )
 (
 	input clk, 
 	input rst, 
+  input phase,
 	input [NUM_FILTER-1:0] input_valid,
 	input [PARTICLE_ID_WIDTH-1:0] nb_id_in,
-	input [DATA_WIDTH-1:0] ref_x,
-	input [DATA_WIDTH-1:0] ref_y,
-	input [DATA_WIDTH-1:0] ref_z,
+	input [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_x,
+	input [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_y,
+	input [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_z,
 	input [NUM_FILTER*DATA_WIDTH-1:0] nb_x,
 	input [NUM_FILTER*DATA_WIDTH-1:0] nb_y,
 	input [NUM_FILTER*DATA_WIDTH-1:0] nb_z,
 	
 	output [ID_WIDTH-1:0] nb_id_out,
+  output [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_out, //{Z,Y,X}
 	output [DATA_WIDTH-1:0] r2_out,
 	output [DATA_WIDTH-1:0] dx_out,
 	output [DATA_WIDTH-1:0] dy_out,
@@ -45,7 +50,14 @@ wire [NUM_FILTER-1:0] arbitration_result;
 reg raw_data_valid;
 reg [FILTER_BUFFER_DATA_WIDTH-1:0] data_out;
 
+struct packed{
+  logic [DATA_WIDTH-1:0] z,
+  logic [DATA_WIDTH-1:0] y,
+  logic [DATA_WIDTH-1:0] x,
+}curr_ref_data;
+
 wire [ID_WIDTH-1:0] nb_id;
+reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id;
 
 // Fixed point format
 wire [DATA_WIDTH-1:0] x1, y1, z1, x2, y2, z2;
@@ -71,6 +83,24 @@ reg [ID_WIDTH-1:0] reg_nb_id_15;
 reg [ID_WIDTH-1:0] reg_nb_id_16;
 reg [ID_WIDTH-1:0] reg_nb_id_delay;
 
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_1;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_2;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_3;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_4;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_5;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_6;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_7;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_8;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_9;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_10;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_11;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_12;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_13;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_14;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_15;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_16;
+reg [2:0][CELL_ID_WIDTH-1:0] reg_ref_cell_id_delay;
+
 // Combine cell id and particle id for later mapping. The cell id data is lost after subtraction, so save it here
 // ref data is the same as the input, because the ref data will not change before all filter buffers are empty,
 // so no need to save the ref data
@@ -79,10 +109,13 @@ assign nb_id = {z2[DATA_WIDTH-1:DATA_WIDTH-CELL_ID_WIDTH],
 					  x2[DATA_WIDTH-1:DATA_WIDTH-CELL_ID_WIDTH], 
 					  data_out[FILTER_BUFFER_DATA_WIDTH-1:FILTER_BUFFER_DATA_WIDTH-PARTICLE_ID_WIDTH]};
 assign nb_id_out = reg_nb_id_delay;
+
+assign ref_cell_id_out = reg_ref_cell_id_delay;
+
 // Disassemble data_out
-assign x1 = ref_x;
-assign y1 = ref_y;
-assign z1 = ref_z;
+assign x1 = curr_ref_data.x;
+assign y1 = curr_ref_data.y;
+assign z1 = curr_ref_data.z;
 assign x2 = data_out[DATA_WIDTH-1:0];
 assign y2 = data_out[2*DATA_WIDTH-1:DATA_WIDTH];
 assign z2 = data_out[3*DATA_WIDTH-1:2*DATA_WIDTH];
@@ -108,6 +141,23 @@ always@(posedge clk)
 		reg_nb_id_15 <= 0;
 		reg_nb_id_16 <= 0;
 		reg_nb_id_delay <= 0;
+		reg_ref_cell_id_1     <= 0;
+		reg_ref_cell_id_2     <= 0;
+		reg_ref_cell_id_3     <= 0;
+		reg_ref_cell_id_4     <= 0;
+		reg_ref_cell_id_5     <= 0;
+		reg_ref_cell_id_6     <= 0;
+		reg_ref_cell_id_7     <= 0;
+		reg_ref_cell_id_8     <= 0;
+		reg_ref_cell_id_9     <= 0;
+		reg_ref_cell_id_10    <= 0;
+		reg_ref_cell_id_11    <= 0;
+		reg_ref_cell_id_12    <= 0;
+		reg_ref_cell_id_13    <= 0;
+		reg_ref_cell_id_14    <= 0;
+		reg_ref_cell_id_15    <= 0;
+		reg_ref_cell_id_16    <= 0;
+		reg_ref_cell_id_delay <= 0;
 		end
 	else
 		begin
@@ -128,6 +178,23 @@ always@(posedge clk)
 		reg_nb_id_15 <= reg_nb_id_14;
 		reg_nb_id_16 <= reg_nb_id_15;
 		reg_nb_id_delay <= reg_nb_id_16;
+		reg_ref_cell_id_1     <= ref_cell_id;
+		reg_ref_cell_id_2     <= reg_ref_cell_id_1;
+		reg_ref_cell_id_3     <= reg_ref_cell_id_2;
+		reg_ref_cell_id_4     <= reg_ref_cell_id_3;
+		reg_ref_cell_id_5     <= reg_ref_cell_id_4;
+		reg_ref_cell_id_6     <= reg_ref_cell_id_5;
+		reg_ref_cell_id_7     <= reg_ref_cell_id_6;
+		reg_ref_cell_id_8     <= reg_ref_cell_id_7;
+		reg_ref_cell_id_9     <= reg_ref_cell_id_8;
+		reg_ref_cell_id_10    <= reg_ref_cell_id_9;
+		reg_ref_cell_id_11    <= reg_ref_cell_id_10;
+		reg_ref_cell_id_12    <= reg_ref_cell_id_11;
+		reg_ref_cell_id_13    <= reg_ref_cell_id_12;
+		reg_ref_cell_id_14    <= reg_ref_cell_id_13;
+		reg_ref_cell_id_15    <= reg_ref_cell_id_14;
+		reg_ref_cell_id_16    <= reg_ref_cell_id_15;
+		reg_ref_cell_id_delay <= reg_ref_cell_id_16;
 		end
 	end
 
@@ -148,42 +215,74 @@ always@(posedge clk)
 		7'b0000001:
 			begin
 			data_out <= buffer_rd_data[1*FILTER_BUFFER_DATA_WIDTH-1:0];
-			raw_data_valid <= 1'b1;
+      curr_ref_data.x <= ref_x[0];
+      curr_ref_data.y <= ref_y[0];
+      curr_ref_data.z <= ref_z[0];
+			raw_data_valid  <= 1'b1;
+      ref_cell_id     <= phase ? {CELL_1, CELL_1, CELL_1} : {CELL_2, CELL_2, CELL_2};
 			end
 		7'b0000010:
 			begin
 			data_out <= buffer_rd_data[2*FILTER_BUFFER_DATA_WIDTH-1:1*FILTER_BUFFER_DATA_WIDTH];
-			raw_data_valid <= 1'b1;
+      curr_ref_data.x <= ref_x[1];
+      curr_ref_data.y <= ref_y[1];
+      curr_ref_data.z <= ref_z[1];
+			raw_data_valid  <= 1'b1;
+      ref_cell_id     <= phase ? {CELL_1, CELL_2, CELL_1} : {CELL_3, CELL_2, CELL_1};
 			end
 		7'b0000100:
 			begin
 			data_out <= buffer_rd_data[3*FILTER_BUFFER_DATA_WIDTH-1:2*FILTER_BUFFER_DATA_WIDTH];
-			raw_data_valid <= 1'b1;
+      curr_ref_data.x <= ref_x[2];
+      curr_ref_data.y <= ref_y[2];
+      curr_ref_data.z <= ref_z[2];
+			raw_data_valid  <= 1'b1;
+      ref_cell_id     <= phase ? {CELL_1, CELL_3, CELL_2} : {CELL_2, CELL_3, CELL_3};
 			end
 		7'b0001000:
 			begin
 			data_out <= buffer_rd_data[4*FILTER_BUFFER_DATA_WIDTH-1:3*FILTER_BUFFER_DATA_WIDTH];
-			raw_data_valid <= 1'b1;
+      curr_ref_data.x <= ref_x[3];
+      curr_ref_data.y <= ref_y[3];
+      curr_ref_data.z <= ref_z[3];
+			raw_data_valid  <= 1'b1;
+      ref_cell_id     <= phase ? {CELL_2, CELL_3, CELL_1} : {CELL_1, CELL_1, CELL_2};
 			end
 		7'b0010000:
 			begin
 			data_out <= buffer_rd_data[5*FILTER_BUFFER_DATA_WIDTH-1:4*FILTER_BUFFER_DATA_WIDTH];
-			raw_data_valid <= 1'b1;
+      curr_ref_data.x <= ref_x[4];
+      curr_ref_data.y <= ref_y[4];
+      curr_ref_data.z <= ref_z[4];
+			raw_data_valid  <= 1'b1;
+      ref_cell_id     <= phase ? {CELL_2, CELL_2, CELL_3} : {CELL_1, CELL_3, CELL_1};
 			end
 		7'b0100000:
 			begin
 			data_out <= buffer_rd_data[6*FILTER_BUFFER_DATA_WIDTH-1:5*FILTER_BUFFER_DATA_WIDTH];
-			raw_data_valid <= 1'b1;
+      curr_ref_data.x <= ref_x[5];
+      curr_ref_data.y <= ref_y[5];
+      curr_ref_data.z <= ref_z[5];
+			raw_data_valid  <= 1'b1;
+      ref_cell_id     <= phase ? {CELL_2, CELL_1, CELL_2} : {CELL_1, CELL_3, CELL_3};
 			end
 		7'b1000000:
 			begin
 			data_out <= buffer_rd_data[7*FILTER_BUFFER_DATA_WIDTH-1:6*FILTER_BUFFER_DATA_WIDTH];
-			raw_data_valid <= 1'b1;
+      curr_ref_data.x <= ref_x[6];
+      curr_ref_data.y <= ref_y[6];
+      curr_ref_data.z <= ref_z[6];
+			raw_data_valid  <= 1'b1;
+      ref_cell_id     <= phase ? {CELL_3, CELL_2, CELL_2} : {CELL_1, CELL_1, CELL_3};
 			end
 		default:
 			begin
 			data_out <= 0;
-			raw_data_valid <= 1'b0;
+      curr_ref_data.x <= ref_x[0];
+      curr_ref_data.y <= ref_y[0];
+      curr_ref_data.z <= ref_z[0];
+			raw_data_valid  <= 1'b0;
+      ref_cell_id     <= phase ? {CELL_1, CELL_1, CELL_1} : {CELL_2, CELL_2, CELL_2};
 			end
 	endcase
 	end
@@ -211,9 +310,9 @@ generate
 	(
 		.clk(clk),
 		.rst(rst),
-		.x1(ref_x),
-		.y1(ref_y),
-		.z1(ref_z), 
+		.x1(ref_x[i+1]),
+		.y1(ref_y[i+1]),
+		.z1(ref_z[i+1]), 
 		.x2(nb_x[(i+2)*DATA_WIDTH-1:(i+1)*DATA_WIDTH]),
 		.y2(nb_y[(i+2)*DATA_WIDTH-1:(i+1)*DATA_WIDTH]),
 		.z2(nb_z[(i+2)*DATA_WIDTH-1:(i+1)*DATA_WIDTH]), 
@@ -247,9 +346,9 @@ filter_logic_home
 (
 	.clk(clk),
 	.rst(rst),
-	.x1(ref_x),
-	.y1(ref_y),
-	.z1(ref_z), 
+	.x1(ref_x[0]),
+	.y1(ref_y[0]),
+	.z1(ref_z[0]), 
 	.x2(nb_x[DATA_WIDTH-1:0]),
 	.y2(nb_y[DATA_WIDTH-1:0]),
 	.z2(nb_z[DATA_WIDTH-1:0]), 

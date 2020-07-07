@@ -73,7 +73,7 @@ wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_z;
 wire [PARTICLE_ID_WIDTH-1:0] delay_particle_id;
 wire [PARTICLE_ID_WIDTH-1:0] delay_ref_id;
 wire [NUM_FILTER-1:0] pair_valid;
-wire [NUM_FILTER*3*DATA_WIDTH-1:0] assembled_position;
+wire [3*DATA_WIDTH-1:0] assembled_position;
 
 // Back pressure status of each filter
 wire [NUM_FILTER-1:0] filter_back_pressure;
@@ -91,6 +91,7 @@ wire [DATA_WIDTH-1:0] nb_force_x;
 wire [DATA_WIDTH-1:0] nb_force_y;
 wire [DATA_WIDTH-1:0] nb_force_z;
 wire nb_force_valid;
+wire prev_phase;
 
 // Prepare the data for force evaluation unit
 pos_data_preprocessor
@@ -123,7 +124,8 @@ pos_data_preprocessor
 	.ref_particle_count(ref_particle_num), 
 	.prev_particle_id(delay_particle_id), 
 	.pair_valid(pair_valid),
-	.assembled_position(assembled_position)
+	.assembled_position(assembled_position),
+  .prev_phase(prev_phase)
 );
 
 RL_LJ_Evaluation_Unit
@@ -146,6 +148,7 @@ RL_LJ_Evaluation_Unit
 (
 	.clk(clk),
 	.rst(rst),
+  .phase(prev_phase),
 	.pair_valid(pair_valid),
 	.ref_particle_id(delay_ref_id),
 	.nb_particle_id(delay_particle_id),
