@@ -39,7 +39,7 @@ module RL_Force_Evaluation_Unit
 	input [NUM_FILTER*DATA_WIDTH-1:0] nb_y,
 	input [NUM_FILTER*DATA_WIDTH-1:0] nb_z,
 	
-	output [PARTICLE_ID_WIDTH-1:0] out_ref_particle_id,
+	output [ID_WIDTH-1:0] out_ref_particle_id, //{CELLL_ID_Z, CELL_ID_Y, CELL_ID_X, PARTICLE_ID}
 	output [ID_WIDTH-1:0] out_neighbor_particle_id,
 	output [DATA_WIDTH-1:0] out_RL_Force_X,
 	output [DATA_WIDTH-1:0] out_RL_Force_Y,
@@ -65,7 +65,25 @@ module RL_Force_Evaluation_Unit
 	wire [DATA_WIDTH-1:0] filter_bank_out_dz;
 	wire filter_bank_out_r2_valid;
 
-  wire [2:0][CELL_ID_WIDTH-1:0] ref_cell_id;
+	// Delay registers for reference particles' cell IDs from filter_bank to force output
+  wire [2:0][CELL_ID_WIDTH-1:0] filter_bank_out_ref_cell_id;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg0;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg1;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg2;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg3;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg4;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg5;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg6;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg7;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg8;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg9;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg10;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg11;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg12;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg13;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg14;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg15;
+	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_delayed;
 	
 	// Delay registers for particle IDs from r2_compute to force output
 	wire [ID_WIDTH-1:0] filter_bank_out_neighbor_particle_id;
@@ -90,7 +108,9 @@ module RL_Force_Evaluation_Unit
 	reg [PARTICLE_ID_WIDTH-1:0] reg_ref_id;
 	reg [5:0] ref_delay_counter;
 	// Assign output port
-	assign out_ref_particle_id = reg_ref_id;
+	assign out_ref_particle_id = {ref_cell_id_delayed, reg_ref_id}; 
+  //ref ID does not change every cycle. Therefore, only the cell ID fields are assigned in the filter bank 
+  //alongside neighbor particle ID.
 	assign out_neighbor_particle_id = neighbor_particle_id_delayed;
 	
 	always@(posedge clk)
@@ -145,6 +165,23 @@ module RL_Force_Evaluation_Unit
 			neighbor_particle_id_reg14 <= 0;
 			neighbor_particle_id_reg15 <= 0;
 			neighbor_particle_id_delayed <= 0;
+			ref_cell_id_reg0    <= 0;
+			ref_cell_id_reg1    <= 0;
+			ref_cell_id_reg2    <= 0;
+			ref_cell_id_reg3    <= 0;
+			ref_cell_id_reg4    <= 0;
+			ref_cell_id_reg5    <= 0;
+			ref_cell_id_reg6    <= 0;
+			ref_cell_id_reg7    <= 0;
+			ref_cell_id_reg8    <= 0;
+			ref_cell_id_reg9    <= 0;
+			ref_cell_id_reg10   <= 0;
+			ref_cell_id_reg11   <= 0;
+			ref_cell_id_reg12   <= 0;
+			ref_cell_id_reg13   <= 0;
+			ref_cell_id_reg14   <= 0;
+			ref_cell_id_reg15   <= 0;
+			ref_cell_id_delayed <= 0;
 			end
 		else
 			begin
@@ -162,6 +199,20 @@ module RL_Force_Evaluation_Unit
 			neighbor_particle_id_reg11 <= neighbor_particle_id_reg10;
 			neighbor_particle_id_reg12 <= neighbor_particle_id_reg11;
 			neighbor_particle_id_delayed <= neighbor_particle_id_reg12;
+			ref_cell_id_reg0    <= filter_bank_out_ref_cell_id;
+			ref_cell_id_reg1    <= ref_cell_id_reg0;
+			ref_cell_id_reg2    <= ref_cell_id_reg1;
+			ref_cell_id_reg3    <= ref_cell_id_reg2;
+			ref_cell_id_reg4    <= ref_cell_id_reg3;
+			ref_cell_id_reg5    <= ref_cell_id_reg4;
+			ref_cell_id_reg6    <= ref_cell_id_reg5;
+			ref_cell_id_reg7    <= ref_cell_id_reg6;
+			ref_cell_id_reg8    <= ref_cell_id_reg7;
+			ref_cell_id_reg9    <= ref_cell_id_reg8;
+			ref_cell_id_reg10   <= ref_cell_id_reg9;
+			ref_cell_id_reg11   <= ref_cell_id_reg10;
+			ref_cell_id_reg12   <= ref_cell_id_reg11;
+			ref_cell_id_delayed <= ref_cell_id_reg12;
 			end
 		end
 
@@ -197,7 +248,7 @@ module RL_Force_Evaluation_Unit
 		.nb_z(nb_z),
 		
 		.nb_id_out(filter_bank_out_neighbor_particle_id),
-    .ref_cell_id_out(ref_cell_id),
+    .ref_cell_id_out(filter_bank_out_ref_cell_id),
 		.r2_out(filter_bank_out_r2),
 		.dx_out(filter_bank_out_dx),
 		.dy_out(filter_bank_out_dy),
