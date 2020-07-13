@@ -105,6 +105,25 @@ module Partial_Force_Acc
   // Cell ID values to be compared with input particle IDs.
   wire [2:0][CELL_ID_WIDTH-1:0] cell_id1, cell_id2;
 
+  // Track whether there is a valid accumulated value to be written back. Some of the accumulators 
+  // may not have a value to be writtenback because of the different neighbor cells having different 
+  // particle counts and certain neighbors not having a valid reference particle for the current iteration.
+  reg valid_wb_value;
+
+  always @(posedge clk)begin
+    if(rst)
+      valid_wb_value <= 1'b0;
+    else begin
+      if((acc_force_x_in_wire == 0) & (acc_force_y_in_wire == 0) & (acc_force_z_in_wire == 0))
+        valid_wb_value <= 1'b0;
+      else if((partial_force_x_in_wire != 0) | (partial_force_y_in_wire != 0) | (acc_force_z_in_wire != 0))
+        valid_wb_value <= 1'b1;
+      else
+        valid_wb_value <= valid_wb_value;
+    end
+  end
+
+
   always_comb begin
     case(ACC_ID)
       0: {cell_id1, cell_id2} = {CELL_2, CELL_2, CELL_2, CELL_1, CELL_1, CELL_1};
@@ -134,12 +153,13 @@ module Partial_Force_Acc
 			out_particle_acc_force_y <= acc_value_out_y;
 			out_particle_acc_force_z <= acc_value_out_z;
       if(~particle_id_match)begin // next ref particle
-        out_acc_force_valid      <= 1'b1;  
+        out_acc_force_valid      <= valid_wb_value;  
         cur_particle_id.particle <= in_id.particle;
         cur_particle_id.cell_id  <= cell_id1;
       end
       else if(phase_change)begin // switch from phase 0 to 1
-        out_acc_force_valid      <= 1'b1;  
+        out_acc_force_valid      <= (cell_id1 == {CELL_2, CELL_2, CELL_2}) ? 1'b0 : valid_wb_value;
+        // Don't writeback accumulated value if the reference particle is from the home cell.
         cur_particle_id.cell_id  <= cell_id2;
       end
       else begin
