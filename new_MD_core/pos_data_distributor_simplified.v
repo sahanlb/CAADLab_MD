@@ -31,7 +31,7 @@ module pos_data_distributor_simplified
 	// If done broadcasting, set the neighbor particle to invalid
 	input [NUM_NEIGHBOR_CELLS:0] broadcast_done, 
 	// If the reference particle has just been read, set invalid since it does not interact with itself
-	input ref_not_read_yet, 
+	input read_ref_particle, 
 	// If the reference particle is invalid, all neighbor particles are invalid
 	input [NUM_FILTER-1:0] ref_valid, 
 	
@@ -54,7 +54,7 @@ always@(*)
 		begin
 		if (phase == 1'b0)
 			begin
-			pair_valid[0] = ~(broadcast_done[0] || ref_not_read_yet) & ref_valid[0];
+			pair_valid[0] = ~broadcast_done[0] & ~read_ref_particle & ref_valid[0];
 			pair_valid[6:1] = ~broadcast_done[6:1] & ref_valid[6:1];
 			end
 		else

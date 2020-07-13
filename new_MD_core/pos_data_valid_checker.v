@@ -14,13 +14,14 @@ module pos_data_valid_checker
 	input [PARTICLE_ID_WIDTH-1:0] particle_id, 
 	input [PARTICLE_ID_WIDTH-1:0] ref_particle_count, 
 	
-	output ref_not_read_yet, 
+	output read_ref_particle, 
 	output reading_done, 
 	output ref_valid
 );
 
 // If phase 1, the bit is disabled in pos_data_distributor
-assign ref_not_read_yet = (particle_id < ref_id);
+assign read_ref_particle = (particle_id == ref_id);
+
 assign reading_done = (ref_id > ref_particle_count) & (ref_particle_count != 0);
 // If reading number of particles, all pairs should be invalid 
 assign ref_valid = ref_id < ref_particle_count & ~reading_particle_num;
