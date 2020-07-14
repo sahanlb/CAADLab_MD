@@ -49,7 +49,8 @@ module Partial_Force_Acc
 	output reg [DATA_WIDTH-1:0] out_particle_acc_force_x,
 	output reg [DATA_WIDTH-1:0] out_particle_acc_force_y,
 	output reg [DATA_WIDTH-1:0] out_particle_acc_force_z,
-	output reg out_acc_force_valid											// only set as valid when the particle_id changes, which means the accumulation for the current particle is done
+	output reg out_acc_force_valid,
+  output reg start_wb // signal to downstream modules to start force writebacks for reference particles
 );
 
   typedef struct{
@@ -146,6 +147,7 @@ module Partial_Force_Acc
 			out_particle_acc_force_y <= 0;
 			out_particle_acc_force_z <= 0;
 			out_acc_force_valid      <= 1'b0;
+      start_wb                 <= 1'b0;
     end
     else begin
 			out_particle_id          <= cur_particle_id;
@@ -154,6 +156,7 @@ module Partial_Force_Acc
 			out_particle_acc_force_z <= acc_value_out_z;
       if(~particle_id_match)begin // next ref particle
         out_acc_force_valid      <= valid_wb_value;  
+        start_wb                 <= 1'b1;
         cur_particle_id.particle <= in_id.particle;
         cur_particle_id.cell_id  <= cell_id1;
       end
@@ -164,6 +167,7 @@ module Partial_Force_Acc
       end
       else begin
         out_acc_force_valid <= 1'b0;
+        start_wb            <= 1'b0;
         cur_particle_id     <= cur_particle_id;
       end
     end

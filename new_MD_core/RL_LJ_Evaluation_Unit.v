@@ -93,6 +93,7 @@ module RL_LJ_Evaluation_Unit
 	output [NUM_FILTER-1:0][DATA_WIDTH-1:0] out_ref_LJ_Force_Y,
 	output [NUM_FILTER-1:0][DATA_WIDTH-1:0] out_ref_LJ_Force_Z,
 	output [NUM_FILTER-1:0] out_ref_force_valid,
+	output out_start_wb,
 	// Output partial force for neighbor particles
 	// The output value should be the minus value of the calculated force data
 	// Connected to neighbor cells, if the neighbor paritle comes from the home cell, then discard, since the value will be recalculated when evaluating this particle as reference one
@@ -104,6 +105,11 @@ module RL_LJ_Evaluation_Unit
 );
 	
 	wire [ID_WIDTH-1:0] ref_particle_id_wire;				// Wires sending from RL_LJ_Force_Evaluation_Unit to Partial_Force_Acc
+
+  
+	wire [NUM_FILTER-1:0] start_wb;
+
+  assign out_start_wb = start_wb[0];
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Wires for assigning the output neighbor particle partial force value
@@ -214,7 +220,8 @@ module RL_LJ_Evaluation_Unit
 	    	.out_particle_acc_force_x(out_ref_LJ_Force_X[i]),
 	    	.out_particle_acc_force_y(out_ref_LJ_Force_Y[i]),
 	    	.out_particle_acc_force_z(out_ref_LJ_Force_Z[i]),
-	    	.out_acc_force_valid(out_ref_force_valid[i])
+	    	.out_acc_force_valid(out_ref_force_valid[i]),
+        .start_wb(start_wb[i]),
 	    );
     end
   endgenerate
