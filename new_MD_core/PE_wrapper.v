@@ -52,7 +52,7 @@ module PE_wrapper
 	
 	// From preprocessor
 	output [NUM_FILTER-1:0] reading_done, 
-	output [NUM_FILTER-1:0][PARTICLE_ID_WIDTH-1:0] ref_particle_num, 
+	output [PARTICLE_ID_WIDTH-1:0] ref_particle_num, 
 	// From force evaluation
 	output back_pressure,
 	output all_buffer_empty,

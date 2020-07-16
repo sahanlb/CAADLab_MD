@@ -38,7 +38,7 @@ module pos_data_preprocessor
 	output [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_z,
 	output reg [PARTICLE_ID_WIDTH-1:0] prev_particle_id, 
 	output reg [PARTICLE_ID_WIDTH-1:0] prev_ref_id, 
-	output [NUM_FILTER-1:0][PARTICLE_ID_WIDTH-1:0] ref_particle_count, 
+	output [PARTICLE_ID_WIDTH-1:0] ref_particle_count, 
 	output [NUM_FILTER-1:0] pair_valid,
 	output [3*DATA_WIDTH-1:0] assembled_position,
   output reg prev_phase
@@ -59,6 +59,15 @@ reg [(NUM_NEIGHBOR_CELLS+1)*3*OFFSET_WIDTH-1:0] prev_rd_nb_position;
 
 wire [NUM_FILTER-1:0] read_ref_particle;
 wire [NUM_FILTER-1:0] ref_valid;
+
+// Internal wires connected to ref_particle_count ports of ref_data_extractors
+// Only one signal is sent out. Outside modules only need the particle counts to decide when the ref_id 
+// is higher than particle counts of all cells.
+// If each cell sends out ref_particle_count from one ref_data_extractor, all cells are covered due to 
+// the same neighbor selection by all PEs.
+wire [NUM_FILTER-1:0][PARTICLE_ID_WIDTH-1:0] i_ref_particle_count, 
+
+assign ref_particle_count = i_ref_particle_count[0];
 
 //array of position data structures
 pos_data_t [NUM_NEIGHBOR_CELLS:0] nb_position; //NUM_NEIGHBOR_CELLS+1
@@ -105,7 +114,7 @@ generate
     	.particle_id(particle_id),
     	.ref_id(ref_id),
     	
-    	.ref_particle_count(ref_particle_count[i]), 
+    	.ref_particle_count(i_ref_particle_count[i]), 
     	.ref_x(ref_x[i]),
     	.ref_y(ref_y[i]),
     	.ref_z(ref_z[i])
@@ -127,7 +136,7 @@ generate
     	.reading_particle_num(prev_reading_particle_num), 
     	.ref_id(prev_ref_id),
     	.particle_id(prev_particle_id),
-    	.ref_particle_count(ref_particle_count[i]),
+    	.ref_particle_count(i_ref_particle_count[i]),
     	
     	.read_ref_particle(read_ref_particle[i]),
     	.reading_done(reading_done[i]), 
