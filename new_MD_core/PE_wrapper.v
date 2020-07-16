@@ -6,16 +6,17 @@
 module PE_wrapper
 #(
 	// Data width
-	parameter OFFSET_WIDTH = 29, 
-	parameter DATA_WIDTH = 32,
-	parameter CELL_ID_WIDTH = 3,
-	parameter DECIMAL_ADDR_WIDTH = 2, 
-	parameter PARTICLE_ID_WIDTH = 7, 
-	parameter BODY_BITS = 8, 
-	parameter ID_WIDTH = 3*CELL_ID_WIDTH+PARTICLE_ID_WIDTH,
-	parameter FULL_CELL_ID_WIDTH = 3*CELL_ID_WIDTH, 
+	parameter OFFSET_WIDTH             = 29, 
+	parameter DATA_WIDTH               = 32,
+	parameter CELL_ID_WIDTH            = 3,
+	parameter DECIMAL_ADDR_WIDTH       = 2, 
+	parameter PARTICLE_ID_WIDTH        = 7, 
+	parameter BODY_BITS                = 8, 
+	parameter ID_WIDTH                 = 3*CELL_ID_WIDTH+PARTICLE_ID_WIDTH,
+	parameter FULL_CELL_ID_WIDTH       = 3*CELL_ID_WIDTH, 
 	parameter FILTER_BUFFER_DATA_WIDTH = PARTICLE_ID_WIDTH+3*DATA_WIDTH, 
-	parameter FORCE_BUFFER_WIDTH = 3*DATA_WIDTH+PARTICLE_ID_WIDTH+1, 
+	parameter FORCE_BUFFER_WIDTH       = 3*DATA_WIDTH+PARTICLE_ID_WIDTH+1, 
+  parameter WB_WIDTH                 = ID_WIDTH + 3*DATA_WIDTH 
 	
 	// Constants
 	parameter SQRT_2 = 10'b0101101011,
@@ -46,6 +47,8 @@ module PE_wrapper
 	input [PARTICLE_ID_WIDTH-1:0] particle_id, 
 	input [PARTICLE_ID_WIDTH-1:0] ref_particle_id, 
 	input [NUM_FILTER-1:0] write_success, 
+  //from ring interconnect
+  input ready,
 	
 	// From preprocessor
 	output [NUM_FILTER-1:0] reading_done, 
@@ -53,8 +56,10 @@ module PE_wrapper
 	// From force evaluation
 	output back_pressure,
 	output all_buffer_empty,
-	output [NUM_FILTER*FORCE_BUFFER_WIDTH-1:0] force_data_out, 
-	output [NUM_FILTER-1:0] output_force_valid
+	output [WB_WIDTH-1:0] force_data_out, 
+	output output_force_valid,
+  // From force_distributor
+  output all_ref_wb_issued
 );
 
 // Raw success signal is 14-bit long, merge so it becomes 7-bit long
@@ -81,17 +86,18 @@ assign back_pressure = (filter_back_pressure == 0) ? 1'b0 : 1'b1;
 
 //wire all_buffer_empty;
 // Do not need cell id because it's 222
-wire [PARTICLE_ID_WIDTH-1:0] out_ref_particle_id;
-wire [DATA_WIDTH-1:0] ref_force_x;
-wire [DATA_WIDTH-1:0] ref_force_y;
-wire [DATA_WIDTH-1:0] ref_force_z;
-wire ref_force_valid;
+wire [NUM_FILTER-1:0][PARTICLE_ID_WIDTH-1:0] out_ref_particle_id;
+wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_force_x;
+wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_force_y;
+wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_force_z;
+wire [NUM_FILTER-1:0] ref_force_valid;
 wire [ID_WIDTH-1:0] out_neighbor_particle_id;
 wire [DATA_WIDTH-1:0] nb_force_x;
 wire [DATA_WIDTH-1:0] nb_force_y;
 wire [DATA_WIDTH-1:0] nb_force_z;
 wire nb_force_valid;
 wire prev_phase;
+wire start_wb;
 
 // Prepare the data for force evaluation unit
 pos_data_preprocessor
@@ -164,6 +170,7 @@ RL_LJ_Evaluation_Unit
 	.out_ref_LJ_Force_Y(ref_force_y),
 	.out_ref_LJ_Force_Z(ref_force_z),
 	.out_ref_force_valid(ref_force_valid),
+  .out_start_wb(start_wb),
 	.out_neighbor_particle_id(out_neighbor_particle_id),
 	.out_neighbor_LJ_Force_X(nb_force_x),
 	.out_neighbor_LJ_Force_Y(nb_force_y),
@@ -185,6 +192,7 @@ force_distributor
 (
 	.clk(clk), 
 	.rst(rst), 
+  .start_wb(start_wb),
 	.ref_force_x(ref_force_x),
 	.ref_force_y(ref_force_y),
 	.ref_force_z(ref_force_z),
@@ -195,11 +203,11 @@ force_distributor
 	.force_z(nb_force_z),
 	.nb_id(out_neighbor_particle_id),
 	.force_valid(nb_force_valid),
-	.write_success(write_success),
+  .ready(ready),
 	
-	.force_buffer_data_out(force_data_out),
-	.output_force_valid(output_force_valid), 
-	.force_buffer_usedw()
+  .wb_out(force_data_out),
+  .wb_valid(output_force_valid),
+  .all_ref_wb_issued(all_ref_wb_issued)
 );
 
 endmodule
