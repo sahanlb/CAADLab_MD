@@ -31,7 +31,6 @@ reg start;
 
 // Output from PE
 wire [NUM_CELLS-1:0] reading_done; 
-wire [NUM_CELLS*PARTICLE_ID_WIDTH-1:0] particle_num; 
 wire [NUM_CELLS-1:0] back_pressure; 
 wire [NUM_CELLS-1:0] filter_buffer_empty; 
 wire [NUM_CELLS*NUM_FILTER*FORCE_BUFFER_WIDTH-1:0] force_data; 
@@ -88,7 +87,6 @@ RL_top
 	.start(start),
 	
 	.reading_done(reading_done),
-	.particle_num(particle_num),
 	.back_pressure(back_pressure),
 	.filter_buffer_empty(filter_buffer_empty),
 	.force_data(force_data),
