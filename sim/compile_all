@@ -1,0 +1,2 @@
+vlog -work work ../new_MD_core/*.v
+vlog -work work ../new_MD_core/*.sv
