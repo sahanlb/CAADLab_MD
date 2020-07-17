@@ -58,7 +58,7 @@ reg [(NUM_NEIGHBOR_CELLS+1)*3*OFFSET_WIDTH-1:0] prev_rd_nb_position;
 
 reg [PARTICLE_ID_WIDTH-1:0] home_particle_count;
 
-wire [NUM_FILTER-1:0] read_ref_particle;
+wire [NUM_FILTER-1:0] ref_particle_read;
 wire [NUM_FILTER-1:0] ref_valid;
 
 wire broadcast_done;
@@ -153,7 +153,7 @@ generate
     	.particle_id(prev_particle_id),
     	.ref_particle_count(i_ref_particle_count[i]),
     	
-    	.read_ref_particle(read_ref_particle[i]),
+    	.ref_particle_read(ref_particle_read[i]),
     	.reading_done(), 
     	.ref_valid(ref_valid[i])
     );
@@ -181,7 +181,7 @@ pos_data_distributor
 	.pause_reading(prev_pause_reading), 
 	.rd_nb_position(prev_rd_nb_position),
 	.broadcast_done(prev_broadcast_done),
-	.read_ref_particle(read_ref_particle[0]), //only useful for home cell
+	.ref_particle_read(ref_particle_read[0]), //only useful for home cell
 	.ref_valid(ref_valid),
 	
 	.pair_valid(pair_valid),

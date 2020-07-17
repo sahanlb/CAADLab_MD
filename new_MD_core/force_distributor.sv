@@ -50,10 +50,9 @@ unsigned int i;
 reg [5:0] counter;
 
 // registers to store accumulated forces
-// Only need 13 since accumulated force is not written back
-reg [3*DATA_WIDTH-1:0][12:0] force_reg;
-reg [ID_WIDTH-1][12:0] force_id_reg;
-reg [12:0] force_reg_valid;
+reg [3*DATA_WIDTH-1:0][13:0] force_reg;
+reg [ID_WIDTH-1][13:0] force_id_reg;
+reg [13:0] force_reg_valid;
 
 //state machine
 always_ff @(posedge clk)begin
@@ -73,22 +72,17 @@ always_ff @(posedge clk)begin
         wb_valid          <= force_valid;
         wb_out            <= {nb_id, force_z, force_y, force_x};
         //capture force on reference particles
-        if(ref_force_valid[0] & ref_id[0][ID_WIDTH-1 -: 3*CELL_ID_WIDTH] != CELL_222)begin
-          force_reg[NUM_FILTER-1]       <= {ref_force_z[0], ref_force_y[0], ref_force_x[0]};
-          force_id_reg[NUM_FILTER-1]    <= ref_id[0];
-          force_reg_valid[NUM_FILTER-1] <= 1'b1;
-        end
-        for(i=1; i<NUM_FILTER; i++)begin
+        for(i=0; i<NUM_FILTER; i++)begin
           if(ref_force_valid[i])begin
             if(ref_id[0][ID_WIDTH-1 -: 3*CELL_ID_WIDTH] == CELL_222)begin //phase 0
-              force_reg[i-1]       <= {ref_force_z[i], ref_force_y[i], ref_force_x[i]};
-              force_id_reg[i-1]    <= ref_id[i];
-              force_reg_valid[i-1] <= 1'b1;
+              force_reg[i]       <= {ref_force_z[i], ref_force_y[i], ref_force_x[i]};
+              force_id_reg[i]    <= ref_id[i];
+              force_reg_valid[i] <= 1'b1;
             end
             else begin
-              force_reg[i+NUM_FILTER-1]       <= {ref_force_z[i], ref_force_y[i], ref_force_x[i]};
-              force_id_reg[i+NUM_FILTER-1]    <= ref_id[i];
-              force_reg_valid[i+NUM_FILTER-1] <= 1'b1;
+              force_reg[i+NUM_FILTER]       <= {ref_force_z[i], ref_force_y[i], ref_force_x[i]};
+              force_id_reg[i+NUM_FILTER]    <= ref_id[i];
+              force_reg_valid[i+NUM_FILTER] <= 1'b1;
             end
           end 
         end
@@ -101,7 +95,7 @@ always_ff @(posedge clk)begin
           state <= ACTIVE;
         end
       end
-      WAIT:begin // Make sure no more writebacks intended for the home cell foce cache is left in the pipeline
+      WAIT:begin // Make sure no more writebacks intended for the home cell foce cache are left in the pipeline
         wb_valid <= force_valid;
         wb_out   <= {nb_id, force_z, force_y, force_x};
         if(force_valid | counter == WAIT_CYCLES)
@@ -116,7 +110,7 @@ always_ff @(posedge clk)begin
       WB_REF:begin
         wb_valid <= force_reg_valid[counter];
         wb_out   <= {force_id_reg[counter], force_reg[counter]};
-        if(ready & counter == 12)begin
+        if(ready & counter == 13)begin
           all_ref_wb_issued <= 1'b1;
           state             <= ACTIVE;
         end
