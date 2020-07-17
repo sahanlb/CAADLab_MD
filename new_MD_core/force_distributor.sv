@@ -127,4 +127,16 @@ always_ff @(posedge clk)begin
   end
 end
 
+/* This piece of code is only here for debug purposes. Will be removed after verifying functionality*/
+always @(negedge clk)begin
+  if(force_valid & ~ready)begin
+    $display("Neighbor particle force writeback issued when network is not ready!");
+    $display("Instance: %m");
+    $stop();
+  end
+end
+
+
+
+
 endmodule

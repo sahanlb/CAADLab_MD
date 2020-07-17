@@ -2,12 +2,6 @@ module broadcast_controller
 #(
 	parameter NUM_CELLS = 64, 
 	parameter PARTICLE_ID_WIDTH = 7, 
-	
-	// FSM parameters
-	parameter WAIT_FOR_START = 2'b00, 
-	parameter READ_PARTICLE_NUM = 2'b01, 
-	parameter READING = 2'b10, 
-	parameter WAIT_NEXT_REF = 2'b11
 )
 (
 	input clk, 
@@ -18,7 +12,8 @@ module broadcast_controller
 	input [NUM_CELLS-1:0] filter_buffer_empty, 
 	// Returned from PEs, if ref id > particle num
 	input [NUM_CELLS-1:0] reading_done, 
-	input all_force_wr_issued, 
+	input all_force_wr_issued, // Includes the time to flush out all packets from the interconnect.
+  input all_ref_wb_issued,
 	
 	// Partial flag for motion update start
 	output all_reading_done, 
@@ -29,8 +24,17 @@ module broadcast_controller
 	// Tell the data receiving end that the data is the number of particles
 	output reg reading_particle_num, 
 	// Invalidate all pairs to force evaluation unit
-	output reg pause_reading
+	output reg pause_reading,
+  output goto_next_ref // indicating that controller is not waiting for the interconnect to be empty and moving to the next ref ID.
 );
+
+// FSM state encoding
+localparam WAIT_FOR_START    = 3'd0; 
+localparam READ_PARTICLE_NUM = 3'd1; 
+localparam READING           = 3'd2; 
+localparam WAIT_PHASE_CHANGE = 3'd3;
+localparam WAIT_NEXT_REF     = 3'd4;
+
 
 // Flags returned from lower modules
 assign all_reading_done = &reading_done;
@@ -52,7 +56,7 @@ always@(posedge clk)
 	prev_phase <= phase;
 	end
 
-reg [1:0] state;
+reg [2:0] state;
 
 always@(posedge clk)
 	begin
@@ -117,30 +121,6 @@ always@(posedge clk)
 			READING: 
 				begin
 				reading_particle_num <= 1'b0;
-				// Reading is done for this iteration
-//				if (all_reading_done)
-//					begin
-//					if (all_force_wr_issued)
-//						begin
-//						state <= WAIT_FOR_START;
-//						ref_id <= 7'b0000001;
-//						phase <= 1'b0;
-//						particle_id <= 0;
-//						pause_reading <= 1'b1;
-//						end
-//					// Wait for all force wr to be issued for mu start
-//					else
-//						begin
-//						state <= state;
-//						ref_id <= ref_id;
-//						phase <= phase;
-//						particle_id <= particle_id;
-//						pause_reading <= 1'b1;
-//						end
-//					end
-//				// Still in the same iteration
-//				else
-//					begin
 					// Enter next phase, reset particle id
 					if (all_broadcast_done)
 						begin
@@ -149,9 +129,9 @@ always@(posedge clk)
 						// Still the same ref particle
 						if (phase == 1'b0)
 							begin
-							state <= READING;
+							state <= WAIT_PHASE_CHANGE;
 							ref_id <= ref_id;
-							pause_reading <= 1'b0;
+							pause_reading <= 1'b1;
 							end
 						else
 							begin
@@ -180,13 +160,20 @@ always@(posedge clk)
 							pause_reading <= 1'b0;
 							end
 						end
-//					end
 				end
+      WAIT_PHASE_CHANGE:begin
+        if(all_filter_buffer_empty)begin
+          pause_reading <= 1'b0;
+          state         <= READING;
+        end
+        else
+          state <= WAIT_PHASE_CHANGE;
+      end
 			// Phase 1 to phase 0 transition
 			WAIT_NEXT_REF:
 				begin
 				reading_particle_num <= 1'b0;
-//				// We don't know how long this state lasts, so all readings done may happen in this state
+				// We don't know how long this state lasts, so all readings done may happen in this state
 				if (all_reading_done)
 					begin
 					if (all_force_wr_issued)
@@ -213,7 +200,7 @@ always@(posedge clk)
 					particle_id <= particle_id;
 					phase <= phase;
 					// This means normal reading can continue
-					if (all_filter_buffer_empty)
+					if (all_filter_buffer_empty & all_ref_wb_issued)
 						begin
 						state <= READING;
 						pause_reading <= 1'b0;
@@ -228,6 +215,11 @@ always@(posedge clk)
 		endcase
 		end
 	end
+
+assign goto_next_ref = ((state == WAIT_PHASE_CHANGE) & all_filter_buffer_empty) |
+                       ((state == WAIT_NEXT_REF) & ~all_reading_done & 
+                       all_filter_buffer_empty & all_ref_wb_issued);
+
 
 genvar i;
 generate

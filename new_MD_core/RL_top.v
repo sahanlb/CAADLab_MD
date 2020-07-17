@@ -7,17 +7,19 @@ module RL_top
 	parameter CELL_ID_WIDTH = 3,
 	parameter DECIMAL_ADDR_WIDTH = 2, 
 	parameter PARTICLE_ID_WIDTH = 7, 
-	parameter X_DIM = 4, 
-	parameter Y_DIM = 4, 
-	parameter Z_DIM = 4, 
+	parameter XSIZE = 4, 
+	parameter YSIZE = 4, 
+	parameter ZSIZE = 4, 
 	parameter BODY_BITS = 8, 
 	parameter ID_WIDTH = 3*CELL_ID_WIDTH+PARTICLE_ID_WIDTH,
+  parameter NODE_ID_WIDTH     = $clog2(NUM_CELLS),
 	parameter FULL_CELL_ID_WIDTH = 3*CELL_ID_WIDTH, 
 	parameter FILTER_BUFFER_DATA_WIDTH = PARTICLE_ID_WIDTH+3*DATA_WIDTH, 
 	parameter FORCE_BUFFER_WIDTH = 3*DATA_WIDTH+PARTICLE_ID_WIDTH+1, 
 	parameter FORCE_DATA_WIDTH = FORCE_BUFFER_WIDTH-1, 
 	parameter FORCE_CACHE_WIDTH = 3*DATA_WIDTH, 
   parameter FORCE_WB_WIDTH     = ID_WIDTH + 3*DATA_WIDTH 
+  parameter PACKET_WIDTH      = FORCE_DATA_WIDTH + NODE_ID_WIDTH,
 	parameter POS_CACHE_WIDTH = 3*OFFSET_WIDTH, 
 	parameter VELOCITY_CACHE_WIDTH = 3*DATA_WIDTH, 
 	parameter NUM_FILTER = 7, 
@@ -42,7 +44,7 @@ assign force_valid_and = &force_valid;
 // Output from PE
 wire [NUM_CELLS*PARTICLE_ID_WIDTH-1:0] particle_num;
 wire [NUM_CELLS*FORCE_WB_WIDTH-1:0] force_data;
-wire all_ref_wb_issued;
+wire [NUM_CELLS-1:0] ref_wb_issued;
 
 // Input for broadcast controller
 //wire iter_start;
@@ -60,10 +62,12 @@ wire [PARTICLE_ID_WIDTH-1:0] ref_particle_id;
 wire [NUM_CELLS*NUM_FILTER-1:0] force_cache_write_success;
 wire [NUM_CELLS*ALL_POSITION_WIDTH-1:0] rd_nb_position_splitted;
 wire [NUM_CELLS*(NUM_NEIGHBOR_CELLS+1)-1:0] broadcast_done_splitted;
+wire [NUM_CELLS-1:0] interconnect_ready;
 
-// Output from force writeback arbitration unit
+// Force writeback
 wire [NUM_CELLS*FORCE_DATA_WIDTH-1:0] force_to_caches;
 wire [NUM_CELLS-1:0] force_wr_enable;
+wire [NUM_CELLS*PACKET_WIDTH-1:0] packets_to_ring;
 
 // MU inputs
 wire motion_update_start;
@@ -73,9 +77,9 @@ wire [NUM_CELLS*POS_CACHE_WIDTH-1:0] rd_nb_position;
 
 wire all_force_wr_issued;		// all force writings are issued
 wire force_cache_input_buffer_empty;		// all force_wb_controller buffers are empty
-//TODO: Redo both these signals. force_wr_enable is no longer available
-assign all_force_wr_issued = (force_wr_enable == 0 & force_cache_input_buffer_empty & all_filter_buffer_empty);
-assign motion_update_start = all_reading_done & all_force_wr_issued; //TODO: Add signal/modify to capture packets in the network.
+assign all_force_wr_issued = (force_wr_enable == 0) & force_cache_input_buffer_empty & all_filter_buffer_empty & all_ref_wb_issued & interconnect_empty;
+// all_ref_wb_issued captures captures the relevant signals from all PEs. interconnect_empty is set after waiting for NUM_CELLS cycles after the final writeback is issued.
+assign motion_update_start = all_reading_done & all_force_wr_issued;
 
 
 // MU outputs
@@ -106,6 +110,50 @@ reg delay_reading_particle_num;
 
 reg reg_pause_reading;
 reg delay_pause_reading;
+
+// Capture all ref_wb_issued signals and wait for the packets to leave the interconnect
+integer k;
+reg [NUM_CELLS-1:0] r_ref_wb_issued;
+reg all_ref_wb_issued;
+reg [$clog2(NUM_CELLS):0] drain_counter;
+wire interconnect_empty;
+wire goto_next_ref;
+
+assign interconnect_empty = (drain_counter == NUM_CELLS);
+
+always @(posedge clk)begin
+  if(rst)begin
+    r_ref_wb_issued   <= {NUM_CELLS{1'b0}};
+    all_ref_wb_issued <= 1'b0;
+    drain_counter     <= 0;
+  end
+  else begin
+    case(all_ref_wb_issued)
+      1'b0:begin
+        if(&r_ref_wb_issued)begin // All PEs are done writing back ref particle forces
+          all_ref_wb_issued <= 1'b1;
+          drain_counter     <= 0;
+        end
+        else begin
+          for(k=0; k<NUM_CELLS; k=k+1)begin
+            r_ref_wb_issued[k] <= ref_wb_issued[k] ? 1'b1 : r_ref_wb_issued[k];
+          end 
+        end
+      end
+      1'b1:begin
+        if((drain_counter == NUM_CELLS) | goto_next_ref)begin
+          drain_counter     <= 0;
+          all_ref_wb_issued <= 1'b0; 
+          r_ref_wb_issued   <= {NUM_CELLS{1'b0}};
+        end
+        else begin
+          drain_counter     <= drain_counter + 1'b1;
+        end
+      end
+    endcase
+  end
+end
+
 
 // Delay the signals coming from broadcast controller because of reading (2 cycles delay)
 always@(posedge clk)
@@ -161,6 +209,7 @@ generate
 			.ref_particle_id(delay_ref_id),
 			.rd_nb_position(rd_nb_position_splitted[(i+1)*ALL_POSITION_WIDTH-1:i*ALL_POSITION_WIDTH]),
 			.write_success(force_cache_write_success[(i+1)*NUM_FILTER-1:i*NUM_FILTER]), 
+      .ready(interconnect_ready[i]),
 			
 			.reading_done(reading_done[i]),
 			.ref_particle_num(particle_num[(i+1)*PARTICLE_ID_WIDTH-1:i*PARTICLE_ID_WIDTH]),
@@ -168,7 +217,7 @@ generate
 			.all_buffer_empty(filter_buffer_empty[i]),
 			.force_data_out(force_data[i*FORCE_WB_WIDTH +: FORCE_WB_WIDTH]),
 			.output_force_valid(force_valid[i])
-      .all_ref_wb_issued(all_ref_wb_issued)
+      .all_ref_wb_issued(ref_wb_issued[i])
 		);
 		end
 endgenerate
@@ -188,6 +237,7 @@ broadcast_controller
 	.filter_buffer_empty(filter_buffer_empty),
 	.reading_done(reading_done),
 	.all_force_wr_issued(all_force_wr_issued), 
+  .all_ref_wb_issued(all_ref_wb_issued),
 	
 	.all_reading_done(all_reading_done), 
 	.all_filter_buffer_empty(all_filter_buffer_empty), 
@@ -195,7 +245,8 @@ broadcast_controller
 	.ref_id(ref_particle_id),
 	.phase(phase),
 	.reading_particle_num(reading_particle_num),
-	.pause_reading(pause_reading)
+	.pause_reading(pause_reading),
+  .goto_next_ref(goto_next_ref)
 );
 
 position_cache_to_PE_mapping
@@ -214,7 +265,7 @@ position_cache_to_PE_mapping
 	.broadcast_done_splitted(broadcast_done_splitted)
 );
 
-force_writeback_arbitration_unit
+/*force_writeback_arbitration_unit
 #(
 	.NUM_CELLS(NUM_CELLS),
 	.NUM_NEIGHBOR_CELLS(NUM_NEIGHBOR_CELLS),
@@ -236,7 +287,40 @@ force_writeback_arbitration_unit
 	.force_to_caches(force_to_caches),
 	.force_wr_enable(force_wr_enable),
 	.force_cache_write_success(force_cache_write_success)
+);*/
+
+// destination ID map
+destination_id_map #(
+  .NUM_CELLS(NUM_CELLS),
+  .DATA_WIDTH(DATA_WIDTH),
+	.CELL_ID_WIDTH(CELL_ID_WIDTH), 
+  .PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
+  .XSIZE(XSIZE),
+  .YSIZE(YSIZE),
+  .ZSIZE(ZSIZE)
+) dest_map (
+  .wb_in(force_data),
+  
+  .pkt_out(packets_to_ring) 
 );
+
+
+// Ring interconnect
+ring #(
+  .NUM_CELLS(NUM_CELLS),
+  .DATA_WIDTH(DATA_WIDTH),
+  .PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
+) interconnect (
+  .clk(clk),
+  .rst(rst),
+  .packet_in(packets_to_ring),
+  .packet_valid(force_valid),
+
+  .ready(interconnect_ready),
+  .data_valid(force_wr_enable),
+  .data_out(force_to_caches)
+);
+
 
 all_force_caches
 #(
