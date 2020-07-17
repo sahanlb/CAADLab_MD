@@ -17,6 +17,7 @@ module RL_top
 	parameter FORCE_BUFFER_WIDTH = 3*DATA_WIDTH+PARTICLE_ID_WIDTH+1, 
 	parameter FORCE_DATA_WIDTH = FORCE_BUFFER_WIDTH-1, 
 	parameter FORCE_CACHE_WIDTH = 3*DATA_WIDTH, 
+  parameter FORCE_WB_WIDTH     = ID_WIDTH + 3*DATA_WIDTH 
 	parameter POS_CACHE_WIDTH = 3*OFFSET_WIDTH, 
 	parameter VELOCITY_CACHE_WIDTH = 3*DATA_WIDTH, 
 	parameter NUM_FILTER = 7, 
@@ -30,17 +31,18 @@ module RL_top
 	input start, 
 	
   output [NUM_CELLS-1:0] reading_done,
-  output [NUM_CELLS*PARTICLE_ID_WIDTH-1:0] particle_num,
   output [NUM_CELLS-1:0] back_pressure,
   output [NUM_CELLS-1:0] filter_buffer_empty,
-  output [NUM_CELLS*NUM_FILTER*FORCE_BUFFER_WIDTH-1:0] force_data,
-  output [NUM_CELLS*NUM_FILTER-1:0] force_valid,
+  output [NUM_CELLS-1:0] force_valid,
 	output force_valid_and
 );
 
 assign force_valid_and = &force_valid;
 
 // Output from PE
+wire [NUM_CELLS*PARTICLE_ID_WIDTH-1:0] particle_num;
+wire [NUM_CELLS*FORCE_WB_WIDTH-1:0] force_data;
+wire all_ref_wb_issued;
 
 // Input for broadcast controller
 //wire iter_start;
@@ -48,7 +50,6 @@ assign force_valid_and = &force_valid;
 // Output from broadcast controller, before splitted
 wire all_reading_done;
 wire all_filter_buffer_empty;
-wire [NUM_CELLS-1:0] broadcast_done;
 
 // Input for PE
 wire phase;
@@ -72,6 +73,7 @@ wire [NUM_CELLS*POS_CACHE_WIDTH-1:0] rd_nb_position;
 
 wire all_force_wr_issued;		// all force writings are issued
 wire force_cache_input_buffer_empty;		// all force_wb_controller buffers are empty
+//TODO: Redo both these signals. force_wr_enable is no longer available
 assign all_force_wr_issued = (force_wr_enable == 0 & force_cache_input_buffer_empty & all_filter_buffer_empty);
 assign motion_update_start = all_reading_done & all_force_wr_issued; //TODO: Add signal/modify to capture packets in the network.
 
@@ -108,7 +110,7 @@ reg delay_pause_reading;
 // Delay the signals coming from broadcast controller because of reading (2 cycles delay)
 always@(posedge clk)
 	begin
-	reg_broadcast_done <= broadcast_done;
+	reg_broadcast_done <= 0;
 	delay_broadcast_done <= reg_broadcast_done;
 	
 	reg_particle_id <= particle_id;
@@ -158,15 +160,15 @@ generate
 			.particle_id(delay_particle_id),
 			.ref_particle_id(delay_ref_id),
 			.rd_nb_position(rd_nb_position_splitted[(i+1)*ALL_POSITION_WIDTH-1:i*ALL_POSITION_WIDTH]),
-			.broadcast_done(broadcast_done_splitted[(i+1)*(NUM_NEIGHBOR_CELLS+1)-1:i*(NUM_NEIGHBOR_CELLS+1)]),
 			.write_success(force_cache_write_success[(i+1)*NUM_FILTER-1:i*NUM_FILTER]), 
 			
 			.reading_done(reading_done[i]),
 			.ref_particle_num(particle_num[(i+1)*PARTICLE_ID_WIDTH-1:i*PARTICLE_ID_WIDTH]),
 			.back_pressure(back_pressure[i]),
 			.all_buffer_empty(filter_buffer_empty[i]),
-			.force_data_out(force_data[(i+1)*NUM_FILTER*FORCE_BUFFER_WIDTH-1:i*NUM_FILTER*FORCE_BUFFER_WIDTH]),
-			.output_force_valid(force_valid[(i+1)*NUM_FILTER-1:i*NUM_FILTER])
+			.force_data_out(force_data[i*FORCE_WB_WIDTH +: FORCE_WB_WIDTH]),
+			.output_force_valid(force_valid[i])
+      .all_ref_wb_issued(all_ref_wb_issued)
 		);
 		end
 endgenerate
@@ -187,7 +189,6 @@ broadcast_controller
 	.reading_done(reading_done),
 	.all_force_wr_issued(all_force_wr_issued), 
 	
-	.broadcast_done(broadcast_done),
 	.all_reading_done(all_reading_done), 
 	.all_filter_buffer_empty(all_filter_buffer_empty), 
 	.particle_id(particle_id),

@@ -43,7 +43,6 @@ module PE_wrapper
 	input reading_particle_num, 
 	// From data source
 	input [(NUM_NEIGHBOR_CELLS+1)*3*OFFSET_WIDTH-1:0] rd_nb_position, 
-	input [NUM_NEIGHBOR_CELLS:0] broadcast_done, 
 	input [PARTICLE_ID_WIDTH-1:0] particle_id, 
 	input [PARTICLE_ID_WIDTH-1:0] ref_particle_id, 
 	input [NUM_FILTER-1:0] write_success, 
@@ -51,7 +50,7 @@ module PE_wrapper
   input ready,
 	
 	// From preprocessor
-	output [NUM_FILTER-1:0] reading_done, 
+	output reading_done, 
 	output [PARTICLE_ID_WIDTH-1:0] ref_particle_num, 
 	// From force evaluation
 	output back_pressure,
@@ -118,7 +117,6 @@ pos_data_preprocessor
 	.pause_reading(pause_reading), 
 	.reading_particle_num(reading_particle_num),
 	.rd_nb_position(rd_nb_position),
-	.broadcast_done(broadcast_done),
 	.particle_id(particle_id),
 	.ref_id(ref_particle_id),
 	

@@ -28,17 +28,16 @@ module pos_data_preprocessor
   // Cell ID order ZYX:		 
   //{322, 212, 223, 231, 132, 121, 111, 113, 133, 131, 112, 233, 321, 222}
 	input [(NUM_NEIGHBOR_CELLS+1)*3*OFFSET_WIDTH-1:0] rd_nb_position, 
-	input [NUM_NEIGHBOR_CELLS:0] broadcast_done, 
 	input [PARTICLE_ID_WIDTH-1:0] ref_id, 
 	input [PARTICLE_ID_WIDTH-1:0] particle_id, 
 	
-	output [NUM_FILTER-1:0] reading_done, 
+	output reading_done, 
 	output [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_x,
 	output [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_y,
 	output [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_z,
 	output reg [PARTICLE_ID_WIDTH-1:0] prev_particle_id, 
 	output reg [PARTICLE_ID_WIDTH-1:0] prev_ref_id, 
-	output [PARTICLE_ID_WIDTH-1:0] ref_particle_count, 
+  output [PARTICLE_ID_WIDTH-1:0] ref_particle_count,
 	output [NUM_FILTER-1:0] pair_valid,
 	output [3*DATA_WIDTH-1:0] assembled_position,
   output reg prev_phase
@@ -57,17 +56,33 @@ reg prev_reading_particle_num;
 reg [NUM_NEIGHBOR_CELLS:0] prev_broadcast_done;
 reg [(NUM_NEIGHBOR_CELLS+1)*3*OFFSET_WIDTH-1:0] prev_rd_nb_position;
 
+reg [PARTICLE_ID_WIDTH-1:0] home_particle_count;
+
 wire [NUM_FILTER-1:0] read_ref_particle;
 wire [NUM_FILTER-1:0] ref_valid;
 
-// Internal wires connected to ref_particle_count ports of ref_data_extractors
-// Only one signal is sent out. Outside modules only need the particle counts to decide when the ref_id 
-// is higher than particle counts of all cells.
-// If each cell sends out ref_particle_count from one ref_data_extractor, all cells are covered due to 
-// the same neighbor selection by all PEs.
-wire [NUM_FILTER-1:0][PARTICLE_ID_WIDTH-1:0] i_ref_particle_count, 
+wire broadcast_done;
 
-assign ref_particle_count = i_ref_particle_count[0];
+// Internal wires connected to ref_particle_count ports of ref_data_extractors
+wire [NUM_FILTER-1:0][PARTICLE_ID_WIDTH-1:0] i_ref_particle_count; 
+
+// Capture particle count for the home cell.
+always_ff @(posedge clk)begin
+  if(rst)
+    home_particle_count <= 0;
+  else if(prev_reading_particle_num & prev_phase == 0)
+    home_particle_count <= i_ref_particle_count[0];
+    // In phase 0, filter 0 gets the home cell.
+  else
+    home_particle_count <= home_particle_count;
+end
+
+// Set reading_done and broadcast_done
+assign broadcast_done = (particle_id > home_particle_count) & (home_particle_count != 0);
+assign reading_done   = (ref_id > home_particle_count) & (home_particle_count != 0);
+
+assign ref_particle_count = home_particle_count;
+
 
 //array of position data structures
 pos_data_t [NUM_NEIGHBOR_CELLS:0] nb_position; //NUM_NEIGHBOR_CELLS+1
@@ -139,7 +154,7 @@ generate
     	.ref_particle_count(i_ref_particle_count[i]),
     	
     	.read_ref_particle(read_ref_particle[i]),
-    	.reading_done(reading_done[i]), 
+    	.reading_done(), 
     	.ref_valid(ref_valid[i])
     );
   end

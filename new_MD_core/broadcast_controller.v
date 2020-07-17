@@ -20,7 +20,6 @@ module broadcast_controller
 	input [NUM_CELLS-1:0] reading_done, 
 	input all_force_wr_issued, 
 	
-	output [NUM_CELLS-1:0] broadcast_done, 
 	// Partial flag for motion update start
 	output all_reading_done, 
 	output all_filter_buffer_empty, 
@@ -34,10 +33,11 @@ module broadcast_controller
 );
 
 // Flags returned from lower modules
-assign all_reading_done = (reading_done == {(NUM_CELLS){1'b1}}) ? 1'b1 : 1'b0;
+assign all_reading_done = &reading_done;
 
 assign all_filter_buffer_empty = (filter_buffer_empty == {(NUM_CELLS){1'b1}}) ? 1'b1 : 1'b0;
 
+wire [NUM_CELLS-1:0] broadcast_done;
 wire all_broadcast_done;
 assign all_broadcast_done = &broadcast_done;
 
@@ -240,7 +240,7 @@ generate
 		check_broadcast_done
 		(
 			.particle_count(particle_num[i*PARTICLE_ID_WIDTH +: PARTICLE_ID_WIDTH]), 
-			.ref_id(ref_id), 
+			.particle_id(particle_id), 
 			
 			.broadcast_done(broadcast_done[i])
 		);
