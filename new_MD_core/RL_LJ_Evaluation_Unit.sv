@@ -202,7 +202,7 @@ module RL_LJ_Evaluation_Unit
 	    Partial_Force_Acc
 	    #(
 	    	.DATA_WIDTH(DATA_WIDTH),
-	    	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH)
+	    	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
         .CELL_ID_WIDTH(CELL_ID_WIDTH),
         .ACC_ID(i)
 	    )
@@ -221,7 +221,7 @@ module RL_LJ_Evaluation_Unit
 	    	.out_particle_acc_force_y(out_ref_LJ_Force_Y[i]),
 	    	.out_particle_acc_force_z(out_ref_LJ_Force_Z[i]),
 	    	.out_acc_force_valid(out_ref_force_valid[i]),
-        .start_wb(start_wb[i]),
+        .start_wb(start_wb[i])
 	    );
     end
   endgenerate

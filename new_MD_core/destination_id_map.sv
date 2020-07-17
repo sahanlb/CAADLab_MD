@@ -34,9 +34,9 @@ loops are used to assign the correct values to home cell location parameters.
 Cell indexing starts from 1 instead of 0 because that is the indexing convention used throughout the design.
 */
 generate
-  for(k=0, k<ZSIZE; k++)begin: zloop
-    for(j=0, j<YSIZE; j++)begin: yloop
-      for(i=0, i<XSIZE; i++)begin: xloop
+  for(k=0; k<ZSIZE; k++)begin: zloop
+    for(j=0; j<YSIZE; j++)begin: yloop
+      for(i=0; i<XSIZE; i++)begin: xloop
         cell_to_dest_id_map #(
           .NUM_CELLS(NUM_CELLS),
         	.DATA_WIDTH(DATA_WIDTH), 

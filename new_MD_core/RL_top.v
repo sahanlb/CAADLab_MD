@@ -7,9 +7,9 @@ module RL_top
 	parameter CELL_ID_WIDTH = 3,
 	parameter DECIMAL_ADDR_WIDTH = 2, 
 	parameter PARTICLE_ID_WIDTH = 7, 
-	parameter XSIZE = 4, 
-	parameter YSIZE = 4, 
-	parameter ZSIZE = 4, 
+	parameter X_DIM = 4, 
+	parameter Y_DIM = 4, 
+	parameter Z_DIM = 4, 
 	parameter BODY_BITS = 8, 
 	parameter ID_WIDTH = 3*CELL_ID_WIDTH+PARTICLE_ID_WIDTH,
   parameter NODE_ID_WIDTH     = $clog2(NUM_CELLS),
@@ -18,7 +18,7 @@ module RL_top
 	parameter FORCE_BUFFER_WIDTH = 3*DATA_WIDTH+PARTICLE_ID_WIDTH+1, 
 	parameter FORCE_DATA_WIDTH = FORCE_BUFFER_WIDTH-1, 
 	parameter FORCE_CACHE_WIDTH = 3*DATA_WIDTH, 
-  parameter FORCE_WB_WIDTH     = ID_WIDTH + 3*DATA_WIDTH 
+  parameter FORCE_WB_WIDTH     = ID_WIDTH + 3*DATA_WIDTH,
   parameter PACKET_WIDTH      = FORCE_DATA_WIDTH + NODE_ID_WIDTH,
 	parameter POS_CACHE_WIDTH = 3*OFFSET_WIDTH, 
 	parameter VELOCITY_CACHE_WIDTH = 3*DATA_WIDTH, 
@@ -77,9 +77,6 @@ wire [NUM_CELLS*POS_CACHE_WIDTH-1:0] rd_nb_position;
 
 wire all_force_wr_issued;		// all force writings are issued
 wire force_cache_input_buffer_empty;		// all force_wb_controller buffers are empty
-assign all_force_wr_issued = (force_wr_enable == 0) & force_cache_input_buffer_empty & all_filter_buffer_empty & all_ref_wb_issued & interconnect_empty;
-// all_ref_wb_issued captures captures the relevant signals from all PEs. interconnect_empty is set after waiting for NUM_CELLS cycles after the final writeback is issued.
-assign motion_update_start = all_reading_done & all_force_wr_issued;
 
 
 // MU outputs
@@ -155,6 +152,12 @@ always @(posedge clk)begin
 end
 
 
+
+assign all_force_wr_issued = (force_wr_enable == 0) & force_cache_input_buffer_empty & all_filter_buffer_empty & all_ref_wb_issued & interconnect_empty;
+// all_ref_wb_issued captures captures the relevant signals from all PEs. interconnect_empty is set after waiting for NUM_CELLS cycles after the final writeback is issued.
+assign motion_update_start = all_reading_done & all_force_wr_issued;
+
+
 // Delay the signals coming from broadcast controller because of reading (2 cycles delay)
 always@(posedge clk)
 	begin
@@ -216,7 +219,7 @@ generate
 			.back_pressure(back_pressure[i]),
 			.all_buffer_empty(filter_buffer_empty[i]),
 			.force_data_out(force_data[i*FORCE_WB_WIDTH +: FORCE_WB_WIDTH]),
-			.output_force_valid(force_valid[i])
+			.output_force_valid(force_valid[i]),
       .all_ref_wb_issued(ref_wb_issued[i])
 		);
 		end
@@ -295,9 +298,9 @@ destination_id_map #(
   .DATA_WIDTH(DATA_WIDTH),
 	.CELL_ID_WIDTH(CELL_ID_WIDTH), 
   .PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
-  .XSIZE(XSIZE),
-  .YSIZE(YSIZE),
-  .ZSIZE(ZSIZE)
+  .XSIZE(X_DIM),
+  .YSIZE(Y_DIM),
+  .ZSIZE(Z_DIM)
 ) dest_map (
   .wb_in(force_data),
   
@@ -309,7 +312,7 @@ destination_id_map #(
 ring #(
   .NUM_CELLS(NUM_CELLS),
   .DATA_WIDTH(DATA_WIDTH),
-  .PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
+  .PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH)
 ) interconnect (
   .clk(clk),
   .rst(rst),

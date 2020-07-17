@@ -10,9 +10,9 @@ module filter_bank
 	parameter FILTER_BUFFER_DATA_WIDTH = PARTICLE_ID_WIDTH+3*DATA_WIDTH, 
 	
 	// Constants
-  parameter CELL_1      = 3'b001
-  parameter CELL_2      = 3'b010
-  parameter CELL_3      = 3'b011
+  parameter CELL_1      = 3'b001,
+  parameter CELL_2      = 3'b010,
+  parameter CELL_3      = 3'b011,
 	parameter SQRT_2      = 10'b0101101011,
 	parameter SQRT_3      = 10'b0110111100,
 	parameter NUM_FILTER  = 7, 
@@ -51,9 +51,9 @@ reg raw_data_valid;
 reg [FILTER_BUFFER_DATA_WIDTH-1:0] data_out;
 
 struct packed{
-  logic [DATA_WIDTH-1:0] z,
-  logic [DATA_WIDTH-1:0] y,
-  logic [DATA_WIDTH-1:0] x,
+  logic [DATA_WIDTH-1:0] z;
+  logic [DATA_WIDTH-1:0] y;
+  logic [DATA_WIDTH-1:0] x;
 }curr_ref_data;
 
 wire [ID_WIDTH-1:0] nb_id;

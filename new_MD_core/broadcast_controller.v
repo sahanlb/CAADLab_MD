@@ -1,7 +1,7 @@
 module broadcast_controller
 #(
 	parameter NUM_CELLS = 64, 
-	parameter PARTICLE_ID_WIDTH = 7, 
+	parameter PARTICLE_ID_WIDTH = 7
 )
 (
 	input clk, 

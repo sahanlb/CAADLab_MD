@@ -12,7 +12,7 @@ module ref_data_extractor
   parameter CELL_ID_WIDTH     = 3,
 	parameter CELL_1            = 3'b001,
 	parameter CELL_2            = 3'b010,
-	parameter CELL_2            = 3'b011
+	parameter CELL_3            = 3'b011
 )
 (
 	input clk, 

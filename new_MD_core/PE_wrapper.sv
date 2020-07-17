@@ -16,7 +16,7 @@ module PE_wrapper
 	parameter FULL_CELL_ID_WIDTH       = 3*CELL_ID_WIDTH, 
 	parameter FILTER_BUFFER_DATA_WIDTH = PARTICLE_ID_WIDTH+3*DATA_WIDTH, 
 	parameter FORCE_BUFFER_WIDTH       = 3*DATA_WIDTH+PARTICLE_ID_WIDTH+1, 
-  parameter WB_WIDTH                 = ID_WIDTH + 3*DATA_WIDTH 
+  parameter WB_WIDTH                 = ID_WIDTH + 3*DATA_WIDTH,
 	
 	// Constants
 	parameter SQRT_2 = 10'b0101101011,
@@ -85,7 +85,7 @@ assign back_pressure = (filter_back_pressure == 0) ? 1'b0 : 1'b1;
 
 //wire all_buffer_empty;
 // Do not need cell id because it's 222
-wire [NUM_FILTER-1:0][PARTICLE_ID_WIDTH-1:0] out_ref_particle_id;
+wire [NUM_FILTER-1:0][ID_WIDTH-1:0] out_ref_particle_id;
 wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_force_x;
 wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_force_y;
 wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_force_z;
@@ -184,7 +184,7 @@ force_distributor
 	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
 	.NUM_FILTER(NUM_FILTER),
 	.ID_WIDTH(ID_WIDTH),
-	.FORCE_BUFFER_WIDTH(FORCE_BUFFER_WIDTH)
+  .WAIT_CYCLES(5)
 )
 force_distributor
 (

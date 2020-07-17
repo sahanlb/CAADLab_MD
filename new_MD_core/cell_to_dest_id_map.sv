@@ -31,7 +31,7 @@ assign cellx = wb_in[WB_WIDTH-1-2*CELL_ID_WIDTH -: CELL_ID_WIDTH];
 assign celly = wb_in[WB_WIDTH-1-1*CELL_ID_WIDTH -: CELL_ID_WIDTH];
 assign cellz = wb_in[WB_WIDTH-1-0*CELL_ID_WIDTH -: CELL_ID_WIDTH];
 
-unsigned int hops, destination;
+int unsigned hops, destination;
 
 wire [NODE_ID_WIDTH-1:0] dest_id;
 

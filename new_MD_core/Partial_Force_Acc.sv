@@ -35,7 +35,8 @@ module Partial_Force_Acc
 	parameter DATA_WIDTH 				= 32,
 	parameter PARTICLE_ID_WIDTH	= 20, // # of bit used to represent particle ID, 9*9*7 cells, each 4-bit, each cell have max of 200 particles, 8-bit
   parameter CELL_ID_WIDTH     = 3,
-  parameter ACC_ID            = 0
+  parameter ACC_ID            = 0,
+  parameter ID_WIDTH          = 3*CELL_ID_WIDTH + PARTICLE_ID_WIDTH
 )
 (
 	input  clk,
@@ -53,7 +54,13 @@ module Partial_Force_Acc
   output reg start_wb // signal to downstream modules to start force writebacks for reference particles
 );
 
-  typedef struct{
+  // Cell ID encoding
+  localparam CELL_1 = 3'b001;
+  localparam CELL_2 = 3'b010;
+  localparam CELL_3 = 3'b011;
+
+
+  typedef struct packed{
     logic [3*CELL_ID_WIDTH-1:0] cell_id;
     logic [PARTICLE_ID_WIDTH-1:0] particle;
   }full_id_t;
@@ -74,6 +81,9 @@ module Partial_Force_Acc
   // ID comparisons
   wire particle_id_match, cell_id_match;
   wire phase_change;
+
+  // Cell ID values to be compared with input particle IDs.
+  logic [2:0][CELL_ID_WIDTH-1:0] cell_id1, cell_id2;
 
   assign particle_id_match = (cur_particle_id.particle == in_id.particle);
   assign cell_id_match     = (cur_particle_id.cell_id == in_id.cell_id);
@@ -103,8 +113,6 @@ module Partial_Force_Acc
 	assign acc_force_y_in_wire = (~particle_id_match | phase_change) ? 0 : acc_value_out_y;
 	assign acc_force_z_in_wire = (~particle_id_match | phase_change) ? 0 : acc_value_out_z;
 
-  // Cell ID values to be compared with input particle IDs.
-  wire [2:0][CELL_ID_WIDTH-1:0] cell_id1, cell_id2;
 
   // Track whether there is a valid accumulated value to be written back. Some of the accumulators 
   // may not have a value to be writtenback because of the different neighbor cells having different 
