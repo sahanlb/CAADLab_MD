@@ -143,8 +143,8 @@ always_comb begin
     end
     default:begin
       hops = 0;
-      $display("Unexpected neighbor cell ID sent to cell to destination mapper.");
-      $stop();
+      //$display("Unexpected neighbor cell ID sent to cell to destination mapper. %0d, %0d, %0d", cellz, celly, cellx);
+      //$stop();
     end
   endcase
 end

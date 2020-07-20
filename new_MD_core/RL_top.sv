@@ -60,7 +60,8 @@ wire reading_particle_num;
 wire [PARTICLE_ID_WIDTH-1:0] particle_id;
 wire [PARTICLE_ID_WIDTH-1:0] ref_particle_id;
 wire [NUM_CELLS*NUM_FILTER-1:0] force_cache_write_success;
-wire [NUM_CELLS*ALL_POSITION_WIDTH-1:0] rd_nb_position_splitted;
+//wire [NUM_CELLS*ALL_POSITION_WIDTH-1:0] rd_nb_position_splitted;
+wire [NUM_CELLS-1:0][NUM_NEIGHBOR_CELLS:0][2:0][DATA_WIDTH-1:0] rd_nb_position_splitted;
 wire [NUM_CELLS*(NUM_NEIGHBOR_CELLS+1)-1:0] broadcast_done_splitted;
 wire [NUM_CELLS-1:0] interconnect_ready;
 
@@ -158,6 +159,9 @@ assign all_force_wr_issued = (force_wr_enable == 0) & force_cache_input_buffer_e
 assign motion_update_start = all_reading_done & all_force_wr_issued;
 
 
+assign rd_nb_position_splitted_multidim = rd_nb_position_splitted;
+
+
 // Delay the signals coming from broadcast controller because of reading (2 cycles delay)
 always@(posedge clk)
 	begin
@@ -210,7 +214,8 @@ generate
 			// All PEs share the same id's
 			.particle_id(delay_particle_id),
 			.ref_particle_id(delay_ref_id),
-			.rd_nb_position(rd_nb_position_splitted[(i+1)*ALL_POSITION_WIDTH-1:i*ALL_POSITION_WIDTH]),
+			//.rd_nb_position(rd_nb_position_splitted[(i+1)*ALL_POSITION_WIDTH-1:i*ALL_POSITION_WIDTH]),
+			.rd_nb_position(rd_nb_position_splitted[i]),
 			.write_success(force_cache_write_success[(i+1)*NUM_FILTER-1:i*NUM_FILTER]), 
       .ready(interconnect_ready[i]),
 			

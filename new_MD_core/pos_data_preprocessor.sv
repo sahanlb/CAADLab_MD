@@ -44,9 +44,9 @@ module pos_data_preprocessor
 );
 //declare a struct to simplify handling neighbor particle data
 typedef struct packed{
-  logic [OFFSET_WIDTH-1:0] pos_x;
-  logic [OFFSET_WIDTH-1:0] pos_y;
   logic [OFFSET_WIDTH-1:0] pos_z;
+  logic [OFFSET_WIDTH-1:0] pos_y;
+  logic [OFFSET_WIDTH-1:0] pos_x;
 }pos_data_t;
 
 genvar i;
@@ -107,7 +107,7 @@ always@(posedge clk)
 //Instantiate multiple ref_data_extractors
 // 1 cycle delay
 generate
-  for(i=0; i==NUM_NEIGHBOR_CELLS; i++)begin: ref_extractor_inst
+  for(i=0; i<NUM_FILTER; i++)begin: ref_extractor_inst
     ref_data_extractor
     #(
     	.OFFSET_WIDTH(OFFSET_WIDTH), 
