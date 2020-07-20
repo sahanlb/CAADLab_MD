@@ -269,9 +269,9 @@ position_cache_to_PE_mapping_half_shell
 )
 position_cache_to_PE_mapping
 (
-	.rd_nb_position(rd_nb_position), 
+	.rd_nb_position(rd_nb_position),
 	
-	.rd_nb_position_splitted(rd_nb_position_splitted), 
+	.rd_nb_position_splitted(rd_nb_position_splitted)
 );
 
 /*force_writeback_arbitration_unit
@@ -319,7 +319,7 @@ ring #(
   .NUM_CELLS(NUM_CELLS),
   .DATA_WIDTH(DATA_WIDTH),
   .PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH)
-) interconnect (
+) ring_interconnect (
   .clk(clk),
   .rst(rst),
   .packet_in(packets_to_ring),
