@@ -1,0 +1,9 @@
+add wave vsim:/RL_top_tb/RL_top/clk
+add wave vsim:/RL_top_tb/RL_top/rst
+add wave vsim:/RL_top_tb/RL_top/start
+add wave vsim:/RL_top_tb/RL_top/delay_phase
+add wave vsim:/RL_top_tb/RL_top/delay_pause_reading
+add wave vsim:/RL_top_tb/RL_top/delay_reading_particle_num
+add wave vsim:/RL_top_tb/RL_top/delay_particle_id
+add wave vsim:/RL_top_tb/RL_top/delay_ref_id
+add wave vsim:/RL_top_tb/RL_top/rd_nb_position_splitted
