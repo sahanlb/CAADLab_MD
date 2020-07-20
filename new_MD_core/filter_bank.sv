@@ -219,7 +219,7 @@ always@(posedge clk)
       curr_ref_data.y <= ref_y[0];
       curr_ref_data.z <= ref_z[0];
 			raw_data_valid  <= 1'b1;
-      ref_cell_id     <= phase ? {CELL_1, CELL_1, CELL_1} : {CELL_2, CELL_2, CELL_2};
+      ref_cell_id     <= phase ? {CELL_3, CELL_1, CELL_3} : {CELL_2, CELL_2, CELL_2};
 			end
 		7'b0000010:
 			begin
@@ -228,7 +228,7 @@ always@(posedge clk)
       curr_ref_data.y <= ref_y[1];
       curr_ref_data.z <= ref_z[1];
 			raw_data_valid  <= 1'b1;
-      ref_cell_id     <= phase ? {CELL_1, CELL_2, CELL_1} : {CELL_3, CELL_2, CELL_1};
+      ref_cell_id     <= phase ? {CELL_3, CELL_2, CELL_1} : {CELL_2, CELL_2, CELL_3};
 			end
 		7'b0000100:
 			begin
@@ -237,7 +237,7 @@ always@(posedge clk)
       curr_ref_data.y <= ref_y[2];
       curr_ref_data.z <= ref_z[2];
 			raw_data_valid  <= 1'b1;
-      ref_cell_id     <= phase ? {CELL_1, CELL_3, CELL_2} : {CELL_2, CELL_3, CELL_3};
+      ref_cell_id     <= phase ? {CELL_3, CELL_2, CELL_2} : {CELL_2, CELL_3, CELL_1};
 			end
 		7'b0001000:
 			begin
@@ -246,7 +246,7 @@ always@(posedge clk)
       curr_ref_data.y <= ref_y[3];
       curr_ref_data.z <= ref_z[3];
 			raw_data_valid  <= 1'b1;
-      ref_cell_id     <= phase ? {CELL_2, CELL_3, CELL_1} : {CELL_1, CELL_1, CELL_2};
+      ref_cell_id     <= phase ? {CELL_3, CELL_2, CELL_3} : {CELL_2, CELL_3, CELL_2};
 			end
 		7'b0010000:
 			begin
@@ -255,7 +255,7 @@ always@(posedge clk)
       curr_ref_data.y <= ref_y[4];
       curr_ref_data.z <= ref_z[4];
 			raw_data_valid  <= 1'b1;
-      ref_cell_id     <= phase ? {CELL_2, CELL_2, CELL_3} : {CELL_1, CELL_3, CELL_1};
+      ref_cell_id     <= phase ? {CELL_3, CELL_3, CELL_1} : {CELL_2, CELL_3, CELL_3};
 			end
 		7'b0100000:
 			begin
@@ -264,7 +264,7 @@ always@(posedge clk)
       curr_ref_data.y <= ref_y[5];
       curr_ref_data.z <= ref_z[5];
 			raw_data_valid  <= 1'b1;
-      ref_cell_id     <= phase ? {CELL_2, CELL_1, CELL_2} : {CELL_1, CELL_3, CELL_3};
+      ref_cell_id     <= phase ? {CELL_3, CELL_3, CELL_2} : {CELL_3, CELL_1, CELL_1};
 			end
 		7'b1000000:
 			begin
@@ -273,7 +273,7 @@ always@(posedge clk)
       curr_ref_data.y <= ref_y[6];
       curr_ref_data.z <= ref_z[6];
 			raw_data_valid  <= 1'b1;
-      ref_cell_id     <= phase ? {CELL_3, CELL_2, CELL_2} : {CELL_1, CELL_1, CELL_3};
+      ref_cell_id     <= phase ? {CELL_3, CELL_3, CELL_3} : {CELL_3, CELL_1, CELL_2};
 			end
 		default:
 			begin
@@ -282,7 +282,7 @@ always@(posedge clk)
       curr_ref_data.y <= ref_y[0];
       curr_ref_data.z <= ref_z[0];
 			raw_data_valid  <= 1'b0;
-      ref_cell_id     <= phase ? {CELL_1, CELL_1, CELL_1} : {CELL_2, CELL_2, CELL_2};
+      ref_cell_id     <= phase ? {CELL_3, CELL_1, CELL_3} : {CELL_2, CELL_2, CELL_2};
 			end
 	endcase
 	end

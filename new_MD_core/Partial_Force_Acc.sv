@@ -132,7 +132,7 @@ module Partial_Force_Acc
     end
   end
 
-
+/* // For scattered selection
   always_comb begin
     case(ACC_ID)
       0: {cell_id1, cell_id2} = {CELL_2, CELL_2, CELL_2, CELL_1, CELL_1, CELL_1};
@@ -144,7 +144,19 @@ module Partial_Force_Acc
       6: {cell_id1, cell_id2} = {CELL_1, CELL_1, CELL_3, CELL_3, CELL_2, CELL_2};
     endcase
   end
-
+*/
+  // For half shell neighbor selection  
+  always_comb begin
+    case(ACC_ID)
+      0: {cell_id1, cell_id2} = {CELL_2, CELL_2, CELL_2, CELL_3, CELL_1, CELL_3};
+      1: {cell_id1, cell_id2} = {CELL_2, CELL_2, CELL_3, CELL_3, CELL_2, CELL_1};
+      2: {cell_id1, cell_id2} = {CELL_2, CELL_3, CELL_1, CELL_3, CELL_2, CELL_2};
+      3: {cell_id1, cell_id2} = {CELL_2, CELL_3, CELL_2, CELL_3, CELL_2, CELL_3};
+      4: {cell_id1, cell_id2} = {CELL_2, CELL_3, CELL_3, CELL_3, CELL_3, CELL_1};
+      5: {cell_id1, cell_id2} = {CELL_3, CELL_1, CELL_1, CELL_3, CELL_3, CELL_2};
+      6: {cell_id1, cell_id2} = {CELL_3, CELL_1, CELL_2, CELL_3, CELL_3, CELL_3};
+    endcase
+  end
 
 	// Controller for accumulation operation
   always @(posedge clk)begin

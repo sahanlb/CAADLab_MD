@@ -20,13 +20,20 @@ module pos_data_preprocessor
 	input phase, 
 	input pause_reading, 
 	input reading_particle_num, 
-	// From data source rd_nb_position
+	// Mapping from data source rd_nb_position //
+  // Scattered selection
   // Phase 0: {113, 133, 131, 112, 233, 321, 222}
   // Phase 1: {322, 212, 223, 231, 132, 121, 111}
   // Type:     03   22   22   22   31   31   31
-  //
   // Cell ID order ZYX:		 
   //{322, 212, 223, 231, 132, 121, 111, 113, 133, 131, 112, 233, 321, 222}
+
+  // Half shell selection (Used in current version)
+  // {ZYX}
+  // Phase 0 : {312, 311, 233, 232, 231, 223, 222}
+  // Phase 1 : {333, 332, 331, 323, 322, 321, 313}
+  // rd_nb_position arrangement
+  // {333, 332, 331, 323, 322, 321, 313, 312, 311, 233, 232, 231, 223, 222}
 	input [(NUM_NEIGHBOR_CELLS+1)*3*OFFSET_WIDTH-1:0] rd_nb_position, 
 	input [PARTICLE_ID_WIDTH-1:0] ref_id, 
 	input [PARTICLE_ID_WIDTH-1:0] particle_id, 

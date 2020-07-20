@@ -47,6 +47,7 @@ struct packed{
   logic [CELL_ID_WIDTH-1:0] idx;
 }cell_id;
 
+/* // For scattered selection
 always @(*)begin
   case(EXTRACTOR_ID)
     0:cell_id = phase ? {CELL_1, CELL_1, CELL_1} : {CELL_2, CELL_2, CELL_2};
@@ -58,7 +59,19 @@ always @(*)begin
     6:cell_id = phase ? {CELL_3, CELL_2, CELL_2} : {CELL_1, CELL_1, CELL_3};
   endcase
 end
-
+*/
+// For half shell selection
+always @(*)begin
+  case(EXTRACTOR_ID)
+    0:cell_id = phase ? {CELL_3, CELL_1, CELL_3} : {CELL_2, CELL_2, CELL_2};
+    1:cell_id = phase ? {CELL_3, CELL_2, CELL_1} : {CELL_2, CELL_2, CELL_3};
+    2:cell_id = phase ? {CELL_3, CELL_2, CELL_2} : {CELL_2, CELL_3, CELL_1};
+    3:cell_id = phase ? {CELL_3, CELL_2, CELL_3} : {CELL_2, CELL_3, CELL_2};
+    4:cell_id = phase ? {CELL_3, CELL_3, CELL_1} : {CELL_2, CELL_3, CELL_3};
+    5:cell_id = phase ? {CELL_3, CELL_3, CELL_2} : {CELL_3, CELL_1, CELL_1};
+    6:cell_id = phase ? {CELL_3, CELL_3, CELL_3} : {CELL_3, CELL_1, CELL_2};
+  endcase
+end
 
 // Assemble cell id and offset
 assign home_pos_x = {cell_id.idx, raw_home_pos_x};

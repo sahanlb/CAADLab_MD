@@ -257,20 +257,21 @@ broadcast_controller
   .goto_next_ref(goto_next_ref)
 );
 
-position_cache_to_PE_mapping
+position_cache_to_PE_mapping_half_shell
 #(
 	.NUM_CELLS(NUM_CELLS),
 	.OFFSET_WIDTH(OFFSET_WIDTH),
 	.POS_CACHE_WIDTH(POS_CACHE_WIDTH),
-	.NUM_NEIGHBOR_CELLS(NUM_NEIGHBOR_CELLS)
+	.NUM_NEIGHBOR_CELLS(NUM_NEIGHBOR_CELLS),
+  .X_DIM(X_DIM),
+  .Y_DIM(Y_DIM),
+  .Z_DIM(Z_DIM)
 )
 position_cache_to_PE_mapping
 (
 	.rd_nb_position(rd_nb_position), 
-	.broadcast_done(delay_broadcast_done), 
 	
 	.rd_nb_position_splitted(rd_nb_position_splitted), 
-	.broadcast_done_splitted(broadcast_done_splitted)
 );
 
 /*force_writeback_arbitration_unit
