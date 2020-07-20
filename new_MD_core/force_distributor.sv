@@ -50,8 +50,8 @@ int unsigned i;
 reg [5:0] counter;
 
 // registers to store accumulated forces
-reg [3*DATA_WIDTH-1:0][13:0] force_reg;
-reg [ID_WIDTH-1:0][13:0] force_id_reg;
+reg [13:0][3*DATA_WIDTH-1:0] force_reg;
+reg [13:0][ID_WIDTH-1:0] force_id_reg;
 reg [13:0] force_reg_valid;
 
 //state machine
