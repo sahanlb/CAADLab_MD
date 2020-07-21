@@ -22,7 +22,7 @@ module position_cache_to_PE_mapping_half_shell
 
 genvar i,j,k,n;
 
-`define H i*Z_DIM+j*Y_DIM+k
+`define H i*X_DIM*Y_DIM+j*X_DIM+k
 
 localparam NX   = X_DIM;
 localparam NY   = Y_DIM;

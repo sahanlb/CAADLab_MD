@@ -35,7 +35,7 @@ genvar i;
 
 // Instantiate the nodes
 generate
-  for(i=1; i<NUM_CELLS; i++)begin: ring_nodes
+  for(i=0; i<NUM_CELLS; i++)begin: ring_nodes
     ring_node #(
       .DATA_WIDTH(DATA_WIDTH),
       .PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),

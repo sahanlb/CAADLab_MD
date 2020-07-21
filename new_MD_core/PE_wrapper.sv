@@ -45,7 +45,6 @@ module PE_wrapper
 	input [(NUM_NEIGHBOR_CELLS+1)*3*OFFSET_WIDTH-1:0] rd_nb_position, 
 	input [PARTICLE_ID_WIDTH-1:0] particle_id, 
 	input [PARTICLE_ID_WIDTH-1:0] ref_particle_id, 
-	input [NUM_FILTER-1:0] write_success, 
   //from ring interconnect
   input ready,
 	
@@ -61,15 +60,6 @@ module PE_wrapper
   output all_ref_wb_issued
 );
 
-// Raw success signal is 14-bit long, merge so it becomes 7-bit long
-//wire [NUM_FILTER-1:0] write_success;
-//genvar i;
-//generate
-//	for (i = 0; i < NUM_FILTER; i = i + 1)
-//		begin: write_success_merge
-//		assign write_success[i] = full_write_success[i] | full_write_success[i+NUM_FILTER];
-//		end
-//endgenerate
 
 wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_x;
 wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_y;

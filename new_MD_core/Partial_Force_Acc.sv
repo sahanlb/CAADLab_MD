@@ -88,7 +88,7 @@ module Partial_Force_Acc
   assign particle_id_match = (cur_particle_id.particle == in_id.particle);
   assign cell_id_match     = (cur_particle_id.cell_id == in_id.cell_id);
 
-  assign phase_change = ~cell_id_match & (in_id.cell_id == cell_id2);
+  assign phase_change = in_input_valid & ~cell_id_match & (in_id.cell_id == cell_id2);
   // This assumes that force values related to phase 0 and 1 will not be received 
   // in an interleaved fashion.
 	
@@ -109,9 +109,9 @@ module Partial_Force_Acc
 	wire [DATA_WIDTH-1:0] acc_force_x_in_wire;
 	wire [DATA_WIDTH-1:0] acc_force_y_in_wire;
 	wire [DATA_WIDTH-1:0] acc_force_z_in_wire;
-	assign acc_force_x_in_wire = (~particle_id_match | phase_change) ? 0 : acc_value_out_x;
-	assign acc_force_y_in_wire = (~particle_id_match | phase_change) ? 0 : acc_value_out_y;
-	assign acc_force_z_in_wire = (~particle_id_match | phase_change) ? 0 : acc_value_out_z;
+	assign acc_force_x_in_wire = ((in_input_valid & ~particle_id_match) | phase_change) ? 0 : acc_value_out_x;
+	assign acc_force_y_in_wire = ((in_input_valid & ~particle_id_match) | phase_change) ? 0 : acc_value_out_y;
+	assign acc_force_z_in_wire = ((in_input_valid & ~particle_id_match) | phase_change) ? 0 : acc_value_out_z;
 
 
   // Track whether there is a valid accumulated value to be written back. Some of the accumulators 
@@ -174,7 +174,7 @@ module Partial_Force_Acc
 			out_particle_acc_force_x <= acc_value_out_x;
 			out_particle_acc_force_y <= acc_value_out_y;
 			out_particle_acc_force_z <= acc_value_out_z;
-      if(~particle_id_match)begin // next ref particle
+      if(in_input_valid & ~particle_id_match)begin // next ref particle
         out_acc_force_valid      <= valid_wb_value;  
         start_wb                 <= 1'b1;
         cur_particle_id.particle <= in_id.particle;
