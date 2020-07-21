@@ -31,10 +31,10 @@ localparam NXY  = NX*NY;
 localparam NXYZ = NX*NY*NZ;
 
 generate
-  for(i=0; i<Z_DIM; i++)begin
-    for(j=0; j<Y_DIM; j++)begin
-      for(k=0; k<X_DIM; k++)begin
-        for(n=0; n<=NUM_NEIGHBOR_CELLS; n++)begin
+  for(i=0; i<Z_DIM; i++)begin: Z_loop
+    for(j=0; j<Y_DIM; j++)begin: Y_loop
+      for(k=0; k<X_DIM; k++)begin: X_loop
+        for(n=0; n<=NUM_NEIGHBOR_CELLS; n++)begin: neighbor_loop
           case(n)
             0:begin
               assign rd_nb_position_splitted[`H][n] = rd_nb_position[`H];
