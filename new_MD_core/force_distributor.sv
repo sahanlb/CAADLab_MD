@@ -61,6 +61,7 @@ always_ff @(posedge clk)begin
     wb_valid          <= 0; 
     all_ref_wb_issued <= 0;
     force_reg         <= 0;
+    force_id_reg      <= 0;
     force_reg_valid   <= 0;
     counter           <= 0;
     state             <= ACTIVE;
@@ -98,14 +99,18 @@ always_ff @(posedge clk)begin
       WAIT:begin // Make sure no more writebacks intended for the home cell foce cache are left in the pipeline
         wb_valid <= force_valid;
         wb_out   <= {nb_id, force_z, force_y, force_x};
-        if(force_valid | counter == WAIT_CYCLES)
+        if(force_valid)begin
           counter <= 0;
-        else
-          counter++;
-        if(counter == WAIT_CYCLES)
+          state   <= WAIT;
+        end
+        else if(counter == WAIT_CYCLES)begin
+          counter <= 0;
           state   <= WB_REF;
-        else
+        end
+        else begin
+          counter++;
           state <= WAIT;
+        end
       end
       WB_REF:begin
         wb_valid <= force_reg_valid[counter];
