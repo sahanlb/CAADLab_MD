@@ -50,6 +50,7 @@ assign all_broadcast_done = &broadcast_done;
 wire back_pressure_exist;
 assign back_pressure_exist = |back_pressure;
 
+reg increase_ref;
 reg prev_phase;
 reg [3:0] wait_cycle_counter;
 
@@ -63,13 +64,14 @@ always@(posedge clk)
 	begin
 	if (rst)
 		begin
-		state <= WAIT_FOR_START;
-		ref_id <= 7'b0000001;
-		phase <= 1'b0;
-		particle_id <= 0;
-		pause_reading <= 1'b1;
+		state                <= WAIT_FOR_START;
+		ref_id               <= 7'b0000001;
+		phase                <= 1'b0;
+		particle_id          <= 0;
+		pause_reading        <= 1'b1;
 		reading_particle_num <= 1'b0;
-		wait_cycle_counter <= 0;
+		wait_cycle_counter   <= 0;
+    increase_ref         <= 1'b0;
 		end
 	else
 		begin
@@ -135,8 +137,9 @@ always@(posedge clk)
 							end
 						else
 							begin
-							state <= WAIT_NEXT_REF;
+							state         <= WAIT_NEXT_REF;
 							pause_reading <= 1'b1;
+              increase_ref  <= 1'b1;
 							end
 						end
 					else
@@ -183,6 +186,7 @@ always@(posedge clk)
 						phase <= 1'b0;
 						particle_id <= 0;
 						pause_reading <= 1'b1;
+            increase_ref  <= 1'b0;
 						end
 					// Wait for all force wr to be issued for mu start
 					else
@@ -202,9 +206,10 @@ always@(posedge clk)
             phase         <= 1'b0;
 						pause_reading <= 1'b0;
 					end
-          else if(all_filter_buffer_empty)begin
+          else if(all_filter_buffer_empty & increase_ref)begin
             ref_id        <= ref_id + 1'b1;
             pause_reading <= 1'b1;
+            increase_ref  <= 1'b0;
             state         <= state;
           end
 					else begin
