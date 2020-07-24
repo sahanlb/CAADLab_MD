@@ -10,7 +10,7 @@ module RL_Force_Evaluation_Unit
 	parameter FILTER_BUFFER_DATA_WIDTH = PARTICLE_ID_WIDTH+3*DATA_WIDTH, 
 	
 	// Constants
-	parameter REF_DELAY = 50, 
+	parameter REF_DELAY = 31, 
 	parameter SQRT_2 = 10'b0101101011,
 	parameter SQRT_3 = 10'b0110111100,
 	parameter NUM_FILTER = 7, 

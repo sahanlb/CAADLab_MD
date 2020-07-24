@@ -125,7 +125,6 @@ always@(posedge clk)
 					// Enter next phase, reset particle id
 					if (all_broadcast_done)
 						begin
-						phase <= ~phase;
 						particle_id <= 7'b0000001;
 						// Still the same ref particle
 						if (phase == 1'b0)
@@ -137,7 +136,6 @@ always@(posedge clk)
 						else
 							begin
 							state <= WAIT_NEXT_REF;
-							ref_id <= ref_id + 1'b1;
 							pause_reading <= 1'b1;
 							end
 						end
@@ -165,6 +163,7 @@ always@(posedge clk)
       WAIT_PHASE_CHANGE:begin
         if(all_filter_buffer_empty)begin
           pause_reading <= 1'b0;
+          phase         <= 1'b1;
           state         <= READING;
         end
         else
@@ -195,24 +194,25 @@ always@(posedge clk)
 						pause_reading <= 1'b1;
 						end
 					end
-				else
-					begin
-					ref_id <= ref_id;
+				else begin
 					particle_id <= particle_id;
-					phase <= phase;
 					// This means normal reading can continue
-					if (all_filter_buffer_empty & all_ref_wb_issued)
-						begin
-						state <= READING;
+					if(all_ref_wb_issued)begin
+						state         <= READING;
+            phase         <= 1'b0;
 						pause_reading <= 1'b0;
-						end
-					else
-						begin
+					end
+          else if(all_filter_buffer_empty)begin
+            ref_id        <= ref_id + 1'b1;
+            pause_reading <= 1'b1;
+            state         <= state;
+          end
+					else begin
 						state <= state;
 						pause_reading <= 1'b1;
-						end
 					end
 				end
+			end
 		endcase
 		end
 	end
