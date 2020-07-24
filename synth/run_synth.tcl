@@ -1,0 +1,3 @@
+project_open RL_top
+source virtual.tcl
+make_all_pins_virtual
