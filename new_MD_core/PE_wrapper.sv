@@ -3,6 +3,8 @@
 // Determine all the valid signals (ref_not_read_yet and ref_valid)
 // Extract useful data from the broadcasted data
 ///////////////////////////////////////////////////////////////////////////////////////////////
+import md_pkg::*;
+
 module PE_wrapper
 #(
 	// Data width
@@ -42,7 +44,7 @@ module PE_wrapper
 	input pause_reading, 
 	input reading_particle_num, 
 	// From data source
-	input [(NUM_NEIGHBOR_CELLS+1)*3*OFFSET_WIDTH-1:0] rd_nb_position, 
+	input offset_tuple_t [NUM_NEIGHBOR_CELLS:0] rd_nb_position, 
 	input [PARTICLE_ID_WIDTH-1:0] particle_id, 
 	input [PARTICLE_ID_WIDTH-1:0] ref_particle_id, 
   //from ring interconnect
@@ -54,7 +56,7 @@ module PE_wrapper
 	// From force evaluation
 	output back_pressure,
 	output all_buffer_empty,
-	output [WB_WIDTH-1:0] force_data_out, 
+	output force_wb_t force_data_out, 
 	output output_force_valid,
   // From force_distributor
   output all_ref_wb_issued
@@ -67,20 +69,18 @@ wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_z;
 wire [PARTICLE_ID_WIDTH-1:0] delay_particle_id;
 wire [PARTICLE_ID_WIDTH-1:0] delay_ref_id;
 wire [NUM_FILTER-1:0] pair_valid;
-wire [3*DATA_WIDTH-1:0] assembled_position;
+data_tuple_t assembled_position;
 
 // Back pressure status of each filter
 wire [NUM_FILTER-1:0] filter_back_pressure;
-assign back_pressure = (filter_back_pressure == 0) ? 1'b0 : 1'b1;
+assign back_pressure = |filter_back_pressure;
 
-//wire all_buffer_empty;
-// Do not need cell id because it's 222
-wire [NUM_FILTER-1:0][ID_WIDTH-1:0] out_ref_particle_id;
+full_id_t [NUM_FILTER-1:0] out_ref_particle_id;
 wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_force_x;
 wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_force_y;
 wire [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_force_z;
 wire [NUM_FILTER-1:0] ref_force_valid;
-wire [ID_WIDTH-1:0] out_neighbor_particle_id;
+full_id_t out_neighbor_particle_id;
 wire [DATA_WIDTH-1:0] nb_force_x;
 wire [DATA_WIDTH-1:0] nb_force_y;
 wire [DATA_WIDTH-1:0] nb_force_z;

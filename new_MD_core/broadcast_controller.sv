@@ -7,7 +7,7 @@ module broadcast_controller
 	input clk, 
 	input rst, 
 	input iter_start, 
-	input [NUM_CELLS*PARTICLE_ID_WIDTH-1:0] particle_num,
+	input [NUM_CELLS-1:0][PARTICLE_ID_WIDTH-1:0] particle_num,
 	input [NUM_CELLS-1:0] back_pressure, 
 	input [NUM_CELLS-1:0] filter_buffer_empty, 
 	// Returned from PEs, if ref id > particle num
@@ -29,24 +29,26 @@ module broadcast_controller
 );
 
 // FSM state encoding
-localparam WAIT_FOR_START    = 3'd0; 
-localparam READ_PARTICLE_NUM = 3'd1; 
-localparam READING           = 3'd2; 
-localparam WAIT_PHASE_CHANGE = 3'd3;
-localparam WAIT_NEXT_REF     = 3'd4;
+enum{
+  WAIT_FOR_START,
+  READ_PARTICLE_NUM,
+  READING,
+  WAIT_PHASE_CHANGE,
+  WAIT_NEXT_REF
+}state;
 
 
 // Flags returned from lower modules
 assign all_reading_done = &reading_done;
 
-assign all_filter_buffer_empty = (filter_buffer_empty == {(NUM_CELLS){1'b1}}) ? 1'b1 : 1'b0;
+assign all_filter_buffer_empty = &filter_buffer_empty;
 
 wire [NUM_CELLS-1:0] broadcast_done;
 wire all_broadcast_done;
 assign all_broadcast_done = &broadcast_done;
 
 wire back_pressure_exist;
-assign back_pressure_exist = (back_pressure == 0) ? 1'b0 : 1'b1;
+assign back_pressure_exist = |back_pressure;
 
 reg prev_phase;
 reg [3:0] wait_cycle_counter;
@@ -56,7 +58,6 @@ always@(posedge clk)
 	prev_phase <= phase;
 	end
 
-reg [2:0] state;
 
 always@(posedge clk)
 	begin
@@ -231,7 +232,7 @@ generate
 		)
 		check_broadcast_done
 		(
-			.particle_count(particle_num[i*PARTICLE_ID_WIDTH +: PARTICLE_ID_WIDTH]), 
+			.particle_count(particle_num[i]), 
 			.particle_id(particle_id), 
 			
 			.broadcast_done(broadcast_done[i])

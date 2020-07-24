@@ -2,6 +2,7 @@
 // Assemble the input raw data
 // Determine the valid bits
 ///////////////////////////////////
+import md_pkg::*;
 
 module pos_data_preprocessor
 #(
@@ -34,7 +35,7 @@ module pos_data_preprocessor
   // Phase 1 : {333, 332, 331, 323, 322, 321, 313}
   // rd_nb_position arrangement
   // {333, 332, 331, 323, 322, 321, 313, 312, 311, 233, 232, 231, 223, 222}
-	input [(NUM_NEIGHBOR_CELLS+1)*3*OFFSET_WIDTH-1:0] rd_nb_position, 
+	input offset_tuple_t [NUM_NEIGHBOR_CELLS:0] rd_nb_position, 
 	input [PARTICLE_ID_WIDTH-1:0] ref_id, 
 	input [PARTICLE_ID_WIDTH-1:0] particle_id, 
 	
@@ -46,7 +47,7 @@ module pos_data_preprocessor
 	output reg [PARTICLE_ID_WIDTH-1:0] prev_ref_id, 
   output [PARTICLE_ID_WIDTH-1:0] ref_particle_count,
 	output [NUM_FILTER-1:0] pair_valid,
-	output [3*DATA_WIDTH-1:0] assembled_position,
+	output data_tuple_t assembled_position,
   output reg prev_phase
 );
 //declare a struct to simplify handling neighbor particle data
@@ -61,7 +62,7 @@ genvar i;
 reg prev_pause_reading;
 reg prev_reading_particle_num;
 reg [NUM_NEIGHBOR_CELLS:0] prev_broadcast_done;
-reg [(NUM_NEIGHBOR_CELLS+1)*3*OFFSET_WIDTH-1:0] prev_rd_nb_position;
+offset_tuple_t [NUM_NEIGHBOR_CELLS:0] prev_rd_nb_position;
 
 reg [PARTICLE_ID_WIDTH-1:0] home_particle_count;
 

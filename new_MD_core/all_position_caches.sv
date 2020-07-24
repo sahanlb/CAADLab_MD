@@ -1,3 +1,6 @@
+import md_pkg::offset_tuple_t;
+import md_pkg::full_cell_id_t;
+
 module all_position_caches
 #(
 	parameter NUM_CELLS = 64, 
@@ -12,17 +15,16 @@ module all_position_caches
 	input Motion_Update_enable,
 	input [PARTICLE_ID_WIDTH-1:0] MU_rd_addr,
 	input [PARTICLE_ID_WIDTH-1:0] rd_addr,
-	input [3*DATA_WIDTH-1:0] MU_wr_data,
-	input [3*CELL_ID_WIDTH-1:0] MU_dst_cell,
+	input offset_tuple_t MU_wr_data,
+	input full_cell_id_t MU_dst_cell,
 	input MU_wr_data_valid,
 	input MU_rden,
 	
-	output [NUM_CELLS*3*DATA_WIDTH-1:0] pos_data_out
+	output offset_tuple_t [NUM_CELLS-1:0] pos_data_out
 );
 
 `include "define.v"
 	
-localparam POS_CACHE_WIDTH = 3*DATA_WIDTH;
 
 `POS_CACHE_INSTANCE(1,1,1)
 `POS_CACHE_INSTANCE(1,1,2)

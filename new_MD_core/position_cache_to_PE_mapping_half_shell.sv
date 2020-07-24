@@ -4,20 +4,21 @@
 // Uses half shell neighbor selection
 ///////////////////////////////////////////////////////////////////////////////
 
+import md_pkg::*;
+
 module position_cache_to_PE_mapping_half_shell
 #(
 	parameter NUM_CELLS          = 64, 
 	parameter OFFSET_WIDTH       = 29, 
-	parameter POS_CACHE_WIDTH    = 3*OFFSET_WIDTH, 
 	parameter NUM_NEIGHBOR_CELLS = 13,
   parameter X_DIM              = 4,
   parameter Y_DIM              = 4,
   parameter Z_DIM              = 4
 )
 (
-	input [NUM_CELLS-1:0][POS_CACHE_WIDTH-1:0] rd_nb_position,
+	input offset_tuple_t [NUM_CELLS-1:0] rd_nb_position,
 	
-	output [NUM_CELLS-1:0][NUM_NEIGHBOR_CELLS:0][POS_CACHE_WIDTH-1:0] rd_nb_position_splitted
+	output offset_tuple_t [NUM_CELLS-1:0][NUM_NEIGHBOR_CELLS:0] rd_nb_position_splitted
 );
 
 genvar i,j,k,n;

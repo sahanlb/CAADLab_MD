@@ -6,6 +6,7 @@
 // neighbor cell ID to a network node ID, and output the packets ready to be 
 // sent into the ring network
 ///////////////////////////////////////////////////////////////////////////////
+import md_pkg::*;
 
 module destination_id_map #(
   parameter NUM_CELLS         = 64,
@@ -15,15 +16,11 @@ module destination_id_map #(
   parameter XSIZE             = 4,
   parameter YSIZE             = 4,
   parameter ZSIZE             = 4,
-  parameter NODE_ID_WIDTH     = $clog2(NUM_CELLS),
-	parameter ID_WIDTH          = 3*CELL_ID_WIDTH+PARTICLE_ID_WIDTH,
-	parameter FORCE_DATA_WIDTH  = 3*DATA_WIDTH + PARTICLE_ID_WIDTH,
-  parameter WB_WIDTH          = ID_WIDTH + 3*DATA_WIDTH,
-  parameter PACKET_WIDTH      = FORCE_DATA_WIDTH + NODE_ID_WIDTH
+  parameter NODE_ID_WIDTH     = $clog2(NUM_CELLS)
 )(
-  input  [NUM_CELLS-1:0][WB_WIDTH-1:0] wb_in,
+  input force_wb_t [NUM_CELLS-1:0] wb_in,
   
-  output [NUM_CELLS-1:0][PACKET_WIDTH-1:0] pkt_out 
+  output packet_t [NUM_CELLS-1:0] pkt_out 
 );
 
 genvar i,j,k;

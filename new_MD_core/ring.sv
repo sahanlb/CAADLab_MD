@@ -4,6 +4,7 @@
 // The ring interconnect. Instantiates the 'ring nodes' and links connecting 
 // the nodes.
 ///////////////////////////////////////////////////////////////////////////////
+import md_pkg::*;
 
 module ring #(
   parameter NUM_CELLS         = 64,
@@ -15,19 +16,19 @@ module ring #(
 )(
   input  clk,
   input  rst,
-  input  [NUM_CELLS-1:0][PACKET_WIDTH-1:0] packet_in, //{dest_id, payload}
+  input  packet_t [NUM_CELLS-1:0] packet_in, //{dest_id, payload}
   input  [NUM_CELLS-1:0] packet_valid,
 
   output [NUM_CELLS-1:0] ready,
   output [NUM_CELLS-1:0] data_valid,
-  output [NUM_CELLS-1:0][FORCE_DATA_WIDTH-1:0] data_out
+  output force_data_t [NUM_CELLS-1:0] data_out
 );
 // Declare wires to connect the nodes
-logic [NUM_CELLS-1:0][PACKET_WIDTH-1:0] nw_link_in, nw_link_out;
+packet_t [NUM_CELLS-1:0] nw_link_in, nw_link_out;
 logic [NUM_CELLS-1:0] nw_valid_in, nw_valid_out;
 
-assign nw_link_in[0]  = nw_link_out[NUM_CELLS];
-assign nw_valid_in[0] = nw_valid_out[NUM_CELLS];
+assign nw_link_in[0]  = nw_link_out[NUM_CELLS-1];
+assign nw_valid_in[0] = nw_valid_out[NUM_CELLS-1];
 assign nw_link_in[NUM_CELLS-1:1]  = nw_link_out[NUM_CELLS-2:0];
 assign nw_valid_in[NUM_CELLS-1:1] = nw_valid_out[NUM_CELLS-2:0];
 

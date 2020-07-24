@@ -1,3 +1,5 @@
+import md_pkg::*;
+
 module cell_to_dest_id_map #(
   parameter NUM_CELLS         = 64,
 	parameter DATA_WIDTH        = 32, 
@@ -17,8 +19,8 @@ module cell_to_dest_id_map #(
   parameter NXY               = NX*NY,
   parameter NXYZ              = NX*NY*NZ
 )(
-  input  [WB_WIDTH-1:0] wb_in,
-  output [PACKET_WIDTH-1:0] pkt_out
+  input  force_wb_t wb_in,
+  output packet_t pkt_out
 );
 
 localparam CELL_1 = 3'b001;
@@ -27,9 +29,9 @@ localparam CELL_3 = 3'b011;
 
 wire [CELL_ID_WIDTH-1:0] cellx, celly, cellz;
 
-assign cellx = wb_in[WB_WIDTH-1-2*CELL_ID_WIDTH -: CELL_ID_WIDTH];
-assign celly = wb_in[WB_WIDTH-1-1*CELL_ID_WIDTH -: CELL_ID_WIDTH];
-assign cellz = wb_in[WB_WIDTH-1-0*CELL_ID_WIDTH -: CELL_ID_WIDTH];
+assign cellx = wb_in.id.cell_id.cell_id_x;
+assign celly = wb_in.id.cell_id.cell_id_y;
+assign cellz = wb_in.id.cell_id.cell_id_z;
 
 int unsigned hops, destination;
 
@@ -153,8 +155,10 @@ end
 assign dest_id = (HOME_CELL_ID + hops >= NUM_CELLS) ? (HOME_CELL_ID + hops - NUM_CELLS) :
                  (HOME_CELL_ID + hops);
 
+assign pkt_out.dest_id = dest_id;
 
-assign pkt_out[0 +: (3*DATA_WIDTH+PARTICLE_ID_WIDTH)] = wb_in[0 +: (3*DATA_WIDTH+PARTICLE_ID_WIDTH)];
-assign pkt_out[PACKET_WIDTH-1 -: NODE_ID_WIDTH] = dest_id;
+assign pkt_out.payload.particle_id = wb_in.id.particle_id;
+
+assign pkt_out.payload.force_val = wb_in.force_val;
 
 endmodule

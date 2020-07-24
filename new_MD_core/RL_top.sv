@@ -1,3 +1,8 @@
+`include "md_pkg.sv"
+
+import md_pkg::*;
+
+
 module RL_top
 #(
 	parameter NUM_CELLS = 64, 
@@ -42,8 +47,8 @@ module RL_top
 assign force_valid_and = &force_valid;
 
 // Output from PE
-wire [NUM_CELLS*PARTICLE_ID_WIDTH-1:0] particle_num;
-wire [NUM_CELLS*FORCE_WB_WIDTH-1:0] force_data;
+wire [NUM_CELLS-1:0][PARTICLE_ID_WIDTH-1:0] particle_num;
+force_wb_t [NUM_CELLS-1:0] force_data;
 wire [NUM_CELLS-1:0] ref_wb_issued;
 
 // Input for broadcast controller
@@ -58,19 +63,19 @@ wire pause_reading;
 wire reading_particle_num;
 wire [PARTICLE_ID_WIDTH-1:0] particle_id;
 wire [PARTICLE_ID_WIDTH-1:0] ref_particle_id;
-wire [NUM_CELLS-1:0][NUM_NEIGHBOR_CELLS:0][2:0][OFFSET_WIDTH-1:0] rd_nb_position_splitted;
+offset_tuple_t [NUM_CELLS-1:0][NUM_NEIGHBOR_CELLS:0] rd_nb_position_splitted;
 wire [NUM_CELLS-1:0] interconnect_ready;
 
 // Force writeback
-wire [NUM_CELLS*FORCE_DATA_WIDTH-1:0] force_to_caches;
+force_data_t [NUM_CELLS-1:0] force_to_caches;
 wire [NUM_CELLS-1:0] force_wr_enable;
-wire [NUM_CELLS*PACKET_WIDTH-1:0] packets_to_ring;
+packet_t [NUM_CELLS-1:0] packets_to_ring;
 
 // MU inputs
 wire motion_update_start;
-wire [NUM_CELLS*FORCE_CACHE_WIDTH-1:0] force_to_MU;
-wire [NUM_CELLS*VELOCITY_CACHE_WIDTH-1:0] velocity_data_out;
-wire [NUM_CELLS*POS_CACHE_WIDTH-1:0] rd_nb_position;
+data_tuple_t   [NUM_CELLS-1:0] force_to_MU;
+data_tuple_t   [NUM_CELLS-1:0] velocity_data_out;
+offset_tuple_t [NUM_CELLS-1:0] rd_nb_position;
 
 wire all_force_wr_issued;		// all force writings are issued
 wire force_cache_input_buffer_empty;		// all force_wb_controller buffers are empty
@@ -80,9 +85,9 @@ wire force_cache_input_buffer_empty;		// all force_wb_controller buffers are emp
 wire MU_out_rd_enable;
 wire MU_out_data_valid;
 wire [PARTICLE_ID_WIDTH-1:0] MU_out_rd_addr;
-wire [POS_CACHE_WIDTH-1:0] MU_out_position_data;
-wire [VELOCITY_CACHE_WIDTH-1:0] MU_out_velocity_data;
-wire [3*CELL_ID_WIDTH-1:0] MU_dst_cell;
+offset_tuple_t MU_out_position_data;
+data_tuple_t MU_out_velocity_data;
+full_cell_id_t MU_dst_cell;
 wire [NUM_CELLS-1:0] MU_force_rd_request;
 wire Motion_Update_enable;
 wire MU_done;
@@ -212,10 +217,10 @@ generate
       .ready(interconnect_ready[i]),
 			
 			.reading_done(reading_done[i]),
-			.ref_particle_num(particle_num[(i+1)*PARTICLE_ID_WIDTH-1:i*PARTICLE_ID_WIDTH]),
+			.ref_particle_num(particle_num[i]),
 			.back_pressure(back_pressure[i]),
 			.all_buffer_empty(filter_buffer_empty[i]),
-			.force_data_out(force_data[i*FORCE_WB_WIDTH +: FORCE_WB_WIDTH]),
+			.force_data_out(force_data[i]),
 			.output_force_valid(force_valid[i]),
       .all_ref_wb_issued(ref_wb_issued[i])
 		);
@@ -253,7 +258,6 @@ position_cache_to_PE_mapping_half_shell
 #(
 	.NUM_CELLS(NUM_CELLS),
 	.OFFSET_WIDTH(OFFSET_WIDTH),
-	.POS_CACHE_WIDTH(POS_CACHE_WIDTH),
 	.NUM_NEIGHBOR_CELLS(NUM_NEIGHBOR_CELLS),
   .X_DIM(X_DIM),
   .Y_DIM(Y_DIM),

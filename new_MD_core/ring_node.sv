@@ -5,6 +5,7 @@
 // calculation units and previous node on the ring. Outputs to either the 
 // force cache connectd directly or the next node on the ring.
 ///////////////////////////////////////////////////////////////////////////////
+import md_pkg::*;
 
 module ring_node #(
   parameter DATA_WIDTH        = 32,
@@ -18,32 +19,21 @@ module ring_node #(
   input  clk,
   input  rst,
   // From local PE
-  input  [PACKET_WIDTH-1:0] pe_pkt_in,
+  input  packet_t pe_pkt_in,
   input  pe_pkt_valid,
   // From previous node on the ring
-  input  [PACKET_WIDTH-1:0] prev_pkt_in,
+  input  packet_t prev_pkt_in,
   input  prev_pkt_valid,
 
   // To force cache
-  output reg [FORCE_DATA_WIDTH-1:0] fc_data_out,
+  output force_data_t fc_data_out,
   output reg fc_data_valid,
   // To next node
-  output reg [PACKET_WIDTH-1:0] nxt_pkt_out,
+  output packet_t nxt_pkt_out,
   output reg nxt_pkt_valid,
   // To local PE
   output reg pe_ready
 );
-
-typedef struct packed{
-  logic [NODE_ID_WIDTH-1:0] dest;
-  logic [FORCE_DATA_WIDTH-1:0] payload;
-} packet_t;
-
-
-packet_t pe_packet, nw_packet;
-
-assign pe_packet = pe_pkt_in;
-assign nw_packet = prev_pkt_in;
 
 // Buffers
 packet_t pe_buf;
@@ -52,9 +42,9 @@ logic pe_buf_valid;
 // destination address comparisons
 logic pe_dest_match, nw_dest_match, pe_buf_dest_match;
 
-assign pe_dest_match     = (pe_packet.dest == HOME_CELL_ID);
-assign nw_dest_match     = (nw_packet.dest == HOME_CELL_ID);
-assign pe_buf_dest_match = (pe_buf.dest == HOME_CELL_ID);
+assign pe_dest_match     = (pe_pkt_in.dest_id == HOME_CELL_ID);
+assign nw_dest_match     = (prev_pkt_in.dest_id == HOME_CELL_ID);
+assign pe_buf_dest_match = (pe_buf.dest_id == HOME_CELL_ID);
 
 /*
 * NW packets don't need to be buffered because anything coming from previous node goes through.
@@ -95,7 +85,7 @@ always_ff @(posedge clk)begin
   end
   else begin
     if(prev_pkt_valid & nw_dest_match)begin
-      fc_data_out   <= nw_packet.payload;
+      fc_data_out   <= prev_pkt_in.payload;
       fc_data_valid <= 1'b1;
     end
     else if(pe_buf_valid & pe_buf_dest_match)begin
@@ -103,7 +93,7 @@ always_ff @(posedge clk)begin
       fc_data_valid <= 1'b1;
     end
     else if(pe_pkt_valid & pe_dest_match)begin
-      fc_data_out   <= pe_packet.payload;
+      fc_data_out   <= pe_pkt_in.payload;
       fc_data_valid <= 1'b1;
     end
     else begin

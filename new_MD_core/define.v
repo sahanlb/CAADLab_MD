@@ -25,5 +25,5 @@ cell_``XPOS``_``YPOS``_``ZPOS``                                        \
       .in_data_dst_cell(MU_dst_cell),                                  \
       .in_data_valid(MU_wr_data_valid),                                \
       .in_rden(Motion_Update_enable ? MU_rden : 1'b1),                 \
-      .out_particle_info(pos_data_out[(16*(ZPOS-1)+4*(YPOS-1)+(XPOS-1))*POS_CACHE_WIDTH +: POS_CACHE_WIDTH])\
+      .out_particle_info(pos_data_out[(16*(ZPOS-1)+4*(YPOS-1)+(XPOS-1))])\
 );
