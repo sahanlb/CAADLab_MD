@@ -3,5 +3,11 @@
 **/work
 **/modelsim.ini
 **/transcript
+**/qdb
+**/output_files
+**/tmp-clearbox
+**/quartus_run*
 *.wlf
 *.swp
+*.qsf
+*.qpf

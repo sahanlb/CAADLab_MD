@@ -16,6 +16,8 @@
 # Want more flags? Look here:
 # http://www.bu.edu/tech/support/research/system-usage/running-jobs/submitting-jobs/
 
+export LM_LICENSE_FILE='1800@alteralm.bu.edu'
+
 # Load the correct modules
 module load quartus_pro/18.1
 
