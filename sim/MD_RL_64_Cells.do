@@ -11,9 +11,8 @@ set TOP_LEVEL_NAME RL_top_tb
 elab
 
 
-add wave -r -depth 7 *
+add wave -r -depth 5 *
 
-add wave sim:/RL_top_tb/RL_top/rd_nb_position_splitted
 
 #add wave sim:/RL_top_tb/RL_top/all_position_caches/*
 #add wave sim:/RL_top_tb/RL_top/PE_collection\[0\]/single_PE/*
@@ -21,7 +20,7 @@ add wave sim:/RL_top_tb/RL_top/rd_nb_position_splitted
 #add wave sim:/RL_top_tb/RL_top/PE_collection\[0\]/single_PE/pos_data_preprocessor/ref_extractor_inst\[0\]/ref_data_extractor/*
 
 
-run 2000ns
+run 200000ns
 
 exit -code 0
 
