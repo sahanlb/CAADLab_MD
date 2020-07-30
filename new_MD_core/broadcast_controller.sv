@@ -14,6 +14,7 @@ module broadcast_controller
 	input [NUM_CELLS-1:0] reading_done, 
 	input all_force_wr_issued, // Includes the time to flush out all packets from the interconnect.
   input all_ref_wb_issued,
+  input [$clog2(NUM_CELLS):0] drain_counter,
 	
 	// Partial flag for motion update start
 	output all_reading_done, 
@@ -25,8 +26,10 @@ module broadcast_controller
 	output reg reading_particle_num, 
 	// Invalidate all pairs to force evaluation unit
 	output reg pause_reading,
-  output goto_next_ref // indicating that controller is not waiting for the interconnect to be empty and moving to the next ref ID.
+  output reg goto_next_ref // indicating that controller is not waiting for the interconnect to be empty and moving to the next ref ID.
 );
+
+localparam REF_CYCLES = 31; // pipeline depth
 
 // FSM state encoding
 enum{
@@ -124,6 +127,7 @@ always@(posedge clk)
 			READING: 
 				begin
 				reading_particle_num <= 1'b0;
+        goto_next_ref        <= 1'b0;
 					// Enter next phase, reset particle id
 					if (all_broadcast_done)
 						begin
@@ -167,6 +171,7 @@ always@(posedge clk)
         if(all_filter_buffer_empty)begin
           pause_reading <= 1'b0;
           phase         <= 1'b1;
+          goto_next_ref <= 1'b1;
           state         <= READING;
         end
         else
@@ -201,10 +206,19 @@ always@(posedge clk)
 				else begin
 					particle_id <= particle_id;
 					// This means normal reading can continue
-					if(all_ref_wb_issued)begin
+          // Since the number of nodes in the ring is higher than the force pipeline depth,
+          // valid neighbor force writebacks from PEs will reach the ring nodes before all
+          // packets are drained from the ring network. Therefore, even though the FSM does 
+          // not have to wait until all the packets are flushed out, similar to at the end 
+          // of one iteration and before starting motion update, it will wait for 
+          // (NUMBER OF NODES - pipeline depth) cycles to ensure that all packets will 
+          // exit the ring by the time the next set of neighbor force writebacks reaech the 
+          // ring nodes.
+					if(all_ref_wb_issued & (drain_counter > (NUM_CELLS-REF_CYCLES)))begin
 						state         <= READING;
             phase         <= 1'b0;
 						pause_reading <= 1'b0;
+            goto_next_ref <= 1'b1;
 					end
           else if(all_filter_buffer_empty & increase_ref)begin
             ref_id        <= ref_id + 1'b1;
@@ -221,10 +235,6 @@ always@(posedge clk)
 		endcase
 		end
 	end
-
-assign goto_next_ref = ((state == WAIT_PHASE_CHANGE) & all_filter_buffer_empty) |
-                       ((state == WAIT_NEXT_REF) & ~all_reading_done & 
-                       all_filter_buffer_empty & all_ref_wb_issued);
 
 
 genvar i;

@@ -1,5 +1,3 @@
-`include "md_pkg.sv"
-
 import md_pkg::*;
 
 
@@ -243,6 +241,7 @@ broadcast_controller
 	.reading_done(reading_done),
 	.all_force_wr_issued(all_force_wr_issued), 
   .all_ref_wb_issued(all_ref_wb_issued),
+  .drain_counter(drain_counter),
 	
 	.all_reading_done(all_reading_done), 
 	.all_filter_buffer_empty(all_filter_buffer_empty), 
