@@ -53,6 +53,19 @@ initial begin
 	start <= 0;
 end
 
+
+// Stop simulation after motion update is completed in the first iteration
+reg mu_done;
+
+initial begin
+  mu_done = 0;
+  wait(RL_top.MU_done);
+  #10000;
+  $stop();
+end
+
+
+
 RL_top
 #(
 	.NUM_CELLS(NUM_CELLS),
