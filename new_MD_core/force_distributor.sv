@@ -37,8 +37,8 @@ module force_distributor
 	// Bus is ready to receive packets
 	input ready, 
 	
-	output reg [WB_WIDTH-1:0] wb_out, 
-	output reg wb_valid,
+	output [WB_WIDTH-1:0] wb_out, 
+	output wb_valid,
   output reg all_ref_wb_issued 
 );
 
@@ -54,11 +54,16 @@ reg [13:0][3*DATA_WIDTH-1:0] force_reg;
 reg [13:0][ID_WIDTH-1:0] force_id_reg;
 reg [13:0] force_reg_valid;
 
+// Assign outputs
+assign wb_out = rst ? 0 : (state == WB_REF) ? {force_id_reg[counter], force_reg[counter]} :
+                {nb_id, force_z, force_y, force_x};
+
+assign wb_valid = rst ? 0 : (state == WB_REF) ? force_reg_valid[counter] : force_valid;
+
+
 //state machine
 always_ff @(posedge clk)begin
   if(rst)begin
-    wb_out            <= 0;
-    wb_valid          <= 0; 
     all_ref_wb_issued <= 0;
     force_reg         <= 0;
     force_id_reg      <= 0;
@@ -70,8 +75,6 @@ always_ff @(posedge clk)begin
     case(state)
       ACTIVE:begin
         all_ref_wb_issued <= 1'b0;
-        wb_valid          <= force_valid;
-        wb_out            <= {nb_id, force_z, force_y, force_x};
         //capture force on reference particles
         for(i=0; i<NUM_FILTER; i++)begin
           if(ref_force_valid[i])begin
@@ -97,8 +100,6 @@ always_ff @(posedge clk)begin
         end
       end
       WAIT:begin // Make sure no more writebacks intended for the home cell foce cache are left in the pipeline
-        wb_valid <= force_valid;
-        wb_out   <= {nb_id, force_z, force_y, force_x};
         if(force_valid)begin
           counter <= 0;
           state   <= WAIT;
@@ -113,8 +114,6 @@ always_ff @(posedge clk)begin
         end
       end
       WB_REF:begin
-        wb_valid <= force_reg_valid[counter];
-        wb_out   <= {force_id_reg[counter], force_reg[counter]};
         if(ready & counter == 13)begin
           all_ref_wb_issued <= 1'b1;
           state             <= ACTIVE;
