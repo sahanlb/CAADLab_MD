@@ -175,13 +175,13 @@ module Partial_Force_Acc
 			out_particle_acc_force_y <= acc_value_out_y;
 			out_particle_acc_force_z <= acc_value_out_z;
       if(~particle_id_match)begin // next ref particle
-        out_acc_force_valid      <= valid_wb_value;  
+        out_acc_force_valid      <= 1'b1;
         start_wb                 <= (cur_particle_id.particle != 0);
         cur_particle_id.particle <= in_id.particle;
         cur_particle_id.cell_id  <= cell_id1;
       end
       else if(phase_change)begin // switch from phase 0 to 1
-        out_acc_force_valid      <= valid_wb_value;
+        out_acc_force_valid      <= 1'b1;
         // Don't writeback accumulated value if the reference particle is from the home cell.
         cur_particle_id.cell_id  <= cell_id2;
       end
