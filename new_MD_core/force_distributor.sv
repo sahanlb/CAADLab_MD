@@ -6,6 +6,9 @@
 // Store accumulated force on reference particles based on target cell id
 // Send out the reference particles when the reference id changes
 //////////////////////////////////////////////////////////////
+import md_pkg::full_cell_id_t;
+import md_pkg::full_id_t;
+
 module force_distributor
 #(
 	parameter DATA_WIDTH        = 32, 
@@ -27,7 +30,8 @@ module force_distributor
 	input [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_force_x, 
 	input [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_force_y, 
 	input [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_force_z, 
-	input [NUM_FILTER-1:0][ID_WIDTH-1  :0] ref_id, 
+	//input [NUM_FILTER-1:0][ID_WIDTH-1  :0] ref_id, 
+  input full_id_t [NUM_FILTER-1:0] ref_id,
 	input [NUM_FILTER-1:0] ref_force_valid, 
 	input [DATA_WIDTH-1:0] force_x, 
 	input [DATA_WIDTH-1:0] force_y, 
@@ -41,6 +45,10 @@ module force_distributor
 	output wb_valid,
   output reg all_ref_wb_issued 
 );
+
+localparam CELL_1 = 3'b001;
+localparam CELL_2 = 3'b010;
+localparam CELL_3 = 3'b011;
 
 // state encoding
 enum {ACTIVE, WAIT, WB_REF} state;
@@ -60,6 +68,20 @@ assign wb_out = rst ? 0 : (state == WB_REF) ? {force_id_reg[counter], force_reg[
 
 assign wb_valid = rst ? 0 : (state == WB_REF) ? force_reg_valid[counter] : force_valid;
 
+// Cell ID values to be compared with input particle IDs.
+full_cell_id_t [6:0] cell_id1, cell_id2;
+
+always_comb begin
+  {cell_id1[0], cell_id2[0]} = {CELL_2, CELL_2, CELL_2, CELL_3, CELL_1, CELL_3};
+  {cell_id1[1], cell_id2[1]} = {CELL_2, CELL_2, CELL_3, CELL_3, CELL_2, CELL_1};
+  {cell_id1[2], cell_id2[2]} = {CELL_2, CELL_3, CELL_1, CELL_3, CELL_2, CELL_2};
+  {cell_id1[3], cell_id2[3]} = {CELL_2, CELL_3, CELL_2, CELL_3, CELL_2, CELL_3};
+  {cell_id1[4], cell_id2[4]} = {CELL_2, CELL_3, CELL_3, CELL_3, CELL_3, CELL_1};
+  {cell_id1[5], cell_id2[5]} = {CELL_3, CELL_1, CELL_1, CELL_3, CELL_3, CELL_2};
+  {cell_id1[6], cell_id2[6]} = {CELL_3, CELL_1, CELL_2, CELL_3, CELL_3, CELL_3};
+end
+
+
 
 //state machine
 always_ff @(posedge clk)begin
@@ -78,7 +100,7 @@ always_ff @(posedge clk)begin
         //capture force on reference particles
         for(i=0; i<NUM_FILTER; i++)begin
           if(ref_force_valid[i])begin
-            if(ref_id[0][ID_WIDTH-1 -: 3*CELL_ID_WIDTH] == CELL_222)begin //phase 0
+            if(ref_id[i].cell_id == cell_id1[i])begin //phase 0
               force_reg[i]       <= {ref_force_z[i], ref_force_y[i], ref_force_x[i]};
               force_id_reg[i]    <= ref_id[i];
               force_reg_valid[i] <= 1'b1;
@@ -116,6 +138,7 @@ always_ff @(posedge clk)begin
       WB_REF:begin
         if(ready & counter == 13)begin
           all_ref_wb_issued <= 1'b1;
+          force_reg_valid   <= 0;
           state             <= ACTIVE;
         end
         else if(ready)

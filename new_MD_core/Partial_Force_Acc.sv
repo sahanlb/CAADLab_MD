@@ -175,7 +175,7 @@ module Partial_Force_Acc
 			out_particle_acc_force_y <= acc_value_out_y;
 			out_particle_acc_force_z <= acc_value_out_z;
       if(~particle_id_match)begin // next ref particle
-        out_acc_force_valid      <= 1'b1;
+        out_acc_force_valid      <= (cur_particle_id.particle != 0) & (in_id.particle != 1);
         start_wb                 <= (cur_particle_id.particle != 0) & (in_id.particle != 1);
         // Additional conditions to prevent module issuing fake start_wb signals.
         cur_particle_id.particle <= in_id.particle;
