@@ -6,6 +6,7 @@ static const int DEBUG_PARTICLE_NUM = 5000;
 static const int DEBUG = 1;
 static const int DEBUG_MU = 0;
 static const int DEBUG_PARTIAL_FORCE = 1;
+static const int PRINT_PARTICLE_COUNT = 0;
 //Simulation Control Parameter
 static const bool ENABLE_INTERPOLATION = 1;                         	 	// Choose to use direct computation or interpolation to evaluat the force and energy
 static const bool ENABLE_VERIFICATION = 0;                      	     	// Enable verification for a certain reference particle

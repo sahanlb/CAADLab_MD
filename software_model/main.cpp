@@ -33,16 +33,28 @@ int main() {
 
 	// Declare a counter matrix to track the # of particles in each cell (3d)
 	int*** particle_in_cell_counter;
-	particle_in_cell_counter = new int** [CELL_COUNT_X];
+	particle_in_cell_counter = new int** [CELL_COUNT_Z];
 	for (i = 0; i < CELL_COUNT_X; i++) {
 		particle_in_cell_counter[i] = new int* [CELL_COUNT_Y];
 		for (j = 0; j < CELL_COUNT_Y; j++) {
-			particle_in_cell_counter[i][j] = new int[CELL_COUNT_Z];
+			particle_in_cell_counter[i][j] = new int[CELL_COUNT_X];
 		}
 	}
 
 
 	// Declare a matrix to record the status of each particle in each cell (3d)
+	// 0 : X position
+	// 1 : Y position
+	// 2 : Z position
+	// 3 : X force
+	// 4 : Y force
+	// 5 : Z force
+	// 6 : X velocity
+	// 7 : Y velocity
+	// 8 : Z velocity
+	// 9 : Potential energy
+	// 10: Kinetic energy
+	// 11: Number of neighbor particles inside cut-off radius
 	float*** cell_particle;
 	cell_particle = new float** [12];
 	for (i = 0; i < 12; i++) {
@@ -54,11 +66,11 @@ int main() {
 
 	// Declare a temporary counter matrix to track the # of particles in each cell (3d)
 	int*** tmp_particle_in_cell_counter;
-	tmp_particle_in_cell_counter = new int** [CELL_COUNT_X];
+	tmp_particle_in_cell_counter = new int** [CELL_COUNT_Z];
 	for (i = 0; i < CELL_COUNT_X; i++) {
 		tmp_particle_in_cell_counter[i] = new int* [CELL_COUNT_Y];
 		for (j = 0; j < CELL_COUNT_Y; j++) {
-			tmp_particle_in_cell_counter[i][j] = new int[CELL_COUNT_Z];
+			tmp_particle_in_cell_counter[i][j] = new int[CELL_COUNT_X];
 		}
 	}
 
@@ -69,24 +81,6 @@ int main() {
 		tmp_cell_particle[i] = new float* [CELL_COUNT_TOTAL];
 		for (j = 0; j < CELL_COUNT_TOTAL; j++) {
 			tmp_cell_particle[i][j] = new float[CELL_PARTICLE_MAX];
-		}
-	}
-
-  /***************/
-  //cout << "check 1" << endl;
-  /***************/
-
-	// Declare a matrix to record the status of particles to be sent to the filters (3d)
-	/* Hold all the particles that need to send to each filter to process, 
-	   1:x; 2:y; 3:z; 4-6:cell_ID x,y,z; 7: particle_in_cell_index
-	*/
-	float*** filter_input_particle_reservoir;
-	filter_input_particle_reservoir = new float** [7];
-	for (i = 0; i < 7; i++) {
-		// the factor 2 is because each filter can be in charge of 2 cells
-		filter_input_particle_reservoir[i] = new float* [NUM_FILTER];
-		for (j = 0; j < NUM_FILTER; j++) {
-			filter_input_particle_reservoir[i][j] = new float[2 * CELL_PARTICLE_MAX];
 		}
 	}
 
@@ -183,33 +177,17 @@ int main() {
 	output_file.open(OUTPUT_ENERGY_FILE_PATH, ofstream::app);
 
 	shift_to_first_quadrant(raw_pos_data, pos_data);					// Shift the positions to the 1st quadrant
-  /******/
-  //cout << "check 2" << endl;
-  /******/
 
 	set_to_zeros_3d_int(particle_in_cell_counter, 
 		CELL_COUNT_X, CELL_COUNT_Y, CELL_COUNT_Z);						// Initialize the particle counter to 0
-  /******/
-  //cout << "check 3" << endl;
-  /******/
 
-	//set_to_zeros_3d(filter_input_particle_reservoir, 7, NUM_FILTER, 2 * CELL_PARTICLE_MAX);		// Initialize the filter reservoir to 0
-	set_to_zeros_3d(filter_input_particle_reservoir, 2*CELL_PARTICLE_MAX, NUM_FILTER, 7);		// Initialize the filter reservoir to 0
-  /******/
-  //cout << "check 4" << endl;
-  /******/
-
-	//set_to_zeros_3d(cell_particle, 12, CELL_COUNT_TOTAL, CELL_PARTICLE_MAX);		// Initialize the particle-cell data matrix to 0
 	set_to_zeros_3d(cell_particle, CELL_PARTICLE_MAX, CELL_COUNT_TOTAL, 12);		// Initialize the particle-cell data matrix to 0
-  /******/
-  //cout << "check 5" << endl;
-  /******/
 
 	cout << "*** Start mapping particles to cells ***" << endl;
 	map_to_cells(pos_data, cell_particle, particle_in_cell_counter);	// Map the particles to cells
 
   // Print particle counts
-  if(DEBUG){
+  if(PRINT_PARTICLE_COUNT){
     cout << "Print particle count" << endl;
     print_int_3d(particle_in_cell_counter, CELL_COUNT_X, CELL_COUNT_Y, CELL_COUNT_Z);
     //return 0;
@@ -307,22 +285,6 @@ int main() {
 
 							// Get the # of particles
 							tmp_particle_num = particle_in_cell_counter[home_cell_z][home_cell_y][home_cell_x];
-
-							// Assign the particles from neighbor cell(home cell in this case) to reservoir
-							for (i = 0; i < 3; i++) {
-								for (j = 0; j < tmp_particle_num; j++) {
-									filter_input_particle_reservoir[i][filter_id][j] =
-										cell_particle[i][nb_cell_id][j];
-								}
-							}
-
-							// Assign the particles ID
-							for (i = 0; i < tmp_particle_num; i++) {
-								filter_input_particle_reservoir[3][filter_id][i] = home_cell_x;
-								filter_input_particle_reservoir[4][filter_id][i] = home_cell_y;
-								filter_input_particle_reservoir[5][filter_id][i] = home_cell_z;
-								filter_input_particle_reservoir[6][filter_id][i] = i;		// Particle index in current cell
-							}
 
 
 							// Get neighbor cell indices
@@ -729,7 +691,7 @@ int main() {
 					} // Iterate through filters
 
 					if (ENABLE_PRINT_DETAIL_MESSAGE) {
-						cout << "*** Iteration: " << sim_iter << ", Home cell: " << home_cell_x << home_cell_y << home_cell_z << endl;
+						cout << "\n*** Iteration: " << sim_iter << ", Home cell: " << home_cell_x << home_cell_y << home_cell_z << endl;
 						cout << "Mapping cell particles to filters done ***\n" << endl;
 					}
 
@@ -780,9 +742,9 @@ int main() {
 
 					    // - Iterate over all home cell particles
 					    for(nb_particle_index = 0; nb_particle_index < home_cell_particle_num; nb_particle_index++){
-                nb_pos_x = filter_input_particle_reservoir[0][0][nb_particle_index]; // 2nd index is always 0  
-                nb_pos_y = filter_input_particle_reservoir[1][0][nb_particle_index]; // becase only filter 0 reservoir 
-                nb_pos_z = filter_input_particle_reservoir[2][0][nb_particle_index]; // is populated with home cell particles
+                nb_pos_x = cell_particle[0][home_cell_id][nb_particle_index];
+                nb_pos_y = cell_particle[1][home_cell_id][nb_particle_index];
+                nb_pos_z = cell_particle[2][home_cell_id][nb_particle_index];
 
 								// Calculate dx, dy, dz, r2
 								dx = ref_pos_x - nb_pos_x;
@@ -917,9 +879,9 @@ int main() {
 
 					    // - Iterate over all home cell particles
 					    for(nb_particle_index = 0; nb_particle_index < home_cell_particle_num; nb_particle_index++){
-                nb_pos_x = filter_input_particle_reservoir[0][0][nb_particle_index]; // 2nd index is always 0  
-                nb_pos_y = filter_input_particle_reservoir[1][0][nb_particle_index]; // becase only filter 0 reservoir 
-                nb_pos_z = filter_input_particle_reservoir[2][0][nb_particle_index]; // is populated with home cell particles
+                nb_pos_x = cell_particle[0][home_cell_id][nb_particle_index];
+                nb_pos_y = cell_particle[1][home_cell_id][nb_particle_index];
+                nb_pos_z = cell_particle[2][home_cell_id][nb_particle_index];
 
 								// Calculate dx, dy, dz, r2
 								dx = ref_pos_x - nb_pos_x;
@@ -1112,29 +1074,17 @@ void read_initial_input(string path, float** data_pos) {
 	for (i = 0; i < TOTAL_PARTICLE; i++) {
 		getline(raw, line);
 		ss.str(line);
-    /******/
 		ss >> data_pos[0][i] >> data_pos[1][i] >> data_pos[2][i];
-		//ss >> data_pos[1][i] >> data_pos[2][i] >> data_pos[3][i];
-    /******/
 		ss.clear();
 	}
 }
 
 void shift_to_first_quadrant(float** raw_data, float** shifted_data) {
 	int i;
-	/*
-	float* max_x;
-	float* max_y;
-	float* max_z;
-	*/
 	float* min_x;
 	float* min_y;
 	float* min_z;
-	/*
-	max_x = max_element(raw_data[0], raw_data[0] + TOTAL_PARTICLE - 1);
-	max_y = max_element(raw_data[1], raw_data[1] + TOTAL_PARTICLE - 1);
-	max_z = max_element(raw_data[2], raw_data[2] + TOTAL_PARTICLE - 1);
-	*/
+
 	min_x = min_element(raw_data[0], raw_data[0] + TOTAL_PARTICLE);
 	min_y = min_element(raw_data[1], raw_data[1] + TOTAL_PARTICLE);
 	min_z = min_element(raw_data[2], raw_data[2] + TOTAL_PARTICLE);
@@ -1162,15 +1112,11 @@ void map_to_cells(float** pos_data, float*** cell_particle, int*** particle_in_c
 			cell_y >= 0 && cell_y < CELL_COUNT_Y &&
 			cell_z >= 0 && cell_z < CELL_COUNT_Z) {
 			counter = particle_in_cell_counter[cell_z][cell_y][cell_x];
-      /***************/
-      //cout << "Mapping to cells cell_x:" << cell_x << " cell_y:" << cell_y << " cell_z:" << cell_z << " counter:" << counter << endl;
-      /***************/
 			if (DEBUG || DEBUG_MU) {
 				if (counter >= DEBUG_PARTICLE_NUM) {
 					continue;
 				}
 			}
-			//cout << "(" << cell_x << ", " << cell_y << ", " << cell_z << ")" << endl;
 			// Start from 0
 			cell_id = cell_index_calculator(cell_x, cell_y, cell_z);
 			cell_particle[0][cell_id][counter] = pos_data[0][i];
@@ -1181,21 +1127,11 @@ void map_to_cells(float** pos_data, float*** cell_particle, int*** particle_in_c
 		}
 		else {
 			out_range_particle_counter += 1;
-			//cout << "Out of range particle is: (" << pos_data[0][i] << ", " << pos_data[1][i] << ", " 
-			//	 << pos_data[2][i] << ") " << endl;
 		}
 	}
 	cout << "*** Particles mapping to cells finished! ***\n" << endl;
 	cout << "Total of (" << total_counter << ") particles recorded" << endl;
 	cout << "Total of (" << out_range_particle_counter << ") particles falling out of the range" << endl;
-	//if (DEBUG) {
-	//cout << "Positions (1, 2, 3): " << endl;
-	//	for (i = 0; i < particle_in_cell_counter[0][1][2]; i++) {
-	//		cout << "x: " << cell_particle[0][cell_index_calculator(0, 1, 2)][i]
-	//			<< ", y: " << cell_particle[1][cell_index_calculator(0, 1, 2)][i]
-	//			<< ", z: " << cell_particle[2][cell_index_calculator(0, 1, 2)][i] << endl;
-	//	}
-	//}
 }
 
 void set_to_zeros_3d(float*** matrix, int x, int y, int z) {
