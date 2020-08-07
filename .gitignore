@@ -11,3 +11,6 @@
 *.swp
 *.qsf
 *.qpf
+*.txt
+**/log
+**/MD_golden
