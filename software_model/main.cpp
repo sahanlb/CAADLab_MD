@@ -250,6 +250,9 @@ int main() {
 	float dx, dy, dz, r2;
 	double SIMULATION_TIME_STEP = 2E-15;
 	for (sim_iter = 0; sim_iter < SIMULATION_TIMESTEP; sim_iter++) {
+    if(DEBUG){
+      cout << "Iteration: " << sim_iter << endl;
+    }
 
 		if (sim_iter % ENERGY_EVALUATION_STEPS == 0) {
 			ENABLE_ENERGY_EVALUATION = 1;
@@ -257,6 +260,23 @@ int main() {
 		else {
 			ENABLE_ENERGY_EVALUATION = 0;
 		}
+
+    // Zero out the force values in cell_particle data structure
+    for(i = 0; i < CELL_COUNT_TOTAL; i++){
+      for(j = 0; j < CELL_PARTICLE_MAX; j++){
+        cell_particle[3][i][j] = 0.0;
+        cell_particle[4][i][j] = 0.0;
+        cell_particle[5][i][j] = 0.0;
+      }
+    }
+
+    // Zero out potential energy values
+    for(i = 0; i < CELL_COUNT_TOTAL; i++){
+      for(j = 0; j < CELL_PARTICLE_MAX; j++){
+        cell_particle[9][i][j] = 0.0;
+      }
+    }
+
 
 		// Each cell as home cell for once
 		for (home_cell_x = 0; home_cell_x < CELL_COUNT_X; home_cell_x++) {
@@ -720,9 +740,10 @@ int main() {
 					float ref_force_x_acc[14];
 					float ref_force_y_acc[14];
 					float ref_force_z_acc[14];
+          float ref_potential_energy_acc[14];
 					// - Iterate for the max particle number in all neighbor cells (ref_particle_index)
 					for (ref_particle_index = 0; ref_particle_index < filter_process_particle_max; ref_particle_index++){
-            if(DEBUG){
+            if(DEBUG_1_REF_ID){
               if(ref_particle_index == 1){
                 return 0;
               }
@@ -732,6 +753,7 @@ int main() {
 					    ref_force_x_acc[i] = 0.0;
 					    ref_force_y_acc[i] = 0.0;
 					    ref_force_z_acc[i] = 0.0;
+              ref_potential_energy_acc[i] = 0.0;
             }
 
 					  // - For first 7 neighbors
@@ -846,7 +868,6 @@ int main() {
 									float neg_F_LJ_z = -1 * F_LJ_z;
 
                   // Partial force write back values for home cell particles
-									//if (DEBUG_PARTIAL_FORCE && filter_id == 0 && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0) {
 									if (DEBUG_PARTIAL_FORCE && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0) {
 										cout << "F_LJ_x: " << neg_F_LJ_x / MASS_Nav << endl;
 										cout << "F_LJ_y: " << neg_F_LJ_y / MASS_Nav << endl;
@@ -866,6 +887,67 @@ int main() {
 									ref_force_x_acc[filter_id] += F_LJ_x;
 									ref_force_y_acc[filter_id] += F_LJ_y;
 									ref_force_z_acc[filter_id] += F_LJ_z;
+
+                  // Write force values to particle data structure
+                  cell_particle[3][home_cell_id][nb_particle_index] += neg_F_LJ_x;
+                  cell_particle[4][home_cell_id][nb_particle_index] += neg_F_LJ_y;
+                  cell_particle[5][home_cell_id][nb_particle_index] += neg_F_LJ_z;
+
+
+                  // Potential energy calculation
+									if (ENABLE_ENERGY_EVALUATION){
+										if (ENABLE_INTERPOLATION) {
+											float c0_vdw12 = c0_vdw_list_12[lut_index];
+											float c1_vdw12 = c1_vdw_list_12[lut_index];
+											float c0_vdw6 = c0_vdw_list_6[lut_index];
+											float c1_vdw6 = c1_vdw_list_6[lut_index];
+											float c2_vdw12 = 0;
+											float c2_vdw6 = 0;
+											float c3_vdw12 = 0;
+											float c3_vdw6 = 0;
+											if (INTERPOLATION_ORDER > 1) {
+												c2_vdw12 = c2_vdw_list_12[lut_index];
+												c2_vdw6 = c2_vdw_list_6[lut_index];
+											}
+											if (INTERPOLATION_ORDER > 2) {
+												c3_vdw12 = c3_vdw_list_12[lut_index];
+												c3_vdw6 = c3_vdw_list_6[lut_index];
+											}
+
+											// Declare the two terms of L-J potential
+											switch (INTERPOLATION_ORDER) {
+											case 1:
+												vdw_12 = c1_vdw12 * r2 + c0_vdw12;
+												vdw_6 = c1_vdw6 * r2 + c0_vdw6;
+												break;
+											case 2:
+												vdw_12 = c2_vdw12 * r2 * r2 + c1_vdw12 * r2 + c0_vdw12;
+												vdw_6 = c2_vdw6 * r2 * r2 + c1_vdw6 * r2 + c0_vdw6;
+												break;
+											case 3:
+												vdw_12 = c3_vdw12 * r2 * r2 * r2 + c2_vdw12 * r2 * r2 + c1_vdw12 * r2 + c0_vdw12;
+												vdw_6 = c3_vdw6 * r2 * r2 * r2 + c2_vdw6 * r2 * r2 + c1_vdw6 * r2 + c0_vdw6;
+												break;
+											default:
+												cout << "*** Error: No match for INTERPOLATION_ORDER ***" << endl;
+												return 1;
+											}
+										}
+										// Direct computation
+										else {
+											vdw_12 = OUTPUT_SCALE_INDEX * 4 * EPS * pow(SIGMA, 12) * pow(inv_r2, 6);
+											vdw_6 = OUTPUT_SCALE_INDEX * 4 * EPS * pow(SIGMA, 6) * pow(inv_r2, 3);
+										}
+
+										// Calculate LJ potential
+										float E_LJ = (vdw_12 - vdw_6) / Nav; // EPS should be kJ/particle instead of kJ/mol
+									  // Accumulate force for reference particles
+									  // filter_id variable follows the neighbor number in the half shell scheme.
+									  ref_potential_energy_acc[filter_id] += E_LJ;
+
+                    // Write potential value to the home cell particle
+                    cell_particle[9][home_cell_id][nb_particle_index] += E_LJ;
+                  } // if energy computation is enabled
 										
                 } // if passed filter
               } //iterate nb_particle_index
@@ -983,7 +1065,6 @@ int main() {
 									float neg_F_LJ_z = -1 * F_LJ_z;
 
                   // Partial force write back values for home cell particles
-									//if (DEBUG_PARTIAL_FORCE && filter_id == 0 && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0) {
 									if (DEBUG_PARTIAL_FORCE && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0) {
 										cout << "F_LJ_x: " << neg_F_LJ_x / MASS_Nav << endl;
 										cout << "F_LJ_y: " << neg_F_LJ_y / MASS_Nav << endl;
@@ -1003,11 +1084,85 @@ int main() {
 									ref_force_x_acc[filter_id] += F_LJ_x;
 									ref_force_y_acc[filter_id] += F_LJ_y;
 									ref_force_z_acc[filter_id] += F_LJ_z;
+
+                  // Write force values to particle data structure
+                  cell_particle[3][home_cell_id][nb_particle_index] += neg_F_LJ_x;
+                  cell_particle[4][home_cell_id][nb_particle_index] += neg_F_LJ_y;
+                  cell_particle[5][home_cell_id][nb_particle_index] += neg_F_LJ_z;
+
+                  // Potential energy calculation
+									if (ENABLE_ENERGY_EVALUATION){
+										if (ENABLE_INTERPOLATION) {
+											float c0_vdw12 = c0_vdw_list_12[lut_index];
+											float c1_vdw12 = c1_vdw_list_12[lut_index];
+											float c0_vdw6 = c0_vdw_list_6[lut_index];
+											float c1_vdw6 = c1_vdw_list_6[lut_index];
+											float c2_vdw12 = 0;
+											float c2_vdw6 = 0;
+											float c3_vdw12 = 0;
+											float c3_vdw6 = 0;
+											if (INTERPOLATION_ORDER > 1) {
+												c2_vdw12 = c2_vdw_list_12[lut_index];
+												c2_vdw6 = c2_vdw_list_6[lut_index];
+											}
+											if (INTERPOLATION_ORDER > 2) {
+												c3_vdw12 = c3_vdw_list_12[lut_index];
+												c3_vdw6 = c3_vdw_list_6[lut_index];
+											}
+
+											// Declare the two terms of L-J potential
+											switch (INTERPOLATION_ORDER) {
+											case 1:
+												vdw_12 = c1_vdw12 * r2 + c0_vdw12;
+												vdw_6 = c1_vdw6 * r2 + c0_vdw6;
+												break;
+											case 2:
+												vdw_12 = c2_vdw12 * r2 * r2 + c1_vdw12 * r2 + c0_vdw12;
+												vdw_6 = c2_vdw6 * r2 * r2 + c1_vdw6 * r2 + c0_vdw6;
+												break;
+											case 3:
+												vdw_12 = c3_vdw12 * r2 * r2 * r2 + c2_vdw12 * r2 * r2 + c1_vdw12 * r2 + c0_vdw12;
+												vdw_6 = c3_vdw6 * r2 * r2 * r2 + c2_vdw6 * r2 * r2 + c1_vdw6 * r2 + c0_vdw6;
+												break;
+											default:
+												cout << "*** Error: No match for INTERPOLATION_ORDER ***" << endl;
+												return 1;
+											}
+										}
+										// Direct computation
+										else {
+											vdw_12 = OUTPUT_SCALE_INDEX * 4 * EPS * pow(SIGMA, 12) * pow(inv_r2, 6);
+											vdw_6 = OUTPUT_SCALE_INDEX * 4 * EPS * pow(SIGMA, 6) * pow(inv_r2, 3);
+										}
+
+										// Calculate LJ potential
+										float E_LJ = (vdw_12 - vdw_6) / Nav; // EPS should be kJ/particle instead of kJ/mol
+									  // Accumulate force for reference particles
+									  // filter_id variable follows the neighbor number in the half shell scheme.
+									  ref_potential_energy_acc[filter_id] += E_LJ;
+
+                    // Write potential value to the home cell particle
+                    cell_particle[9][home_cell_id][nb_particle_index] += E_LJ;
+                  } // if enert computation is enabled
 										
                 } // if passed filter
               } //iterate nb_particle_index
 					  } // filter_id 7-13
 
+            // Writeback accumulated forces to the particle data structure
+            for(i=0; i<14; i++){
+              cell_particle[3][neighbor_cell_id[i]][ref_particle_index] += ref_force_x_acc[i];
+              cell_particle[4][neighbor_cell_id[i]][ref_particle_index] += ref_force_y_acc[i];
+              cell_particle[5][neighbor_cell_id[i]][ref_particle_index] += ref_force_z_acc[i];
+            }
+
+            // Writeback accumulated potential energy values to the particle data structure
+            if(ENABLE_ENERGY_EVALUATION){
+              for(i=0; i<14; i++){
+                cell_particle[9][neighbor_cell_id[i]][ref_particle_index] += ref_potential_energy_acc[i];
+              }
+            }
+            
             // Print accumulated forces for the ref particles
             // This is equivelant to the force writebacks 
             if(DEBUG_PARTIAL_FORCE && ref_particle_index == 0 && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0) {
@@ -1026,7 +1181,6 @@ int main() {
 					} // Iterate ref_particle_index
 					
 
-
 					// Print out which home cell is done processing
 					if (ENABLE_PRINT_DETAIL_MESSAGE) {
 						cout << "*** Home cell " << home_cell_x << home_cell_y << home_cell_z << " force evaluation done! ***" << endl;
@@ -1035,6 +1189,153 @@ int main() {
 				} // home cell z loop
 			} // home cell y loop
     } // home cell x loop
+
+
+		/* Energy Evaluation: Individual Kinetic Energy and System Total Energy */
+		if (ENABLE_ENERGY_EVALUATION) {
+			double potential_energy_acc = 0;
+			double kinetic_energy_acc = 0;
+			for (home_cell_x = 0; home_cell_x < CELL_COUNT_X; home_cell_x++) {
+				for (home_cell_y = 0; home_cell_y < CELL_COUNT_Y; home_cell_y++) {
+					for (home_cell_z = 0; home_cell_z < CELL_COUNT_Z; home_cell_z++) {
+						int home_cell_id = cell_index_calculator(home_cell_x, home_cell_y, home_cell_z);
+						int home_cell_particle_num = particle_in_cell_counter[home_cell_z][home_cell_y][home_cell_x];
+						int particle_index;
+						for (particle_index = 0; particle_index < home_cell_particle_num; particle_index++) {
+							
+							// Evaluate the individual kinetic energy first
+							float v_x = cell_particle[6][home_cell_id][particle_index];
+							float v_y = cell_particle[7][home_cell_id][particle_index];
+							float v_z = cell_particle[8][home_cell_id][particle_index];
+							float v2 = v_x * v_x + v_y * v_y + v_z * v_z;
+
+							// Kinetic energy
+							float Ek = 0.5 * MASS * v2;
+							cell_particle[10][home_cell_id][particle_index] = Ek;
+
+							// Evaluate the total energy
+							potential_energy_acc += cell_particle[9][home_cell_id][particle_index];
+							kinetic_energy_acc += cell_particle[10][home_cell_id][particle_index];
+						}
+					}
+				}
+			}
+			kinetic_energy_acc *= 1E-3; // J to kJ
+			energy_data_history[0] = potential_energy_acc / 2;
+			energy_data_history[1] = kinetic_energy_acc; // kJ
+			energy_data_history[2] = potential_energy_acc / 2 + kinetic_energy_acc; // kJ
+
+			if (ENABLE_OUTPUT_ENERGY_FILE) {
+				output_file << sim_iter << '\t';
+				output_file << setprecision(17);
+				output_file << energy_data_history[0] << '\t'
+					<< energy_data_history[1] << '\t' << energy_data_history[2] << endl;
+			}
+		}
+
+
+    /* Motion Update */
+		// Clear the tmp arrays
+		if(DEBUG){
+      cout << "Start motion update." << endl;
+    }
+		set_to_zeros_3d_int(tmp_particle_in_cell_counter, CELL_COUNT_X, CELL_COUNT_Y, CELL_COUNT_Z);
+		set_to_zeros_3d(tmp_cell_particle, CELL_PARTICLE_MAX, CELL_COUNT_TOTAL, 12);
+		if(DEBUG){
+      cout << "Zero out temp arrays." << endl;
+    }
+
+		// Traverse all cells
+		for (home_cell_x = 0; home_cell_x < CELL_COUNT_X; home_cell_x++) {
+			float x_min = home_cell_x * CUTOFF_RADIUS;
+			float x_max = (home_cell_x + 1) * CUTOFF_RADIUS;
+			for (home_cell_y = 0; home_cell_y < CELL_COUNT_Y; home_cell_y++) {
+				float y_min = home_cell_y * CUTOFF_RADIUS;
+				float y_max = (home_cell_y + 1) * CUTOFF_RADIUS;
+				for (home_cell_z = 0; home_cell_z < CELL_COUNT_Z; home_cell_z++) {
+					float z_min = home_cell_z * CUTOFF_RADIUS;
+					float z_max = (home_cell_z + 1) * CUTOFF_RADIUS;
+					int cell_id = cell_index_calculator(home_cell_x, home_cell_y, home_cell_z);
+					int particle_index;
+
+					// Traverse each particle in cell
+					for (particle_index = 0; particle_index < particle_in_cell_counter[home_cell_z][home_cell_y][home_cell_x]; particle_index++){
+						// Fetch the current values
+						float pos_x = cell_particle[0][cell_id][particle_index];
+						float pos_y = cell_particle[1][cell_id][particle_index];
+						float pos_z = cell_particle[2][cell_id][particle_index];
+						float force_x = cell_particle[3][cell_id][particle_index];
+						float force_y = cell_particle[4][cell_id][particle_index];
+						float force_z = cell_particle[5][cell_id][particle_index];
+						float v_x = cell_particle[6][cell_id][particle_index];
+						float v_y = cell_particle[7][cell_id][particle_index];
+						float v_z = cell_particle[8][cell_id][particle_index];
+
+						// Update velocity
+						v_x += (force_x / MASS_Nav) * SIMULATION_TIME_STEP;
+						v_y += (force_y / MASS_Nav) * SIMULATION_TIME_STEP;
+						v_z += (force_z / MASS_Nav) * SIMULATION_TIME_STEP;
+
+						// Update position
+						float move_x = v_x * SIMULATION_TIME_STEP;
+						float move_y = v_y * SIMULATION_TIME_STEP;
+						float move_z = v_z * SIMULATION_TIME_STEP;
+						pos_x += move_x;
+						pos_y += move_y;
+						pos_z += move_z;
+
+						// Apply boundary conditions to the new position
+						pos_x < 0 ? pos_x = fmod(pos_x, -1 * BOUNDING_BOX_SIZE_X) + BOUNDING_BOX_SIZE_X : pos_x = fmod(pos_x, BOUNDING_BOX_SIZE_X);
+						pos_y < 0 ? pos_y = fmod(pos_y, -1 * BOUNDING_BOX_SIZE_Y) + BOUNDING_BOX_SIZE_Y : pos_y = fmod(pos_y, BOUNDING_BOX_SIZE_Y);
+						pos_z < 0 ? pos_z = fmod(pos_z, -1 * BOUNDING_BOX_SIZE_Z) + BOUNDING_BOX_SIZE_Z : pos_z = fmod(pos_z, BOUNDING_BOX_SIZE_Z);
+
+						// In case the small number is eaten by the big number so the position = bounding box size
+						if (pos_x == BOUNDING_BOX_SIZE_X) {
+							pos_x = 0;
+						}
+						if (pos_y == BOUNDING_BOX_SIZE_Y) {
+							pos_y = 0;
+						}
+						if (pos_z == BOUNDING_BOX_SIZE_Z) {
+							pos_z = 0;
+						}
+
+						// The particle may move to a new cell, get the cell coordinates
+						int target_cell_x = (int)(pos_x / CUTOFF_RADIUS);
+						int target_cell_y = (int)(pos_y / CUTOFF_RADIUS);
+						int target_cell_z = (int)(pos_z / CUTOFF_RADIUS);
+
+						// Assign particles to new cells
+						int new_particle_index = tmp_particle_in_cell_counter[target_cell_z][target_cell_y][target_cell_x];
+						int target_cell_id = cell_index_calculator(target_cell_x, target_cell_y, target_cell_z);
+
+						// Assign the physical properties to temp array
+						tmp_cell_particle[0][target_cell_id][new_particle_index] = pos_x;
+						tmp_cell_particle[1][target_cell_id][new_particle_index] = pos_y;
+						tmp_cell_particle[2][target_cell_id][new_particle_index] = pos_z;
+						tmp_cell_particle[3][target_cell_id][new_particle_index] = 0;		// Forces set to 0 and will be accumulated later
+						tmp_cell_particle[4][target_cell_id][new_particle_index] = 0;
+						tmp_cell_particle[5][target_cell_id][new_particle_index] = 0;
+						tmp_cell_particle[6][target_cell_id][new_particle_index] = v_x;
+						tmp_cell_particle[7][target_cell_id][new_particle_index] = v_y;
+						tmp_cell_particle[8][target_cell_id][new_particle_index] = v_z;
+
+						// Update the # of particles in the new cell
+						tmp_particle_in_cell_counter[target_cell_z][target_cell_y][target_cell_x] += 1;
+
+          } // go through particles in the cell
+        } //motion update z loop
+      } //motion update y loop
+    } //motion update x loop
+		if(DEBUG){
+      cout << "Finished motion calculation." << endl;
+    }
+
+
+		/* Update the cell list from motion update tmp arrays */
+		update(cell_particle, tmp_cell_particle, CELL_PARTICLE_MAX, CELL_COUNT_TOTAL, 12);
+		update_int(particle_in_cell_counter, tmp_particle_in_cell_counter, CELL_COUNT_X, CELL_COUNT_Y, CELL_COUNT_Z);
+
 	} // sim iteration
 
 #pragma endregion
