@@ -8,8 +8,10 @@ static const int DEBUG_MU = 0;
 static const int DEBUG_PARTIAL_FORCE = 0;
 static const int PRINT_PARTICLE_COUNT = 0;
 static const int DEBUG_1_REF_ID = 0;
+static const int PRINT_FORCE = 0; // print partial force values to be used by comparison scripts
+static const int PRINT_FULL_FORCES = 1; // print force values used in motion uodate
 //Simulation Control Parameter
-static const bool ENABLE_INTERPOLATION = 0;                         	 	// Choose to use direct computation or interpolation to evaluat the force and energy
+static const bool ENABLE_INTERPOLATION = 1;                         	 	// Choose to use direct computation or interpolation to evaluat the force and energy
 static const bool ENABLE_VERIFICATION = 0;                      	     	// Enable verification for a certain reference particle
 static const bool ENABLE_SCATTER_PLOTTING = 0;                	         	// Ploting out the particle positions after each iteration ends
 static const bool ENABLE_PRINT_DETAIL_MESSAGE = 0;            	         	// Print out detailed message showing which step the program is working on
@@ -78,6 +80,8 @@ void read_interpolation(std::string path, float* table);
 int cell_index_calculator(int cell_x, int cell_y, int cell_z);
 void update_int(int*** target, int*** tmp, int x, int y, int z);
 void update(float*** target, float*** tmp, int x, int y, int z);
+void floatToHex(float val);
+void floatToHex_inline(float val);
 
 
 

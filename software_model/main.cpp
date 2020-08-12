@@ -155,8 +155,6 @@ int main() {
 	}
 
   
-  // Declare array to hold the calculated neighbor cell IDs for a given iteration
-  int neighbor_cell_id[14];
 
 #pragma endregion
 #pragma region Initialize
@@ -249,6 +247,9 @@ int main() {
 	float tmp_nb_force_x, tmp_nb_force_y, tmp_nb_force_z;
 	float dx, dy, dz, r2;
 	double SIMULATION_TIME_STEP = 2E-15;
+  int neighbor_cell_id[14]; //holds the calculated neighbor cell IDs for a given iteration
+  int neighbor_particle_count[14]; //number of particles in neighboe cells
+
 	for (sim_iter = 0; sim_iter < SIMULATION_TIMESTEP; sim_iter++) {
     if(DEBUG){
       cout << "Iteration: " << sim_iter << endl;
@@ -279,9 +280,9 @@ int main() {
 
 
 		// Each cell as home cell for once
-		for (home_cell_x = 0; home_cell_x < CELL_COUNT_X; home_cell_x++) {
+		for (home_cell_z = 0; home_cell_z < CELL_COUNT_Z; home_cell_z++) {
 			for (home_cell_y = 0; home_cell_y < CELL_COUNT_Y; home_cell_y++) {
-				for (home_cell_z = 0; home_cell_z < CELL_COUNT_Z; home_cell_z++) {
+		    for (home_cell_x = 0; home_cell_x < CELL_COUNT_X; home_cell_x++) {
 					// Generate input particle pairs
 					// In the software model filters are processed in series, and we iterate through the home cell particles,
 					// only one filter populated with home cell particles suffice. Reference particles are from neighbor cells 
@@ -289,7 +290,7 @@ int main() {
 					// filter_input_particle_num data structure is repurposed to save the number of particles in neighbor cells 
 					// from which the reference particles are selected.
 					if (ENABLE_PRINT_DETAIL_MESSAGE) {
-						cout << "*** Start processing home cell: " << home_cell_x << home_cell_y << home_cell_z << " ***" << endl;
+						cout << "\n\n*** Start processing home cell: " << home_cell_z << home_cell_y << home_cell_x << " ***" << endl;
 					}
 
 
@@ -305,7 +306,6 @@ int main() {
 
 							// Get the # of particles
 							tmp_particle_num = particle_in_cell_counter[home_cell_z][home_cell_y][home_cell_x];
-
 
 							// Get neighbor cell indices
 							// Other neighbor cell processed by filter 0 is (3,1,3)
@@ -340,6 +340,9 @@ int main() {
 							filter_input_particle_num[0][filter_id] = (tmp_particle_num > tmp_particle_num_2) ? tmp_particle_num : tmp_particle_num_2;
 							filter_input_particle_num[1][filter_id] = tmp_particle_num;
 							filter_input_particle_num[2][filter_id] = tmp_particle_num_2;
+
+              neighbor_particle_count[filter_id]              = tmp_particle_num;
+              neighbor_particle_count[filter_id + NUM_FILTER] = tmp_particle_num_2;
 
 
 							if (ENABLE_PRINT_DETAIL_MESSAGE) {
@@ -397,6 +400,9 @@ int main() {
 							filter_input_particle_num[1][filter_id] = tmp_particle_num_1;
 							filter_input_particle_num[2][filter_id] = tmp_particle_num_2;
 
+              neighbor_particle_count[filter_id]              = tmp_particle_num_1;
+              neighbor_particle_count[filter_id + NUM_FILTER] = tmp_particle_num_2;
+
 							if (ENABLE_PRINT_DETAIL_MESSAGE) {
 								cout << "*** Filter 1 assigned particles. ***" << endl;
 								cout << tmp_particle_num_1 << " particles in the cell (223)" << endl;
@@ -450,6 +456,8 @@ int main() {
 							filter_input_particle_num[1][filter_id] = tmp_particle_num_1;
 							filter_input_particle_num[2][filter_id] = tmp_particle_num_2;
 
+              neighbor_particle_count[filter_id]              = tmp_particle_num_1;
+              neighbor_particle_count[filter_id + NUM_FILTER] = tmp_particle_num_2;
 
 							if (ENABLE_PRINT_DETAIL_MESSAGE) {
 								cout << "*** Filter 2 assigned particles. ***" << endl;
@@ -504,6 +512,9 @@ int main() {
 							filter_input_particle_num[0][filter_id] = (tmp_particle_num_1 > tmp_particle_num_2) ? tmp_particle_num_1 : tmp_particle_num_2;
 							filter_input_particle_num[1][filter_id] = tmp_particle_num_1;
 							filter_input_particle_num[2][filter_id] = tmp_particle_num_2;
+
+              neighbor_particle_count[filter_id]              = tmp_particle_num_1;
+              neighbor_particle_count[filter_id + NUM_FILTER] = tmp_particle_num_2;
 							
               if (ENABLE_PRINT_DETAIL_MESSAGE) {
 								cout << "*** Filter 3 assigned particles. ***" << endl;
@@ -569,6 +580,9 @@ int main() {
 							filter_input_particle_num[1][filter_id] = tmp_particle_num_1;
 							filter_input_particle_num[2][filter_id] = tmp_particle_num_2;
 
+              neighbor_particle_count[filter_id]              = tmp_particle_num_1;
+              neighbor_particle_count[filter_id + NUM_FILTER] = tmp_particle_num_2;
+
 							if (ENABLE_PRINT_DETAIL_MESSAGE) {
 								cout << "*** Filter 4 assigned particles. ***" << endl;
 								cout << tmp_particle_num_1 << " particles in the 1st cell (233)" << endl;
@@ -633,6 +647,9 @@ int main() {
 							filter_input_particle_num[1][filter_id] = tmp_particle_num_1;
 							filter_input_particle_num[2][filter_id] = tmp_particle_num_2;
 
+              neighbor_particle_count[filter_id]              = tmp_particle_num_1;
+              neighbor_particle_count[filter_id + NUM_FILTER] = tmp_particle_num_2;
+
 							if (ENABLE_PRINT_DETAIL_MESSAGE) {
 								cout << "*** Filter 5 assigned particles. ***" << endl;
 								cout << tmp_particle_num_1 << " particles in the 1st cell (311)" << endl;
@@ -696,6 +713,9 @@ int main() {
 							filter_input_particle_num[1][filter_id] = tmp_particle_num_1;
 							filter_input_particle_num[2][filter_id] = tmp_particle_num_2;
 
+              neighbor_particle_count[filter_id]              = tmp_particle_num_1;
+              neighbor_particle_count[filter_id + NUM_FILTER] = tmp_particle_num_2;
+
 							if (ENABLE_PRINT_DETAIL_MESSAGE) {
 								cout << "*** Filter 6 assigned particles. ***" << endl;
 								cout << tmp_particle_num_1 << " particles in the 1st cell (312)" << endl;
@@ -711,7 +731,7 @@ int main() {
 					} // Iterate through filters
 
 					if (ENABLE_PRINT_DETAIL_MESSAGE) {
-						cout << "\n*** Iteration: " << sim_iter << ", Home cell: " << home_cell_x << home_cell_y << home_cell_z << endl;
+						cout << "\n*** Iteration: " << sim_iter << ", Home cell: " << home_cell_z << home_cell_y << home_cell_x << endl;
 						cout << "Mapping cell particles to filters done ***\n" << endl;
 					}
 
@@ -730,7 +750,7 @@ int main() {
 					filter_process_particle_max = *max_element(filter_input_particle_num[0], filter_input_particle_num[0] + NUM_FILTER);
 
 					if (ENABLE_PRINT_DETAIL_MESSAGE) {
-						cout << "*** Iteration: " << sim_iter << ", Home cell: " << home_cell_x << home_cell_y << home_cell_z << endl;
+						cout << "*** Iteration: " << sim_iter << ", Home cell: " << home_cell_z << home_cell_y << home_cell_x << endl;
 						cout << "Max neighbor partlces: " << filter_process_particle_max << endl;
 					}
           
@@ -758,6 +778,11 @@ int main() {
 
 					  // - For first 7 neighbors
 					  for(filter_id = 0; filter_id < NUM_FILTER; filter_id++){
+              // Continue if the neighbor cell have less than ref_particle_index particles.
+              if(neighbor_particle_count[filter_id] < ref_particle_index){
+                continue;
+              }
+
               ref_pos_x = cell_particle[0][neighbor_cell_id[filter_id]][ref_particle_index];
               ref_pos_y = cell_particle[1][neighbor_cell_id[filter_id]][ref_particle_index];
               ref_pos_z = cell_particle[2][neighbor_cell_id[filter_id]][ref_particle_index];
@@ -869,18 +894,26 @@ int main() {
 
                   // Partial force write back values for home cell particles
 									if (DEBUG_PARTIAL_FORCE && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0) {
-										cout << "F_LJ_x: " << neg_F_LJ_x / MASS_Nav << endl;
-										cout << "F_LJ_y: " << neg_F_LJ_y / MASS_Nav << endl;
-										cout << "F_LJ_z: " << neg_F_LJ_z / MASS_Nav << endl;
+                    cout << setprecision(12) << endl;
+										cout << "F_LJ_x: " << neg_F_LJ_x / MASS_Nav << "\t";
+                    floatToHex(F_LJ_x / MASS_Nav);
+										cout << "F_LJ_y: " << neg_F_LJ_y / MASS_Nav << "\t";
+                    floatToHex(F_LJ_y / MASS_Nav);
+										cout << "F_LJ_z: " << neg_F_LJ_z / MASS_Nav << "\t";
+                    floatToHex(F_LJ_z / MASS_Nav);
+                    cout << std::dec;
 										cout << "dx: " << dx << endl;
 										cout << "dy: " << dy << endl;
 										cout << "dz: " << dz << endl;
 										cout << "r2: " << r2 << endl;
 										cout << "filter: " << filter_id << endl;
 										cout << "ref_index: " << ref_particle_index << endl;
-										cout << "nb_index: " << nb_particle_index << endl;
+										cout << "nb_index: " << nb_particle_index + 1 << endl; // +1 to match RTL
 										cout << endl;
 									}
+									if (PRINT_FORCE && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 && filter_id == 13){
+                    cout << setprecision(12) << "nb_PID=" << nb_particle_index + 1 << "\t" << F_LJ_x / MASS_Nav << "\t" << F_LJ_y / MASS_Nav << "\t" << F_LJ_z / MASS_Nav << endl;
+                  }
 
 									// Accumulate force for reference particles
 									// filter_id variable follows the neighbor number in the half shell scheme.
@@ -955,6 +988,11 @@ int main() {
 
 					  // - For second  7 neighbors
 					  for(filter_id = NUM_FILTER; filter_id < 2*NUM_FILTER; filter_id++){
+              // Continue if the neighbor cell have less than ref_particle_index particles.
+              if(neighbor_particle_count[filter_id] < ref_particle_index){
+                continue;
+              }
+
               ref_pos_x = cell_particle[0][neighbor_cell_id[filter_id]][ref_particle_index];
               ref_pos_y = cell_particle[1][neighbor_cell_id[filter_id]][ref_particle_index];
               ref_pos_z = cell_particle[2][neighbor_cell_id[filter_id]][ref_particle_index];
@@ -1066,18 +1104,26 @@ int main() {
 
                   // Partial force write back values for home cell particles
 									if (DEBUG_PARTIAL_FORCE && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0) {
-										cout << "F_LJ_x: " << neg_F_LJ_x / MASS_Nav << endl;
-										cout << "F_LJ_y: " << neg_F_LJ_y / MASS_Nav << endl;
-										cout << "F_LJ_z: " << neg_F_LJ_z / MASS_Nav << endl;
+                    cout << setprecision(12) << endl;
+										cout << "F_LJ_x: " << neg_F_LJ_x / MASS_Nav << "\t";
+                    floatToHex(F_LJ_x / MASS_Nav);
+										cout << "F_LJ_y: " << neg_F_LJ_y / MASS_Nav << "\t";
+                    floatToHex(F_LJ_y / MASS_Nav);
+										cout << "F_LJ_z: " << neg_F_LJ_z / MASS_Nav << "\t";
+                    floatToHex(F_LJ_z / MASS_Nav);
+                    cout << std::dec;
 										cout << "dx: " << dx << endl;
 										cout << "dy: " << dy << endl;
 										cout << "dz: " << dz << endl;
 										cout << "r2: " << r2 << endl;
 										cout << "filter: " << filter_id << endl;
 										cout << "ref_index: " << ref_particle_index << endl;
-										cout << "nb_index: " << nb_particle_index << endl;
+										cout << "nb_index: " << nb_particle_index + 1 << endl; // +1 to match RTL
 										cout << endl;
 									}
+									if (PRINT_FORCE && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 && filter_id == 13){
+                    cout << setprecision(12) << "nb_PID=" << nb_particle_index + 1 << "\t" << F_LJ_x / MASS_Nav << "\t" << F_LJ_y / MASS_Nav << "\t" << F_LJ_z / MASS_Nav << endl;
+                  }
 
 									// Accumulate force for reference particles
 									// filter_id variable follows the neighbor number in the half shell scheme.
@@ -1169,10 +1215,14 @@ int main() {
               cout << endl;
               cout << "Accumulated forces for reference particles" << endl;
               for(int ct = 0; ct < 2*NUM_FILTER; ct++){
+                cout << setprecision(12) << std::dec;
                 cout << "neighbor: " << ct << endl;
-                cout << "F_LJ_x: " << ref_force_x_acc[ct] / MASS_Nav << endl;
-                cout << "F_LJ_y: " << ref_force_y_acc[ct] / MASS_Nav << endl;
-                cout << "F_LJ_z: " << ref_force_z_acc[ct] / MASS_Nav << endl;
+                cout << "F_LJ_x: " << ref_force_x_acc[ct] / MASS_Nav << "\t";
+                floatToHex(ref_force_x_acc[ct] / MASS_Nav);
+                cout << "F_LJ_y: " << ref_force_y_acc[ct] / MASS_Nav << "\t";
+                floatToHex(ref_force_y_acc[ct] / MASS_Nav);
+                cout << "F_LJ_z: " << ref_force_z_acc[ct] / MASS_Nav << "\t";
+                floatToHex(ref_force_z_acc[ct] / MASS_Nav);
                 cout << endl;
               }
               cout << "Ref ID " << ref_particle_index << "done." << endl;
@@ -1183,7 +1233,7 @@ int main() {
 
 					// Print out which home cell is done processing
 					if (ENABLE_PRINT_DETAIL_MESSAGE) {
-						cout << "*** Home cell " << home_cell_x << home_cell_y << home_cell_z << " force evaluation done! ***" << endl;
+						cout << "*** Home cell " << home_cell_z << home_cell_y << home_cell_x << " force evaluation done! ***" << endl;
 					}
 
 				} // home cell z loop
@@ -1270,6 +1320,18 @@ int main() {
 						float v_x = cell_particle[6][cell_id][particle_index];
 						float v_y = cell_particle[7][cell_id][particle_index];
 						float v_z = cell_particle[8][cell_id][particle_index];
+
+            if(PRINT_FULL_FORCES && home_cell_x == 0 && home_cell_y == 0 && home_cell_z == 0 & sim_iter == 0){
+              cout << setprecision(12) << std::dec;
+              cout << "PID=" << particle_index + 1; // +1 to match the indexing in RTL
+              cout << "\t" << force_x / MASS_Nav << "\t";
+              floatToHex_inline(force_x / MASS_Nav);
+              cout << "\t" << force_y / MASS_Nav << "\t";
+              floatToHex_inline(force_y / MASS_Nav);
+              cout << "\t" << force_z / MASS_Nav << "\t";
+              floatToHex_inline(force_z / MASS_Nav);
+              cout << endl;
+            }
 
 						// Update velocity
 						v_x += (force_x / MASS_Nav) * SIMULATION_TIME_STEP;
@@ -1513,4 +1575,27 @@ void update(float*** target, float*** tmp, int x, int y, int z) {
 			}
 		}
 	}
+}
+
+void floatToHex(float val){
+  union FloatToChar {
+    float f;
+    int  c;
+    //char  c[sizeof(float)];
+  };
+
+  FloatToChar x;
+  x.f = val;
+  cout << "0x" << std::hex << x.c << endl;
+}
+
+void floatToHex_inline(float val){
+  union FloatToChar {
+    float f;
+    int  c;
+  };
+
+  FloatToChar x;
+  x.f = val;
+  cout << "0x" << std::hex << x.c;
 }
