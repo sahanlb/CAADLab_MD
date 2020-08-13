@@ -1,6 +1,7 @@
 `timescale 1ns/1ns
 
-`define PRINT_PARTIAL_FORCES 1
+`define PRINT_PARTIAL_FORCES 0
+`define FULL_DATA_DUMP 1
 
 module RL_top_tb;
 
@@ -310,6 +311,23 @@ initial begin
   #10;
   $stop();
 end
+`endif
+
+
+// Full data dump for one iteration
+// 1. values written to force cache
+// 2. values going into 7 partial force accumulators
+// 3. values read from force cache for motion update
+// 4. values going out of motion update unit to position and velocity caches
+`ifdef FULL_DATA_DUMP
+// text macros for module hierarchies
+`define PE0 RL_top.PE_collection[0].single_PE
+`define MU RL_top.motion_update_control
+`define FC0 RL_top.all_force_caches.force_caches[0].force_wb_controller
+`define FD0 `PE0.force_distributor
+
+
+
 
 `endif
 
