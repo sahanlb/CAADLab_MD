@@ -380,7 +380,7 @@ end
 // 1. values written to force cache
 // 1.1 going out of the force distributor
 always @(negedge clk)begin
-  if(`FD0.state.name() == ACTIVE)begin // ACTIVE state
+  if(`FD0.state.name() == "ACTIVE")begin // ACTIVE state
     if(`FD0.wb_valid)begin // writeback to home force cache
       $fdisplay(file_fdb0, "nbPID=%0d\t\t%x\t\t%x\t\t%x", `FD0.wb_out[102:96],
         `FD0.wb_out[31:0], `FD0.wb_out[63:32], `FD0.wb_out[95:64]);
@@ -389,7 +389,7 @@ always @(negedge clk)begin
       $fdisplay(file_fdb0, "\nStart writing back forces ref particles.\n");
     end
   end
-  else if(`FD0.state.name() == WB_REF)begin
+  else if(`FD0.state.name() == "WB_REF")begin
     if(`FD0.wb_valid)begin
       $fdisplay(file_fdb0, "refPID=%0d\t%0d\t%0d\t%0d\t\t%x\t%x\t%x",
         `FD0.wb_out[102:96], `FD0.wb_out[111:109], `FD0.wb_out[108:106],
