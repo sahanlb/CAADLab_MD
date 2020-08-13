@@ -341,7 +341,7 @@ end
 // filters
 integer file00, file01, file02, file03, file04, file05, file06, file07, file08, file09, file010, file011, file012, file013;
 integer file_fdb0, file_fci0, file_fco0;
-integer file_mu_pos, file_mu_vel;
+integer file_mu_pos0, file_mu_vel0;
 
 initial begin
   file00  = $fopen("filter_0_0.dat", "w");
@@ -363,8 +363,8 @@ initial begin
   file_fci0 = $fopen("force_cache_0_input.dat", "w");
   file_fco0 = $fopen("force_cache_0_output.dat", "w");
 
-  file_mu_pos = $fopen("mu_position_cell0.dat", "w");
-  file_mu_vel = $fopen("mu_velocity_cell0.dat", "w");
+  file_mu_pos0 = $fopen("mu_position_cell0.dat", "w");
+  file_mu_vel0 = $fopen("mu_velocity_cell0.dat", "w");
 
   if(!file00 | !file01 | !file02 | !file03  | !file04  | !file05  | !file06  |
      !file07 | !file08 | !file09 | !file010 | !file011 | !file012 | !file013 |
@@ -390,7 +390,7 @@ always @(negedge clk)begin
     end
   end
   else if(`FD0.state.name() == "WB_REF")begin
-    if(`FD0.wb_valid)begin
+    if(`FD0.wb_valid & `FD0.ready)begin
       $fdisplay(file_fdb0, "refPID=%0d\t%0d\t%0d\t%0d\t\t%x\t%x\t%x",
         `FD0.wb_out[102:96], `FD0.wb_out[111:109], `FD0.wb_out[108:106],
         `FD0.wb_out[105:103], `FD0.wb_out[31:0], `FD0.wb_out[63:32], `FD0.wb_out[95:64]
@@ -666,14 +666,14 @@ end
 always @(negedge clk)begin
   if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b000_000_000)begin
     //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
-    $fdisplay(file_mu_pos, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $fdisplay(file_mu_pos0, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
     $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a);
   end
 end
 
 always @(negedge clk)begin
   if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b000_000_000)begin
-    $fdisplay(file_mu_vel, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    $fdisplay(file_mu_vel0, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
     `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
@@ -700,8 +700,8 @@ initial begin
   $fclose(file_fdb0);
   $fclose(file_fci0);
   $fclose(file_fco0);
-  $fclose(file_mu_pos);
-  $fclose(file_mu_vel);
+  $fclose(file_mu_pos0);
+  $fclose(file_mu_vel0);
   $stop();
 end
 
