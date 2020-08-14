@@ -378,66 +378,66 @@ end
 `define PA426 `PE42.RL_LJ_Evaluation_Unit.partial_acc_inst[6].Partial_Force_Acc
 
 // Dump reduced set of values for the rest of the cells
-`define FD1 RL_top.PE_collection[1].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[2].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[3].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[4].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[5].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[6].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[7].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[8].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[9].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[10].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[11].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[12].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[13].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[14].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[15].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[16].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[17].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[18].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[19].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[20].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[21].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[22].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[23].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[24].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[25].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[26].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[28].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[29].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[30].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[31].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[32].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[33].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[34].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[35].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[36].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[37].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[38].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[39].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[40].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[41].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[43].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[44].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[45].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[46].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[47].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[48].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[49].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[50].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[51].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[52].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[53].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[54].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[55].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[56].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[57].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[58].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[59].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[60].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[62].single_PE.force_distributor
-`define FD1 RL_top.PE_collection[63].single_PE.force_distributor
+`define FD1  RL_top.PE_collection[1].single_PE.force_distributor
+`define FD2  RL_top.PE_collection[2].single_PE.force_distributor
+`define FD3  RL_top.PE_collection[3].single_PE.force_distributor
+`define FD4  RL_top.PE_collection[4].single_PE.force_distributor
+`define FD5  RL_top.PE_collection[5].single_PE.force_distributor
+`define FD6  RL_top.PE_collection[6].single_PE.force_distributor
+`define FD7  RL_top.PE_collection[7].single_PE.force_distributor
+`define FD8  RL_top.PE_collection[8].single_PE.force_distributor
+`define FD9  RL_top.PE_collection[9].single_PE.force_distributor
+`define FD10 RL_top.PE_collection[10].single_PE.force_distributor
+`define FD11 RL_top.PE_collection[11].single_PE.force_distributor
+`define FD12 RL_top.PE_collection[12].single_PE.force_distributor
+`define FD13 RL_top.PE_collection[13].single_PE.force_distributor
+`define FD14 RL_top.PE_collection[14].single_PE.force_distributor
+`define FD15 RL_top.PE_collection[15].single_PE.force_distributor
+`define FD16 RL_top.PE_collection[16].single_PE.force_distributor
+`define FD17 RL_top.PE_collection[17].single_PE.force_distributor
+`define FD18 RL_top.PE_collection[18].single_PE.force_distributor
+`define FD19 RL_top.PE_collection[19].single_PE.force_distributor
+`define FD20 RL_top.PE_collection[20].single_PE.force_distributor
+`define FD21 RL_top.PE_collection[21].single_PE.force_distributor
+`define FD22 RL_top.PE_collection[22].single_PE.force_distributor
+`define FD23 RL_top.PE_collection[23].single_PE.force_distributor
+`define FD24 RL_top.PE_collection[24].single_PE.force_distributor
+`define FD25 RL_top.PE_collection[25].single_PE.force_distributor
+`define FD26 RL_top.PE_collection[26].single_PE.force_distributor
+`define FD28 RL_top.PE_collection[28].single_PE.force_distributor
+`define FD29 RL_top.PE_collection[29].single_PE.force_distributor
+`define FD30 RL_top.PE_collection[30].single_PE.force_distributor
+`define FD31 RL_top.PE_collection[31].single_PE.force_distributor
+`define FD32 RL_top.PE_collection[32].single_PE.force_distributor
+`define FD33 RL_top.PE_collection[33].single_PE.force_distributor
+`define FD34 RL_top.PE_collection[34].single_PE.force_distributor
+`define FD35 RL_top.PE_collection[35].single_PE.force_distributor
+`define FD36 RL_top.PE_collection[36].single_PE.force_distributor
+`define FD37 RL_top.PE_collection[37].single_PE.force_distributor
+`define FD38 RL_top.PE_collection[38].single_PE.force_distributor
+`define FD39 RL_top.PE_collection[39].single_PE.force_distributor
+`define FD40 RL_top.PE_collection[40].single_PE.force_distributor
+`define FD41 RL_top.PE_collection[41].single_PE.force_distributor
+`define FD43 RL_top.PE_collection[43].single_PE.force_distributor
+`define FD44 RL_top.PE_collection[44].single_PE.force_distributor
+`define FD45 RL_top.PE_collection[45].single_PE.force_distributor
+`define FD46 RL_top.PE_collection[46].single_PE.force_distributor
+`define FD47 RL_top.PE_collection[47].single_PE.force_distributor
+`define FD48 RL_top.PE_collection[48].single_PE.force_distributor
+`define FD49 RL_top.PE_collection[49].single_PE.force_distributor
+`define FD50 RL_top.PE_collection[50].single_PE.force_distributor
+`define FD51 RL_top.PE_collection[51].single_PE.force_distributor
+`define FD52 RL_top.PE_collection[52].single_PE.force_distributor
+`define FD53 RL_top.PE_collection[53].single_PE.force_distributor
+`define FD54 RL_top.PE_collection[54].single_PE.force_distributor
+`define FD55 RL_top.PE_collection[55].single_PE.force_distributor
+`define FD56 RL_top.PE_collection[56].single_PE.force_distributor
+`define FD57 RL_top.PE_collection[57].single_PE.force_distributor
+`define FD58 RL_top.PE_collection[58].single_PE.force_distributor
+`define FD59 RL_top.PE_collection[59].single_PE.force_distributor
+`define FD60 RL_top.PE_collection[60].single_PE.force_distributor
+`define FD62 RL_top.PE_collection[62].single_PE.force_distributor
+`define FD63 RL_top.PE_collection[63].single_PE.force_distributor
 
 
 // Output files
@@ -529,7 +529,7 @@ initial begin
   file_mu_vel61 = $fopen("mu_velocity_cell61.dat", "w");
 
   if(!file610 | !file611 | !file612 | !file613  | !file614  | !file615  | !file616  |
-     !file617 | !file618 | !file619 | !file61161 | !file6111 | !file6112 | !file6113 |
+     !file617 | !file618 | !file619 | !file6110 | !file6111 | !file6112 | !file6113 |
      !file_fdb61 | !file_fci61 | !file_fco61
     )begin
     $display("Error opening output files.");
@@ -1017,11 +1017,6 @@ always @(negedge clk)begin
   end
 end
 
-// 2. values going into 7 partial force accumulators
-localparam C1 = 3'b001;
-localparam C2 = 3'b010;
-localparam C3 = 3'b011;
-
 //filter 0
 always @(negedge clk)begin
   if(`PA610.in_input_valid & `PA610.particle_id_match & (`PA610.cell_id_match | `PA610.phase_change))begin
@@ -1313,10 +1308,6 @@ always @(negedge clk)begin
   end
 end
 
-// 2. values going into 7 partial force accumulators
-localparam C1 = 3'b001;
-localparam C2 = 3'b010;
-localparam C3 = 3'b011;
 
 //filter 0
 always @(negedge clk)begin
@@ -1609,10 +1600,6 @@ always @(negedge clk)begin
   end
 end
 
-// 2. values going into 7 partial force accumulators
-localparam C1 = 3'b001;
-localparam C2 = 3'b010;
-localparam C3 = 3'b011;
 
 //filter 0
 always @(negedge clk)begin
