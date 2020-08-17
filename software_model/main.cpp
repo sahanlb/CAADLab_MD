@@ -736,9 +736,6 @@ int main() {
 					}
 
 					/* Start Evaluation */
-          // Only one iteration of force calculations are performed.
-          // No motion update.
-
 					// Home cell id
 					int home_cell_id = cell_index_calculator(home_cell_x, home_cell_y, home_cell_z);
 
@@ -911,6 +908,7 @@ int main() {
 										cout << "nb_index: " << nb_particle_index + 1 << endl; // +1 to match RTL
 										cout << endl;
 									}
+
 									if (PRINT_FORCE && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 && filter_id == 13){
                     cout << setprecision(12) << "nb_PID=" << nb_particle_index + 1 << "\t" << F_LJ_x / MASS_Nav << "\t" << F_LJ_y / MASS_Nav << "\t" << F_LJ_z / MASS_Nav << endl;
                   }
@@ -925,6 +923,10 @@ int main() {
                   cell_particle[3][home_cell_id][nb_particle_index] += neg_F_LJ_x;
                   cell_particle[4][home_cell_id][nb_particle_index] += neg_F_LJ_y;
                   cell_particle[5][home_cell_id][nb_particle_index] += neg_F_LJ_z;
+                  
+                  if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 & sim_iter == 0 & ref_particle_index == 2){
+                    cout << "nbPID=" << nb_particle_index + 1 << "\t" << neg_F_LJ_x/MASS_Nav << "\t" << neg_F_LJ_y/MASS_Nav << "\t" << neg_F_LJ_z/MASS_Nav << endl;
+                  }
 
 
                   // Potential energy calculation
@@ -1136,6 +1138,10 @@ int main() {
                   cell_particle[4][home_cell_id][nb_particle_index] += neg_F_LJ_y;
                   cell_particle[5][home_cell_id][nb_particle_index] += neg_F_LJ_z;
 
+                  if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 & sim_iter == 0 & ref_particle_index == 2){
+                    cout << "nbPID=" << nb_particle_index + 1 << "\t" << neg_F_LJ_x/MASS_Nav << "\t" << neg_F_LJ_y/MASS_Nav << "\t" << neg_F_LJ_z/MASS_Nav << endl;
+                  }
+
                   // Potential energy calculation
 									if (ENABLE_ENERGY_EVALUATION){
 										if (ENABLE_INTERPOLATION) {
@@ -1200,6 +1206,19 @@ int main() {
               cell_particle[3][neighbor_cell_id[i]][ref_particle_index] += ref_force_x_acc[i];
               cell_particle[4][neighbor_cell_id[i]][ref_particle_index] += ref_force_y_acc[i];
               cell_particle[5][neighbor_cell_id[i]][ref_particle_index] += ref_force_z_acc[i];
+            }
+
+            if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 & sim_iter == 0 & ref_particle_index == 2){
+              cout << "\nStart writing back forces ref particles." << endl;
+              cout << setprecision(12) << std::dec << endl;
+              for(i=0; i<14; i++){
+                cout << "neighbor=" << i << "\t" << ref_force_x_acc[i]/MASS_Nav << "\t" << ref_force_y_acc[i]/MASS_Nav << "\t" << ref_force_z_acc[i]/MASS_Nav << endl;
+              }
+            }
+
+						if (PRINT_FORCE && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0){
+              cout << "\nChange ref ID. Next ref_ID=" << ref_particle_index + 2 << endl;
+              cout << endl;
             }
 
             // Writeback accumulated potential energy values to the particle data structure
