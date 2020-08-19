@@ -3,16 +3,16 @@ import md_pkg::*;
 
 module RL_top
 #(
-	parameter NUM_CELLS = 64, 
+	parameter NUM_CELLS = 125, 
 	parameter NUM_PARTICLE_PER_CELL = 100, 
 	parameter OFFSET_WIDTH = 29, 
 	parameter DATA_WIDTH = 32,
 	parameter CELL_ID_WIDTH = 3,
 	parameter DECIMAL_ADDR_WIDTH = 2, 
 	parameter PARTICLE_ID_WIDTH = 7, 
-	parameter X_DIM = 4, 
-	parameter Y_DIM = 4, 
-	parameter Z_DIM = 4, 
+	parameter X_DIM = 5, 
+	parameter Y_DIM = 5, 
+	parameter Z_DIM = 5, 
 	parameter BODY_BITS = 8, 
 	parameter ID_WIDTH = 3*CELL_ID_WIDTH+PARTICLE_ID_WIDTH,
   parameter NODE_ID_WIDTH     = $clog2(NUM_CELLS),
@@ -376,6 +376,7 @@ motion_update_control
 #(
 	.OFFSET_WIDTH(OFFSET_WIDTH),
 	.DATA_WIDTH(DATA_WIDTH),
+  .GLOBAL_CELL_ID_WIDTH($clog2(NUM_CELLS)),
 	.FORCE_CACHE_WIDTH(FORCE_CACHE_WIDTH),
 	.POS_CACHE_WIDTH(POS_CACHE_WIDTH), 
 	.VELOCITY_CACHE_WIDTH(VELOCITY_CACHE_WIDTH), 
