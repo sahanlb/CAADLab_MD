@@ -8,16 +8,17 @@ static const int DEBUG_MU = 0;
 static const int DEBUG_PARTIAL_FORCE = 0;
 static const int PRINT_PARTICLE_COUNT = 0;
 static const int DEBUG_1_REF_ID = 0;
-static const int PRINT_FORCE = 1; // print partial force values to be used by comparison scripts
-static const int PRINT_FULL_FORCES = 0; // print force values used in motion uodate
+static const int PRINT_FORCE = 0;                                      // print partial force values to be used by comparison scripts
+static const int PRINT_FULL_FORCES = 0;                                // print force values used in motion uodate
 static const int PRINT_FORCE_DISTRIBUTOR_OUTPUT = 0;
+static const int PRINT_SINGLE_PARTICLE = 1;
 //Simulation Control Parameter
 static const bool ENABLE_INTERPOLATION = 1;                         	 	// Choose to use direct computation or interpolation to evaluat the force and energy
 static const bool ENABLE_VERIFICATION = 0;                      	     	// Enable verification for a certain reference particle
 static const bool ENABLE_SCATTER_PLOTTING = 0;                	         	// Ploting out the particle positions after each iteration ends
 static const bool ENABLE_PRINT_DETAIL_MESSAGE = 0;            	         	// Print out detailed message showing which step the program is working on
 static const bool ENABLE_OUTPUT_ENERGY_FILE = 0;              	         	// Print out the energy result to an output file
-static const int SIMULATION_TIMESTEP = 1;                            	// Total timesteps to simulate
+static const int SIMULATION_TIMESTEP = 1;                            	  // Total timesteps to simulate
 static const int ENERGY_EVALUATION_STEPS = 1;                         		// Every few iterations, evaluate energy once
 // Dataset Parameters
 // Input & Output Scale Parameters (Determined by the LJ_no_smooth_poly_interpolation_accuracy.m)

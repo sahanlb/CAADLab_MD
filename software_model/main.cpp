@@ -923,8 +923,13 @@ int main() {
                   cell_particle[3][home_cell_id][nb_particle_index] += neg_F_LJ_x;
                   cell_particle[4][home_cell_id][nb_particle_index] += neg_F_LJ_y;
                   cell_particle[5][home_cell_id][nb_particle_index] += neg_F_LJ_z;
+
+                  if(PRINT_SINGLE_PARTICLE && home_cell_x == 0 && home_cell_y == 0 && home_cell_z == 0 && nb_particle_index == 0){
+                    cout << setprecision(12) << std::dec;
+                    cout << "nbPID=" << nb_particle_index+1 << "\t" << neg_F_LJ_x/MASS_Nav << "\t" << neg_F_LJ_y/MASS_Nav << "\t" << neg_F_LJ_z/MASS_Nav << endl;
+                  }
                   
-                  if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 & sim_iter == 0 & ref_particle_index == 2){
+                  if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 && sim_iter == 0 && ref_particle_index == 2){
                     cout << "nbPID=" << nb_particle_index + 1 << "\t" << neg_F_LJ_x/MASS_Nav << "\t" << neg_F_LJ_y/MASS_Nav << "\t" << neg_F_LJ_z/MASS_Nav << endl;
                   }
 
@@ -1138,7 +1143,12 @@ int main() {
                   cell_particle[4][home_cell_id][nb_particle_index] += neg_F_LJ_y;
                   cell_particle[5][home_cell_id][nb_particle_index] += neg_F_LJ_z;
 
-                  if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 & sim_iter == 0 & ref_particle_index == 2){
+                  if(PRINT_SINGLE_PARTICLE && home_cell_x == 0 && home_cell_y == 0 && home_cell_z == 0 && nb_particle_index == 0){
+                    cout << setprecision(12) << std::dec;
+                    cout << "nbPID=" << nb_particle_index+1 << "\t" << neg_F_LJ_x/MASS_Nav << "\t" << neg_F_LJ_y/MASS_Nav << "\t" << neg_F_LJ_z/MASS_Nav << endl;
+                  }
+
+                  if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 && sim_iter == 0 && ref_particle_index == 2){
                     cout << "nbPID=" << nb_particle_index + 1 << "\t" << neg_F_LJ_x/MASS_Nav << "\t" << neg_F_LJ_y/MASS_Nav << "\t" << neg_F_LJ_z/MASS_Nav << endl;
                   }
 
@@ -1206,9 +1216,15 @@ int main() {
               cell_particle[3][neighbor_cell_id[i]][ref_particle_index] += ref_force_x_acc[i];
               cell_particle[4][neighbor_cell_id[i]][ref_particle_index] += ref_force_y_acc[i];
               cell_particle[5][neighbor_cell_id[i]][ref_particle_index] += ref_force_z_acc[i];
+
+              if(PRINT_SINGLE_PARTICLE && home_cell_x == 0 && home_cell_y == 0 && home_cell_z == 0 && ref_particle_index == 0 && i == 0){
+                cout << setprecision(12) << std::dec;
+                cout << "refPID=" << ref_particle_index+1 << "\t" << ref_force_x_acc[i]/MASS_Nav << "\t" << ref_force_y_acc[i]/MASS_Nav << "\t" << ref_force_z_acc[i]/MASS_Nav << endl;
+                //cout << "\nChange ref ID. Next ID=" << ref_particle_index+2 << endl;
+              }
             }
 
-            if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 & sim_iter == 0 & ref_particle_index == 2){
+            if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 && sim_iter == 0 && ref_particle_index == 2){
               cout << "\nStart writing back forces ref particles." << endl;
               cout << setprecision(12) << std::dec << endl;
               for(i=0; i<14; i++){
@@ -1246,6 +1262,10 @@ int main() {
               }
               cout << "Ref ID " << ref_particle_index << "done." << endl;
               cout << endl;
+            }
+
+            if(PRINT_SINGLE_PARTICLE && home_cell_x == 0 && home_cell_y == 0 && home_cell_z == 0){
+              cout << "\nChange ref ID. Next ID=" << ref_particle_index+2 << endl;
             }
 					} // Iterate ref_particle_index
 					
@@ -1340,7 +1360,7 @@ int main() {
 						float v_y = cell_particle[7][cell_id][particle_index];
 						float v_z = cell_particle[8][cell_id][particle_index];
 
-            if(PRINT_FULL_FORCES && home_cell_x == 0 && home_cell_y == 0 && home_cell_z == 0 & sim_iter == 0){
+            if(PRINT_FULL_FORCES && home_cell_x == 0 && home_cell_y == 0 && home_cell_z == 0 && sim_iter == 0){
               cout << setprecision(12) << std::dec;
               cout << "PID=" << particle_index + 1; // +1 to match the indexing in RTL
               cout << "\t" << force_x / MASS_Nav << "\t";
