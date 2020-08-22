@@ -93,8 +93,18 @@ module lut1_8
 		altera_syncram_component.clock_enable_input_a  = "BYPASS",
 		altera_syncram_component.clock_enable_output_a  = "BYPASS",
 
-		altera_syncram_component.init_file = "/home/sahanb/1-MD_sim/2-Repo/CAADLab_MD/new_MD_core/c1_8.hex",
-
+`ifdef WINDOWS_PATH
+		altera_syncram_component.init_file = "/net/engnas/Research/eng_research_caad/Chunshu/new_MD_core/c1_8.hex"
+`elsif STX_PATH
+		altera_syncram_component.init_file = "/home/vsachde/Dropbox/CAAD_Server/MD_RL_Pipeline/Ethan_RL_Pipeline_1st_Order_SingleFloat_18.0/SourceCode/c1_8.hex"
+`elsif STX_2ND_PATH
+		altera_syncram_component.init_file = "/home/vsachde/Dropbox/CAAD_Server/MD_RL_Pipeline/MD_HDL_STX/SourceCode/c1_8.hex"
+`elsif STX_OPENCL_LIB
+		altera_syncram_component.init_file = "/home/cobell/Ethan_Dir/MD_RangeLimited_HDL_S10/OpenCL_HDL_Lib/c1_8.hex"
+`else
+		altera_syncram_component.init_file = "/net/engnas/Research/eng_research_caad/Chunshu/new_MD_core/c1_8.hex"
+`endif
+,
 		altera_syncram_component.intended_device_family  = "Stratix 10",
 		altera_syncram_component.lpm_hint  = "ENABLE_RUNTIME_MOD=NO",
 		altera_syncram_component.lpm_type  = "altera_syncram",

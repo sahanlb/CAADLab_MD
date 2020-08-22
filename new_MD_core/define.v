@@ -1,57 +1,28 @@
 // defines
 
+//`define STX_PATH 1
+//`define STX_2ND_PATH 1
 `define WINDOWS_PATH 1
+//`define STX_OPENCL_LIB 1
 
-// Text macro to instantiate position caches
-`define POS_CACHE_INSTANCE(XPOS, YPOS, ZPOS) \
-Pos_Cache_x_y_z                              \
-#(                                           \
-      .DATA_WIDTH(DATA_WIDTH),               \
-      .PARTICLE_NUM(NUM_PARTICLE_PER_CELL),  \
-      .ADDR_WIDTH(PARTICLE_ID_WIDTH),        \
-      .CELL_ID_WIDTH(CELL_ID_WIDTH),         \
-      .CELL_X(XPOS),                         \
-      .CELL_Y(YPOS),                         \
-      .CELL_Z(ZPOS),                         \
-      .POSITION_FILE(`"./pos_init/hex_files/cell_ini_file_``XPOS``_``YPOS``_``ZPOS``.hex`") \
-)                                                                      \
-cell_``XPOS``_``YPOS``_``ZPOS``                                        \
-(                                                                      \
-      .clk(clk),                                                       \
-      .rst(rst),                                                       \
-      .motion_update_enable(Motion_Update_enable),                     \
-      .in_read_address(Motion_Update_enable ? MU_rd_addr : rd_addr),   \
-      .in_data(MU_wr_data),                                            \
-      .in_data_dst_cell(MU_dst_cell),                                  \
-      .in_data_valid(MU_wr_data_valid),                                \
-      .in_rden(Motion_Update_enable ? MU_rden : 1'b1),                 \
-      .out_particle_info(pos_data_out[(25*(ZPOS-1)+5*(YPOS-1)+(XPOS-1))])\
-);
+/*
+parameter FILTER_BUFFER_DEPTH		= 10;
 
+parameter DATA_WIDTH 				= 32;
+parameter REF_PARTICLE_NUM			= 100;
+parameter REF_RAM_ADDR_WIDTH		= 7;										// log(REF_PARTICLE_NUM)
+parameter NEIGHBOR_PARTICLE_NUM	= 100;
+parameter NEIGHBOR_RAM_ADDR_WIDTH= 7;										// log(NEIGHBOR_RAM_ADDR_WIDTH)
+parameter INTERPOLATION_ORDER		= 1;
+parameter SEGMENT_NUM				= 14;
+parameter SEGMENT_WIDTH				= 4;
+parameter BIN_WIDTH					= 8;
+parameter BIN_NUM						= 256;
+parameter CUTOFF_2					= 32'h43100000;						// (12^2=144 in IEEE floating point)
+parameter LOOKUP_NUM					= SEGMENT_NUM * BIN_NUM;			// SEGMENT_NUM * BIN_NUM
+parameter LOOKUP_ADDR_WIDTH		= SEGMENT_WIDTH + BIN_WIDTH;		// log LOOKUP_NUM / log 2
 
-// Text macro to instantiate velocity caches
-`define VELOCITY_CACHE_INSTANCE(ZPOS, YPOS, XPOS)                          \
-Velocity_Cache_z_y_x                                                       \
-#(                                                                         \
-  .DATA_WIDTH(DATA_WIDTH),                                                 \
-  .PARTICLE_NUM(NUM_PARTICLE_PER_CELL),                                    \
-  .ADDR_WIDTH(PARTICLE_ID_WIDTH),                                          \
-  .CELL_ID_WIDTH(CELL_ID_WIDTH),                                           \
-  .CELL_X(XPOS),                                                           \
-  .CELL_Y(YPOS),                                                           \
-  .CELL_Z(ZPOS),                                                           \
-  .VELOCITY_FILE("")                                                       \
-)                                                                          \
-Velocity_Cache_``ZPOS``_``YPOS``_``XPOS``                                  \
-(                                                                          \
-	.clk(clk),                                                               \
-	.rst(rst),                                                               \
-	.motion_update_enable(Motion_Update_enable),                             \
-	.in_read_address(MU_rd_addr),                                            \
-	.in_data(MU_wr_data),                                                    \
-	.in_data_dst_cell(MU_dst_cell),                                          \
-	.in_data_valid(MU_wr_data_valid),                                        \
-	.in_rden(MU_rden),                                                       \
-	.out_particle_info(velocity_data_out[(25*(ZPOS-1)+5*(YPOS-1)+(XPOS-1))]) \
-);
-
+parameter RESULTS_DATA_WIDTH		= 32*3;
+parameter RESULTS_DATA_NUM			= REF_PARTICLE_NUM * NEIGHBOR_PARTICLE_NUM;
+parameter RESULTS_ADDR_WIDTH		= 14;										// log(RESULTS_DATA_NUM) / log(2)
+*/
