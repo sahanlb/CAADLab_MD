@@ -18,7 +18,7 @@ module all_velocity_caches
 	input MU_wr_data_valid,
 	input MU_rden,
 	
-	output [NUM_CELLS-1:0][*3*DATA_WIDTH-1:0] velocity_data_out
+	output [NUM_CELLS-1:0][3*DATA_WIDTH-1:0] velocity_data_out
 );
 
 `VELOCITY_CACHE_INSTANCE(1,1,1)

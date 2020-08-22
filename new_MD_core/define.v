@@ -13,7 +13,7 @@ Pos_Cache_x_y_z                              \
       .CELL_X(XPOS),                         \
       .CELL_Y(YPOS),                         \
       .CELL_Z(ZPOS),                         \
-      .POSITION_FILE(`"/home/sahanb/1-MD_sim/1-old_design/new_MD_core/pos_init/hex_files/cell_ini_file_``XPOS``_``YPOS``_``ZPOS``.hex`") \
+      .POSITION_FILE(`"./pos_init/hex_files/cell_ini_file_``XPOS``_``YPOS``_``ZPOS``.hex`") \
 )                                                                      \
 cell_``XPOS``_``YPOS``_``ZPOS``                                        \
 (                                                                      \
@@ -30,7 +30,7 @@ cell_``XPOS``_``YPOS``_``ZPOS``                                        \
 
 
 // Text macro to instantiate velocity caches
-`define VELOCITY_CACHE_INSTANCE(ZPOS, YPOS, ZPOS)                          \
+`define VELOCITY_CACHE_INSTANCE(ZPOS, YPOS, XPOS)                          \
 Velocity_Cache_z_y_x                                                       \
 #(                                                                         \
   .DATA_WIDTH(DATA_WIDTH),                                                 \
