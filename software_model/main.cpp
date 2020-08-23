@@ -806,7 +806,12 @@ int main() {
 
 								// Pass the filter
 								// Also check for particle_id > ref_id for home cell
-								if (r2 >= EXCLUSION_2 && r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
+								//if (r2 >= EXCLUSION_2 && r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
+								//if (r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
+								if (abs(dx) < CUTOFF_RADIUS && abs(dy) < CUTOFF_RADIUS &&  abs(dz) < CUTOFF_RADIUS &&
+                    abs(dx)+abs(dy) < sqrt(2)*CUTOFF_RADIUS && abs(dx)+abs(dz) < sqrt(2)*CUTOFF_RADIUS && abs(dy)+abs(dz) < sqrt(2)*CUTOFF_RADIUS &&
+                    abs(dx)+abs(dy)+abs(dz) < sqrt(3)*CUTOFF_RADIUS &&
+                    (filter_id > 0 | nb_particle_index > ref_particle_index)){
 									tmp_counter_particles_within_cutoff += 1;
 									float vdw_14, vdw_8, vdw_12, vdw_6;
 									int lut_index;
@@ -1026,7 +1031,12 @@ int main() {
 
 								// Pass the filter
 								// Also check for particle_id > ref_id for home cell
-								if (r2 >= EXCLUSION_2 && r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
+								//if (r2 >= EXCLUSION_2 && r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
+								//if (r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
+								if (abs(dx) < CUTOFF_RADIUS && abs(dy) < CUTOFF_RADIUS &&  abs(dz) < CUTOFF_RADIUS &&
+                    abs(dx)+abs(dy) < sqrt(2)*CUTOFF_RADIUS && abs(dx)+abs(dz) < sqrt(2)*CUTOFF_RADIUS && abs(dy)+abs(dz) < sqrt(2)*CUTOFF_RADIUS &&
+                    abs(dx)+abs(dy)+abs(dz) < sqrt(3)*CUTOFF_RADIUS &&
+                    (filter_id > 0 | nb_particle_index > ref_particle_index)){
 									tmp_counter_particles_within_cutoff += 1;
 									float vdw_14, vdw_8, vdw_12, vdw_6;
 									int lut_index;
