@@ -1,31 +1,20 @@
 import md_pkg::*;
 
 module cell_to_dest_id_map #(
-  parameter NUM_CELLS         = 64,
-	parameter DATA_WIDTH        = 32, 
-	parameter CELL_ID_WIDTH     = 3, 
-	parameter PARTICLE_ID_WIDTH = 7, 
-	parameter ID_WIDTH          = 3*CELL_ID_WIDTH+PARTICLE_ID_WIDTH,
-  parameter WB_WIDTH          = ID_WIDTH + 3*DATA_WIDTH,
-  parameter NODE_ID_WIDTH     = 6, // log2(NUMBER OF CELLS)
-  parameter PACKET_WIDTH      = 3*DATA_WIDTH + PARTICLE_ID_WIDTH + NODE_ID_WIDTH,
-  parameter HOME_CELL_ID      = 0,
-  parameter HOME_X            = 1,
-  parameter HOME_Y            = 1,
-  parameter HOME_Z            = 1,
-  parameter NX                = 4,
-  parameter NY                = 4,
-  parameter NZ                = 4,
-  parameter NXY               = NX*NY,
-  parameter NXYZ              = NX*NY*NZ
+  parameter HOME_CELL_ID = 0,
+  parameter HOME_X       = 1,
+  parameter HOME_Y       = 1,
+  parameter HOME_Z       = 1
 )(
   input  force_wb_t wb_in,
   output packet_t pkt_out
 );
 
-localparam CELL_1 = 3'b001;
-localparam CELL_2 = 3'b010;
-localparam CELL_3 = 3'b011;
+localparam NX   = X_DIM;
+localparam NY   = Y_DIM;
+localparam NZ   = Z_DIM;
+localparam NXY  = NX*NY;
+localparam NXYZ = NX*NY*NZ;
 
 wire [CELL_ID_WIDTH-1:0] cellx, celly, cellz;
 

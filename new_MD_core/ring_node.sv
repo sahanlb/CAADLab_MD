@@ -8,13 +8,7 @@
 import md_pkg::*;
 
 module ring_node #(
-  parameter DATA_WIDTH        = 32,
-  parameter PARTICLE_ID_WIDTH = 7,
-  parameter NODE_ID_WIDTH     = 6, //log2(NUM_CELLS)
-  parameter HOME_CELL_ID      = 0,
-  parameter FORCE_CACHE_WIDTH = 3*DATA_WIDTH,
-	parameter FORCE_DATA_WIDTH  = FORCE_CACHE_WIDTH + PARTICLE_ID_WIDTH,
-  parameter PACKET_WIDTH      = FORCE_DATA_WIDTH + NODE_ID_WIDTH
+  parameter HOME_CELL_ID = 0
 )(
   input  clk,
   input  rst,

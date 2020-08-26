@@ -1,10 +1,8 @@
-module check_broadcast_done
-#(
-	parameter PARTICLE_ID_WIDTH = 7
-)
-(
-	input [PARTICLE_ID_WIDTH-1:0] particle_count, //number of particles in the cell
-	input [PARTICLE_ID_WIDTH-1:0] particle_id, //currernt particle ID
+import md_pkg::*;
+
+module check_broadcast_done(
+	input particle_id_t particle_count, //number of particles in the cell
+	input particle_id_t particle_id, //currernt particle ID
 	
 	output broadcast_done
 );

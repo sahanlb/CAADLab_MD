@@ -6,14 +6,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 import md_pkg::*;
 
-module ring #(
-  parameter NUM_CELLS         = 64,
-  parameter DATA_WIDTH        = 32,
-  parameter PARTICLE_ID_WIDTH = 7,
-  parameter FORCE_CACHE_WIDTH = 3*DATA_WIDTH,
-	parameter FORCE_DATA_WIDTH  = FORCE_CACHE_WIDTH + PARTICLE_ID_WIDTH,
-  parameter PACKET_WIDTH      = FORCE_DATA_WIDTH + $clog2(NUM_CELLS)
-)(
+module ring (
   input  clk,
   input  rst,
   input  packet_t [NUM_CELLS-1:0] packet_in, //{dest_id, payload}
@@ -38,9 +31,6 @@ genvar i;
 generate
   for(i=0; i<NUM_CELLS; i++)begin: ring_nodes
     ring_node #(
-      .DATA_WIDTH(DATA_WIDTH),
-      .PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
-      .NODE_ID_WIDTH($clog2(NUM_CELLS)),
       .HOME_CELL_ID(i)
     ) node (
       .clk(clk),

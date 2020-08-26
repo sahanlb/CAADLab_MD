@@ -1,12 +1,32 @@
 package md_pkg;
 
-parameter NUM_CELLS         = 64;
-parameter OFFSET_WIDTH      = 29;
-parameter DATA_WIDTH        = 32;
-parameter CELL_ID_WIDTH     = 3;
-parameter PARTICLE_ID_WIDTH = 7;
-parameter NODE_ID_WIDTH     = $clog2(NUM_CELLS);
+parameter SQRT_2                = 10'b0101101011;
+parameter SQRT_3                = 10'b0110111100;
+parameter EXP_0                 = 8'b01111111;
+parameter NUM_CELLS             = 64;
+parameter OFFSET_WIDTH          = 29;
+parameter DATA_WIDTH            = 32;
+parameter CELL_ID_WIDTH         = 3;
+parameter PARTICLE_ID_WIDTH     = 7;
+parameter NODE_ID_WIDTH         = $clog2(NUM_CELLS);
+parameter NUM_NEIGHBOR_CELLS    = 13;
+parameter NUM_FILTER            = 7;
+parameter BODY_BITS             = 8;
+parameter DECIMAL_ADDR_WIDTH    = 2;
+parameter CELL_1                = 3'b001;
+parameter CELL_2                = 3'b010;
+parameter CELL_3                = 3'b011;
+parameter SEGMENT_NUM				    = 9;
+parameter SEGMENT_WIDTH			    = 4;
+parameter BIN_NUM						    = 256;
+parameter BIN_WIDTH					    = 8;
+parameter X_DIM                 = 4;
+parameter Y_DIM                 = 4;
+parameter Z_DIM                 = 4;
+parameter NUM_PARTICLE_PER_CELL = 100;
 
+//particle ID
+typedef logic [PARTICLE_ID_WIDTH-1:0] particle_id_t;
 
 // Full cell ID {cell_id_z, cell_id_y, cell_id_x}
 typedef struct packed{
@@ -18,8 +38,8 @@ typedef struct packed{
 
 // Full ID {full cell ID, particle_id}
 typedef struct packed{
-  full_cell_id_t                cell_id;
-  logic [PARTICLE_ID_WIDTH-1:0] particle_id;
+  full_cell_id_t cell_id;
+  particle_id_t  particle_id;
 } full_id_t;
 
 
@@ -48,9 +68,16 @@ typedef struct packed{
 
 // Force data type {particle id, data tuple}
 typedef struct packed{
-  logic [PARTICLE_ID_WIDTH-1:0] particle_id;
-  data_tuple_t                  force_val;
+  particle_id_t particle_id;
+  data_tuple_t  force_val;
 }force_data_t;
+
+
+// Data tuple with particle ID
+typedef struct packed{
+  particle_id_t particle_id;
+  data_tuple_t  position;
+}position_data_t;
 
 
 // Network packet {destination id, force_data_t}

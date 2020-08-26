@@ -1,15 +1,6 @@
-import md_pkg::offset_tuple_t;
-import md_pkg::full_cell_id_t;
+import md_pkg::*;
 
-module all_position_caches
-#(
-	parameter NUM_CELLS = 64, 
-	parameter DATA_WIDTH = 29, 
-	parameter CELL_ID_WIDTH = 3,
-	parameter NUM_PARTICLE_PER_CELL = 128, 
-	parameter PARTICLE_ID_WIDTH = 7
-)
-(
+module all_position_caches(
 	input clk,
 	input rst,
 	input Motion_Update_enable,
