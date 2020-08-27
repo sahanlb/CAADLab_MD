@@ -23,27 +23,10 @@ module ref_data_extractor
   output data_tuple_t ref_pos
 );
 
-localparam CELL_1 = 3'b001;
-localparam CELL_2 = 3'b010;
-localparam CELL_3 = 3'b011;
-
 data_tuple_t next_ref, home_pos;
 
 full_cell_id_t cell_id;
 
-/* // For scattered selection
-always @(*)begin
-  case(EXTRACTOR_ID)
-    0:cell_id = phase ? {CELL_1, CELL_1, CELL_1} : {CELL_2, CELL_2, CELL_2};
-    1:cell_id = phase ? {CELL_1, CELL_2, CELL_1} : {CELL_3, CELL_2, CELL_1};
-    2:cell_id = phase ? {CELL_1, CELL_3, CELL_2} : {CELL_2, CELL_3, CELL_3};
-    3:cell_id = phase ? {CELL_2, CELL_3, CELL_1} : {CELL_1, CELL_1, CELL_2};
-    4:cell_id = phase ? {CELL_2, CELL_2, CELL_3} : {CELL_1, CELL_3, CELL_1};
-    5:cell_id = phase ? {CELL_2, CELL_1, CELL_2} : {CELL_1, CELL_3, CELL_3};
-    6:cell_id = phase ? {CELL_3, CELL_2, CELL_2} : {CELL_1, CELL_1, CELL_3};
-  endcase
-end
-*/
 // For half shell selection
 always @(*)begin
   case(EXTRACTOR_ID)

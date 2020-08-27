@@ -1,16 +1,10 @@
-module planar_filter_normalized
-#(
-	// 1|3|7
-	parameter CELL_ID_WIDTH = 3, 
-	parameter BODY_BITS = 8,			// Including 1 bit integer part
-	parameter SQRT_2 = 10'b0101101011,	// 101101010, round up to 101101011
-	parameter SQRT_3 = 10'b0110111100	// 110111011, round up to 110111100
-)
-(
+import md_pkg::*;
+
+module planar_filter_normalized(
 	input clk, 
 	input rst, 
 	input input_valid, 
-	input [CELL_ID_WIDTH+BODY_BITS-1:0] x1, y1, z1, x2, y2, z2, 
+	input filter_input_t x1, y1, z1, x2, y2, z2, 
 	output pass
 );
 

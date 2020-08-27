@@ -18,9 +18,6 @@ module filter_bank(
 	output all_buffer_empty
 );
 
-localparam ARBITER_MSB = 64;
-localparam FILTER_BUFFER_DATA_WIDTH = PARTICLE_ID_WIDTH+3*DATA_WIDTH;
-
 wire [NUM_FILTER-1:0] buffer_empty;
 position_data_t [NUM_FILTER-1:0] buffer_rd_data;
 wire [NUM_FILTER-1:0] arbitration_result;
@@ -34,7 +31,7 @@ full_id_t nb_id;
 full_cell_id_t ref_cell_id;
 
 // Fixed point format
-wire [DATA_WIDTH-1:0] x1, y1, z1, x2, y2, z2;
+fixed_position_t x1, y1, z1, x2, y2, z2;
 
 // Floating point format
 wire [DATA_WIDTH-1:0] x1_f, y1_f, z1_f, x2_f, y2_f, z2_f;
@@ -75,17 +72,6 @@ full_cell_id_t reg_ref_cell_id_15;
 full_cell_id_t reg_ref_cell_id_16;
 full_cell_id_t reg_ref_cell_id_delay;
 
-// Combine cell id and particle id for later mapping. The cell id data is lost after subtraction, so save it here
-// ref data is the same as the input, because the ref data will not change before all filter buffers are empty,
-// so no need to save the ref data
-assign nb_id = {z2[DATA_WIDTH-1:DATA_WIDTH-CELL_ID_WIDTH], 
-					     y2[DATA_WIDTH-1:DATA_WIDTH-CELL_ID_WIDTH], 
-					     x2[DATA_WIDTH-1:DATA_WIDTH-CELL_ID_WIDTH], 
-					     data_out.particle_id};
-assign nb_id_out = reg_nb_id_delay;
-
-assign ref_cell_id_out = reg_ref_cell_id_delay;
-
 // Disassemble data_out
 assign x1 = curr_ref_data.data_x;
 assign y1 = curr_ref_data.data_y;
@@ -93,6 +79,15 @@ assign z1 = curr_ref_data.data_z;
 assign x2 = data_out.position.data_x;
 assign y2 = data_out.position.data_y;
 assign z2 = data_out.position.data_z;
+
+// Combine cell id and particle id for later mapping. The cell id data is lost after subtraction, so save it here
+// ref data is the same as the input, because the ref data will not change before all filter buffers are empty,
+// so no need to save the ref data
+assign nb_id = {z2.cell_id, y2.cell_id, x2.cell_id, data_out.particle_id};
+assign nb_id_out = reg_nb_id_delay;
+
+assign ref_cell_id_out = reg_ref_cell_id_delay;
+
 
 always@(posedge clk)
 	begin
@@ -251,16 +246,7 @@ generate
 	for(i = 0; i < NUM_FILTER-1; i = i + 1) begin: Filter_Unit
 	filter_logic
 	#(
-		.DATA_WIDTH(DATA_WIDTH),
-		.CELL_ID_WIDTH(CELL_ID_WIDTH),
-		.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
-		.FILTER_BUFFER_DATA_WIDTH(FILTER_BUFFER_DATA_WIDTH),
-		.BODY_BITS(BODY_BITS),
 		.FILTER_BUFFER_DEPTH(32), 
-		.FILTER_BUFFER_ADDR_WIDTH(5), 
-		.BUFFER_USEDW_WIDTH(5), 
-		.SQRT_2(SQRT_2),
-		.SQRT_3(SQRT_3),
 		.BACK_PRESSURE_THRESHOLD(27)
 	)
 	filter_logic
@@ -287,16 +273,7 @@ endgenerate
 // home filter buffer is deeper (64)
 filter_logic
 #(
-	.DATA_WIDTH(DATA_WIDTH),
-	.CELL_ID_WIDTH(CELL_ID_WIDTH),
-	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
-	.FILTER_BUFFER_DATA_WIDTH(FILTER_BUFFER_DATA_WIDTH),
-	.BODY_BITS(BODY_BITS),
 	.FILTER_BUFFER_DEPTH(64), 
-	.FILTER_BUFFER_ADDR_WIDTH(6), 
-	.BUFFER_USEDW_WIDTH(6), 
-	.SQRT_2(SQRT_2),
-	.SQRT_3(SQRT_3),
 	.BACK_PRESSURE_THRESHOLD(59)
 )
 filter_logic_home
@@ -320,12 +297,7 @@ filter_logic_home
 
 // Filter arbiter
 filter_arbiter
-#(
-	.NUM_FILTER(NUM_FILTER),
-	.ARBITER_MSB(ARBITER_MSB)
-)
-filter_arbiter
-(
+filter_arbiter(
 	.clk(clk),
 	.rst(rst),
 	.Filter_Available_Flag(~buffer_empty),
@@ -335,84 +307,44 @@ filter_arbiter
 // Convert fixed point to floating point
 // The initial values are 0 for fixed point numbers but 1 for float, it shouldn't matter
 fixed2float
-#(
-	.CELL_ID_WIDTH(CELL_ID_WIDTH),
-	.DECIMAL_ADDR_WIDTH(DECIMAL_ADDR_WIDTH),
-	.EXP_0(EXP_0)
-)
-fixed2float_x1
-(
+fixed2float_x1(
 	.a(x1), 
 	.q(x1_f)
 );
 
 fixed2float
-#(
-	.CELL_ID_WIDTH(CELL_ID_WIDTH),
-	.DECIMAL_ADDR_WIDTH(DECIMAL_ADDR_WIDTH),
-	.EXP_0(EXP_0)
-)
-fixed2float_y1
-(
+fixed2float_y1(
 	.a(y1), 
 	.q(y1_f)
 );
 
 fixed2float
-#(
-	.CELL_ID_WIDTH(CELL_ID_WIDTH),
-	.DECIMAL_ADDR_WIDTH(DECIMAL_ADDR_WIDTH),
-	.EXP_0(EXP_0)
-)
-fixed2float_z1
-(
+fixed2float_z1(
 	.a(z1), 
 	.q(z1_f)
 );
 
 fixed2float
-#(
-	.CELL_ID_WIDTH(CELL_ID_WIDTH),
-	.DECIMAL_ADDR_WIDTH(DECIMAL_ADDR_WIDTH),
-	.EXP_0(EXP_0)
-)
-fixed2float_x2
-(
+fixed2float_x2(
 	.a(x2), 
 	.q(x2_f)
 );
 
 fixed2float
-#(
-	.CELL_ID_WIDTH(CELL_ID_WIDTH),
-	.DECIMAL_ADDR_WIDTH(DECIMAL_ADDR_WIDTH),
-	.EXP_0(EXP_0)
-)
-fixed2float_y2
-(
+fixed2float_y2(
 	.a(y2), 
 	.q(y2_f)
 );
 
 fixed2float
-#(
-	.CELL_ID_WIDTH(CELL_ID_WIDTH),
-	.DECIMAL_ADDR_WIDTH(DECIMAL_ADDR_WIDTH),
-	.EXP_0(EXP_0)
-)
-fixed2float_z2
-(
+fixed2float_z2(
 	.a(z2), 
 	.q(z2_f)
 );
 
 
 r2_compute
-#(
-	.DATA_WIDTH(DATA_WIDTH)
-)
-r2_compute
-(
+r2_compute(
 	.clk(clk),
 	.rst(rst),
 	.enable(raw_data_valid),
@@ -423,9 +355,7 @@ r2_compute
 	.neighbory(y2_f),
 	.neighborz(z2_f),
 	.r2(r2_out),
-	.dx_out(dx_out),
-	.dy_out(dy_out),
-	.dz_out(dz_out),
+	.d_out(d_out),
 	.r2_valid(out_valid)
 );
 

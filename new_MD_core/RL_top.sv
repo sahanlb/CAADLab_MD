@@ -208,12 +208,7 @@ generate
 endgenerate
 	
 broadcast_controller
-#(
-	.NUM_CELLS(NUM_CELLS),
-	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH)
-)
-broadcast_controller
-(
+broadcast_controller(
 	.clk(clk),
 	.rst(rst),
 	.iter_start(start || MU_done),

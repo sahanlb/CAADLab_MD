@@ -36,18 +36,16 @@
 // Created by:
 //				Chen Yang 10/12/18
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+import md_pkg::*;
 
-module filter_arbiter
-#(
-	parameter NUM_FILTER = 8,
-	parameter ARBITER_MSB = 128					// 2^(NUM_FILTER-1)
-)
-(
+module filter_arbiter(
 	input clk,
 	input rst,
 	input [NUM_FILTER-1:0] Filter_Available_Flag,
 	output [NUM_FILTER-1:0] Arbitration_Result
 );
+
+localparam ARBITER_MSB = 	2**(NUM_FILTER-1);
 
 	reg [NUM_FILTER-1:0] prev_arbitration_result;
 	

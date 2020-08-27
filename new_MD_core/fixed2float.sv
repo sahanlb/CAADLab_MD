@@ -1,13 +1,9 @@
-module fixed2float
+import md_pkg::*;
 
 /* The input cell id should be increased by 1 so the first cell has the id of 1 instead of 0 */
 /* ASSUMPTION: CELL_ID_WIDTH NEVER EXCEEDS 8 BITS */
-#(
-	parameter CELL_ID_WIDTH = 3, 
-	parameter DECIMAL_ADDR_WIDTH = 2, 
-	parameter EXP_0 = 8'b01111111
-)
-(
+
+module fixed2float(
 	input [31:0] a, 
 	output reg [31:0] q
 );

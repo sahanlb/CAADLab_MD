@@ -87,4 +87,20 @@ typedef struct packed{
 }packet_t;
 
 
+// {cell_id, fixed_point_position} representation of position data
+typedef struct packed{
+  logic [CELL_ID_WIDTH-1:0] cell_id;
+  logic [OFFSET_WIDTH-1:0] pos_offset;
+}fixed_position_t;
+
+// Input type for filters
+typedef struct packed{
+  logic [CELL_ID_WIDTH-1:0] cell_id;
+  logic [BODY_BITS-1:0] body_bits;
+}filter_input_t;
+
+
+
+
+
 endpackage

@@ -26,12 +26,10 @@ module pos_data_distributor_simplified(
 	output data_tuple_t assembled_position 
 );
 
-localparam CELL_2 = 3'b010;
-
 assign assembled_position = {CELL_2, rd_nb_position.offset_z, CELL_2, rd_nb_position.offset_y, CELL_2, rd_nb_position.offset_x};
 
 // If done broadcasting, set invalid. If ref invalid, set invalid, special control for home cell
-always@(*)
+always_comb
 	begin
 	if (~pause_reading)
 		begin
