@@ -140,8 +140,8 @@ full_id_t cur_particle_id;
 			out_particle_acc_force.data_y <= acc_value_out_y;
 			out_particle_acc_force.data_z <= acc_value_out_z;
       if(~particle_id_match)begin // next ref particle
-        out_acc_force_valid      <= (cur_particle_id.particle != 0) & (in_id.particle != 1);
-        start_wb                 <= (cur_particle_id.particle != 0) & (in_id.particle != 1);
+        out_acc_force_valid      <= (cur_particle_id.particle_id != 0) & (in_particle_id.particle_id != 1);
+        start_wb                 <= (cur_particle_id.particle_id != 0) & (in_particle_id.particle_id != 1);
         // Additional conditions to prevent module issuing fake start_wb signals.
         cur_particle_id.particle_id <= in_particle_id.particle_id;
         cur_particle_id.cell_id     <= cell_id1;
