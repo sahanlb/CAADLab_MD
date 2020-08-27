@@ -1,54 +1,25 @@
-module RL_Force_Evaluation_Unit
-#(
-	// Data width
-	parameter DATA_WIDTH = 32,
-	parameter CELL_ID_WIDTH = 3,
-	parameter DECIMAL_ADDR_WIDTH = 2, 
-	parameter PARTICLE_ID_WIDTH = 7, 
-	parameter BODY_BITS = 8, 
-	parameter ID_WIDTH = 3*CELL_ID_WIDTH+PARTICLE_ID_WIDTH,
-	parameter FILTER_BUFFER_DATA_WIDTH = PARTICLE_ID_WIDTH+3*DATA_WIDTH, 
-	
-	// Constants
-	parameter REF_DELAY = 31, 
-	parameter SQRT_2 = 10'b0101101011,
-	parameter SQRT_3 = 10'b0110111100,
-	parameter NUM_FILTER = 7, 
-	parameter ARBITER_MSB = 64, 				// 2^(NUM_FILTER-1)
-	parameter EXP_0 = 8'b01111111, 
-	
-	// Force evaluation
-	parameter SEGMENT_NUM					= 9,
-	parameter SEGMENT_WIDTH					= 4,
-	parameter BIN_NUM							= 256,
-	parameter BIN_WIDTH						= 8,
-	parameter LOOKUP_NUM						= SEGMENT_NUM * BIN_NUM,		// SEGMENT_NUM * BIN_NUM
-	parameter LOOKUP_ADDR_WIDTH			= SEGMENT_WIDTH + BIN_WIDTH	// log LOOKUP_NUM / log 2
-)
-(
+import md_pkg::*;
+
+module RL_Force_Evaluation_Unit(
 	input clk,
 	input rst,
   input phase,
 	input [NUM_FILTER-1:0] pair_valid,
-	input [PARTICLE_ID_WIDTH-1:0] ref_particle_id,
-	input [PARTICLE_ID_WIDTH-1:0] nb_particle_id,
-	input [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_x,
-	input [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_y,
-	input [NUM_FILTER-1:0][DATA_WIDTH-1:0] ref_z,
-	input [NUM_FILTER*DATA_WIDTH-1:0] nb_x,
-	input [NUM_FILTER*DATA_WIDTH-1:0] nb_y,
-	input [NUM_FILTER*DATA_WIDTH-1:0] nb_z,
+	input particle_id_t ref_particle_id,
+	input particle_id_t nb_particle_id,
+  input data_tuple_t[NUM_FILTER-1:0] ref_pos,
+  input data_tuple_t nb_pos,
 	
-	output [ID_WIDTH-1:0] out_ref_particle_id, //{CELLL_ID_Z, CELL_ID_Y, CELL_ID_X, PARTICLE_ID}
-	output [ID_WIDTH-1:0] out_neighbor_particle_id,
-	output [DATA_WIDTH-1:0] out_RL_Force_X,
-	output [DATA_WIDTH-1:0] out_RL_Force_Y,
-	output [DATA_WIDTH-1:0] out_RL_Force_Z,
+	output full_id_t out_ref_particle_id, //{CELLL_ID_Z, CELL_ID_Y, CELL_ID_X, PARTICLE_ID}
+	output full_id_t out_neighbor_particle_id,
+  output data_tuple_t out_RL_Force,
 	output out_forceoutput_valid,
 	output [NUM_FILTER-1:0] out_back_pressure_to_input,			// If one of the FIFO is full, then set the back_pressure flag to stop more incoming particle pairs
 	output out_all_buffer_empty_to_input								// Output to FSM that generate particle pairs. Only when all the filter buffers are empty, then the FSM will move on to the next reference particle
 																					// Avoid the cases when the force pipelines are evaluating for 2 different reference particles when switching after one reference particle, this will lead to the accumulation error for the reference particle
 );
+
+localparam REF_DELAY = 31;
 
 	// Assign parameters for A, B, QQ (currently not used)
 	wire [DATA_WIDTH-1:0] p_a;
@@ -60,52 +31,50 @@ module RL_Force_Evaluation_Unit
 
 	// Wires connect Filter_Bank and RL_LJ_Evaluate_Pairs_1st_Order
 	wire [DATA_WIDTH-1:0] filter_bank_out_r2;
-	wire [DATA_WIDTH-1:0] filter_bank_out_dx;
-	wire [DATA_WIDTH-1:0] filter_bank_out_dy;
-	wire [DATA_WIDTH-1:0] filter_bank_out_dz;
+  data_tuple_t filter_bank_out_d;
 	wire filter_bank_out_r2_valid;
 
 	// Delay registers for reference particles' cell IDs from filter_bank to force output
-  wire [2:0][CELL_ID_WIDTH-1:0] filter_bank_out_ref_cell_id;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg0;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg1;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg2;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg3;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg4;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg5;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg6;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg7;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg8;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg9;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg10;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg11;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg12;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg13;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg14;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_reg15;
-	reg [2:0][CELL_ID_WIDTH-1:0] ref_cell_id_delayed;
+  full_cell_id_t  filter_bank_out_ref_cell_id;
+	full_cell_id_t  ref_cell_id_reg0;
+	full_cell_id_t  ref_cell_id_reg1;
+	full_cell_id_t  ref_cell_id_reg2;
+	full_cell_id_t  ref_cell_id_reg3;
+	full_cell_id_t  ref_cell_id_reg4;
+	full_cell_id_t  ref_cell_id_reg5;
+	full_cell_id_t  ref_cell_id_reg6;
+	full_cell_id_t  ref_cell_id_reg7;
+	full_cell_id_t  ref_cell_id_reg8;
+	full_cell_id_t  ref_cell_id_reg9;
+	full_cell_id_t  ref_cell_id_reg10;
+	full_cell_id_t  ref_cell_id_reg11;
+	full_cell_id_t  ref_cell_id_reg12;
+	full_cell_id_t  ref_cell_id_reg13;
+	full_cell_id_t  ref_cell_id_reg14;
+	full_cell_id_t  ref_cell_id_reg15;
+	full_cell_id_t  ref_cell_id_delayed;
 	
 	// Delay registers for particle IDs from r2_compute to force output
-	wire [ID_WIDTH-1:0] filter_bank_out_neighbor_particle_id;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg0;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg1;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg2;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg3;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg4;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg5;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg6;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg7;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg8;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg9;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg10;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg11;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg12;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg13;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg14;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_reg15;
-	reg [ID_WIDTH-1:0] neighbor_particle_id_delayed;
+	full_id_t  filter_bank_out_neighbor_particle_id;
+	full_id_t  neighbor_particle_id_reg0;
+	full_id_t  neighbor_particle_id_reg1;
+	full_id_t  neighbor_particle_id_reg2;
+	full_id_t  neighbor_particle_id_reg3;
+	full_id_t  neighbor_particle_id_reg4;
+	full_id_t  neighbor_particle_id_reg5;
+	full_id_t  neighbor_particle_id_reg6;
+	full_id_t  neighbor_particle_id_reg7;
+	full_id_t  neighbor_particle_id_reg8;
+	full_id_t  neighbor_particle_id_reg9;
+	full_id_t  neighbor_particle_id_reg10;
+	full_id_t  neighbor_particle_id_reg11;
+	full_id_t  neighbor_particle_id_reg12;
+	full_id_t  neighbor_particle_id_reg13;
+	full_id_t  neighbor_particle_id_reg14;
+	full_id_t  neighbor_particle_id_reg15;
+	full_id_t  neighbor_particle_id_delayed;
 	
-	reg [PARTICLE_ID_WIDTH-1:0] reg_ref_id;
+	particle_id_t reg_ref_id;
 	reg [5:0] ref_delay_counter;
 	// Assign output port
 	assign out_ref_particle_id = {ref_cell_id_delayed, reg_ref_id}; 
@@ -148,22 +117,22 @@ module RL_Force_Evaluation_Unit
 		begin
 		if(rst)
 			begin
-			neighbor_particle_id_reg0 <= 0;
-			neighbor_particle_id_reg1 <= 0;
-			neighbor_particle_id_reg2 <= 0;
-			neighbor_particle_id_reg3 <= 0;
-			neighbor_particle_id_reg4 <= 0;
-			neighbor_particle_id_reg5 <= 0;
-			neighbor_particle_id_reg6 <= 0;
-			neighbor_particle_id_reg7 <= 0;
-			neighbor_particle_id_reg8 <= 0;
-			neighbor_particle_id_reg9 <= 0;
-			neighbor_particle_id_reg10 <= 0;
-			neighbor_particle_id_reg11 <= 0;
-			neighbor_particle_id_reg12 <= 0;
-			neighbor_particle_id_reg13 <= 0;
-			neighbor_particle_id_reg14 <= 0;
-			neighbor_particle_id_reg15 <= 0;
+			neighbor_particle_id_reg0    <= 0;
+			neighbor_particle_id_reg1    <= 0;
+			neighbor_particle_id_reg2    <= 0;
+			neighbor_particle_id_reg3    <= 0;
+			neighbor_particle_id_reg4    <= 0;
+			neighbor_particle_id_reg5    <= 0;
+			neighbor_particle_id_reg6    <= 0;
+			neighbor_particle_id_reg7    <= 0;
+			neighbor_particle_id_reg8    <= 0;
+			neighbor_particle_id_reg9    <= 0;
+			neighbor_particle_id_reg10   <= 0;
+			neighbor_particle_id_reg11   <= 0;
+			neighbor_particle_id_reg12   <= 0;
+			neighbor_particle_id_reg13   <= 0;
+			neighbor_particle_id_reg14   <= 0;
+			neighbor_particle_id_reg15   <= 0;
 			neighbor_particle_id_delayed <= 0;
 			ref_cell_id_reg0    <= 0;
 			ref_cell_id_reg1    <= 0;
@@ -185,19 +154,19 @@ module RL_Force_Evaluation_Unit
 			end
 		else
 			begin
-			neighbor_particle_id_reg0 <= filter_bank_out_neighbor_particle_id;
-			neighbor_particle_id_reg1 <= neighbor_particle_id_reg0;
-			neighbor_particle_id_reg2 <= neighbor_particle_id_reg1;
-			neighbor_particle_id_reg3 <= neighbor_particle_id_reg2;
-			neighbor_particle_id_reg4 <= neighbor_particle_id_reg3;
-			neighbor_particle_id_reg5 <= neighbor_particle_id_reg4;
-			neighbor_particle_id_reg6 <= neighbor_particle_id_reg5;
-			neighbor_particle_id_reg7 <= neighbor_particle_id_reg6;
-			neighbor_particle_id_reg8 <= neighbor_particle_id_reg7;
-			neighbor_particle_id_reg9 <= neighbor_particle_id_reg8;
-			neighbor_particle_id_reg10 <= neighbor_particle_id_reg9;
-			neighbor_particle_id_reg11 <= neighbor_particle_id_reg10;
-			neighbor_particle_id_reg12 <= neighbor_particle_id_reg11;
+			neighbor_particle_id_reg0    <= filter_bank_out_neighbor_particle_id;
+			neighbor_particle_id_reg1    <= neighbor_particle_id_reg0;
+			neighbor_particle_id_reg2    <= neighbor_particle_id_reg1;
+			neighbor_particle_id_reg3    <= neighbor_particle_id_reg2;
+			neighbor_particle_id_reg4    <= neighbor_particle_id_reg3;
+			neighbor_particle_id_reg5    <= neighbor_particle_id_reg4;
+			neighbor_particle_id_reg6    <= neighbor_particle_id_reg5;
+			neighbor_particle_id_reg7    <= neighbor_particle_id_reg6;
+			neighbor_particle_id_reg8    <= neighbor_particle_id_reg7;
+			neighbor_particle_id_reg9    <= neighbor_particle_id_reg8;
+			neighbor_particle_id_reg10   <= neighbor_particle_id_reg9;
+			neighbor_particle_id_reg11   <= neighbor_particle_id_reg10;
+			neighbor_particle_id_reg12   <= neighbor_particle_id_reg11;
 			neighbor_particle_id_delayed <= neighbor_particle_id_reg12;
 			ref_cell_id_reg0    <= filter_bank_out_ref_cell_id;
 			ref_cell_id_reg1    <= ref_cell_id_reg0;
@@ -218,41 +187,19 @@ module RL_Force_Evaluation_Unit
 
 	// Filters
 	filter_bank
-	#(
-		
-		.DATA_WIDTH(DATA_WIDTH),
-		.CELL_ID_WIDTH(CELL_ID_WIDTH),
-		.DECIMAL_ADDR_WIDTH(DECIMAL_ADDR_WIDTH),
-		.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
-		.BODY_BITS(BODY_BITS),
-		.ID_WIDTH(ID_WIDTH),
-		.FILTER_BUFFER_DATA_WIDTH(FILTER_BUFFER_DATA_WIDTH),
-		.SQRT_2(SQRT_2),
-		.SQRT_3(SQRT_3),
-		.NUM_FILTER(NUM_FILTER),
-		.ARBITER_MSB(ARBITER_MSB),
-		.EXP_0(EXP_0)
-	)
-	Filter_Bank
-	(
+	Filter_Bank(
 		.clk(clk),
 		.rst(rst),
     .phase(phase),
 		.input_valid(pair_valid),
 		.nb_id_in(nb_particle_id),
-		.ref_x(ref_x),
-		.ref_y(ref_y),
-		.ref_z(ref_z),
-		.nb_x(nb_x),
-		.nb_y(nb_y),
-		.nb_z(nb_z),
+    .ref_pos(ref_pos),
+    .nb_pos(nb_pos),
 		
 		.nb_id_out(filter_bank_out_neighbor_particle_id),
     .ref_cell_id_out(filter_bank_out_ref_cell_id),
 		.r2_out(filter_bank_out_r2),
-		.dx_out(filter_bank_out_dx),
-		.dy_out(filter_bank_out_dy),
-		.dz_out(filter_bank_out_dz),
+    .d_out(filter_bank_out_d),
 		.out_valid(filter_bank_out_r2_valid),
 		.back_pressure(out_back_pressure_to_input),						// If one of the FIFO is full, then set the back_pressure flag to stop more incoming particle pairs
 		.all_buffer_empty(out_all_buffer_empty_to_input)
@@ -260,30 +207,18 @@ module RL_Force_Evaluation_Unit
 
 	// Evaluate Pair-wise Range Limited forces
 	// Latency 17 cycles
-	RL_LJ_Evaluate_Pairs_1st_Order_normalized #(
-		.DATA_WIDTH(DATA_WIDTH),
-		.SEGMENT_NUM(SEGMENT_NUM),
-		.SEGMENT_WIDTH(SEGMENT_WIDTH),
-		.BIN_WIDTH(BIN_WIDTH),
-		.BIN_NUM(BIN_NUM),
-		.LOOKUP_NUM(LOOKUP_NUM),
-		.LOOKUP_ADDR_WIDTH(LOOKUP_ADDR_WIDTH)
-	)
+	RL_LJ_Evaluate_Pairs_1st_Order_normalized
 	RL_LJ_Evaluate_Pairs(
 		.clk(clk),
 		.rst(rst),
 		.r2_valid(filter_bank_out_r2_valid),
 		.r2(filter_bank_out_r2),
-		.dx(filter_bank_out_dx),
-		.dy(filter_bank_out_dy),
-		.dz(filter_bank_out_dz),
+    .d_in(filter_bank_out_d),
 		.p_a(p_a),
 		.p_b(p_b),
 		.p_qq(p_qq),
 		
-		.LJ_Force_X(out_RL_Force_X),
-		.LJ_Force_Y(out_RL_Force_Y),
-		.LJ_Force_Z(out_RL_Force_Z),
+    .LJ_Force_out(out_RL_Force),
 		.LJ_force_valid(out_forceoutput_valid)
 	);
 

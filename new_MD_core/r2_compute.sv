@@ -31,12 +31,9 @@
 // Created by:
 //				Chen Yang 07/15/18
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+import md_pkg::*;
 
-module r2_compute
-#(
-	parameter DATA_WIDTH = 32
-)
-(
+module r2_compute(
 	input clk,
 	input rst,
 	input enable,
@@ -47,9 +44,7 @@ module r2_compute
 	input [DATA_WIDTH-1:0] neighbory,
 	input [DATA_WIDTH-1:0] neighborz,
 	output [DATA_WIDTH-1:0] r2,
-	output reg [DATA_WIDTH-1:0] dx_out,
-	output reg [DATA_WIDTH-1:0] dy_out,
-	output reg [DATA_WIDTH-1:0] dz_out,
+  output data_tuple_t d_out,
 	output reg r2_valid
 );
 	
@@ -154,52 +149,52 @@ module r2_compute
 			level4_en_reg3 <= 1'b0;
 			level4_en_reg4 <= 1'b0;
 			// delay registers to propage the dx value to output along with r2
-			dx_reg1 <= 0;
-			dx_reg2 <= 0;
-			dx_reg3 <= 0;
-			dx_reg4 <= 0;
-			dx_reg5 <= 0;
-			dx_reg6 <= 0;
-			dx_reg7 <= 0;
-			dx_reg8 <= 0;
-			dx_reg9 <= 0;
-			dx_reg10 <= 0;
-			dx_reg11 <= 0;
-			dx_reg12 <= 0;
-			dx_reg13 <= 0;
-			dx_out <= 0;							// Output port
+			dx_reg1      <= 0;
+			dx_reg2      <= 0;
+			dx_reg3      <= 0;
+			dx_reg4      <= 0;
+			dx_reg5      <= 0;
+			dx_reg6      <= 0;
+			dx_reg7      <= 0;
+			dx_reg8      <= 0;
+			dx_reg9      <= 0;
+			dx_reg10     <= 0;
+			dx_reg11     <= 0;
+			dx_reg12     <= 0;
+			dx_reg13     <= 0;
+			d_out.data_x <= 0;							// Output port
 			// delay registers to propage the dy value to output along with r2
-			dy_reg1 <= 0;
-			dy_reg2 <= 0;
-			dy_reg3 <= 0;
-			dy_reg4 <= 0;
-			dy_reg5 <= 0;
-			dy_reg6 <= 0;
-			dy_reg7 <= 0;
-			dy_reg8 <= 0;
-			dy_reg9 <= 0;
-			dy_reg10 <= 0;
-			dy_reg11 <= 0;
-			dy_reg12 <= 0;
-			dy_reg13 <= 0;
-			dy_delay <= 0;
-			dy_out <= 0;							// Output port
+			dy_reg1      <= 0;
+			dy_reg2      <= 0;
+			dy_reg3      <= 0;
+			dy_reg4      <= 0;
+			dy_reg5      <= 0;
+			dy_reg6      <= 0;
+			dy_reg7      <= 0;
+			dy_reg8      <= 0;
+			dy_reg9      <= 0;
+			dy_reg10     <= 0;
+			dy_reg11     <= 0;
+			dy_reg12     <= 0;
+			dy_reg13     <= 0;
+			dy_delay     <= 0;
+			d_out.data_y <= 0;							// Output port
 			// delay registers to propage the dz value to output along with r2
-			dz_reg1 <= 0;
-			dz_reg2 <= 0;
-			dz_reg3 <= 0;
-			dz_reg4 <= 0;
-			dz_reg5 <= 0;
-			dz_reg6 <= 0;
-			dz_reg7 <= 0;
-			dz_reg8 <= 0;
-			dz_reg9 <= 0;
-			dz_reg10 <= 0;
-			dz_reg11 <= 0;
-			dz_reg12 <= 0;
-			dz_reg13 <= 0;
-			dz_delay <= 0;
-			dz_out <= 0;							// Output port
+			dz_reg1      <= 0;
+			dz_reg2      <= 0;
+			dz_reg3      <= 0;
+			dz_reg4      <= 0;
+			dz_reg5      <= 0;
+			dz_reg6      <= 0;
+			dz_reg7      <= 0;
+			dz_reg8      <= 0;
+			dz_reg9      <= 0;
+			dz_reg10     <= 0;
+			dz_reg11     <= 0;
+			dz_reg12     <= 0;
+			dz_reg13     <= 0;
+			dz_delay     <= 0;
+			d_out.data_z <= 0;							// Output port
 			end
 		else
 			begin	
@@ -226,52 +221,52 @@ module r2_compute
 			r2_valid <= level4_en_reg4;
 			
 			// delay registers to propage the dx value to output along with r2
-			dx_reg1 <= dx;
-			dx_reg2 <= dx_reg1;
-			dx_reg3 <= dx_reg2;
-			dx_reg4 <= dx_reg3;
-			dx_reg5 <= dx_reg4;
-			dx_reg6 <= dx_reg5;
-			dx_reg7 <= dx_reg6;
-			dx_reg8 <= dx_reg7;
-			dx_reg9 <= dx_reg8;
-			dx_reg10 <= dx_reg9;
-			dx_reg11 <= dx_reg10;
-			dx_reg12 <= dx_reg11;
-			dx_reg13 <= dx_reg12;
-			dx_out <= dx_reg13;								// Output port
+			dx_reg1      <= dx;
+			dx_reg2      <= dx_reg1;
+			dx_reg3      <= dx_reg2;
+			dx_reg4      <= dx_reg3;
+			dx_reg5      <= dx_reg4;
+			dx_reg6      <= dx_reg5;
+			dx_reg7      <= dx_reg6;
+			dx_reg8      <= dx_reg7;
+			dx_reg9      <= dx_reg8;
+			dx_reg10     <= dx_reg9;
+			dx_reg11     <= dx_reg10;
+			dx_reg12     <= dx_reg11;
+			dx_reg13     <= dx_reg12;
+			d_out.data_x <= dx_reg13;								// Output port
 			// delay registers to propage the dy value to output along with r2
-			dy_reg1 <= dy;
-			dy_reg2 <= dy_reg1;
-			dy_reg3 <= dy_reg2;
-			dy_reg4 <= dy_reg3;
-			dy_reg5 <= dy_reg4;
-			dy_reg6 <= dy_reg5;
-			dy_reg7 <= dy_reg6;
-			dy_reg8 <= dy_reg7;
-			dy_reg9 <= dy_reg8;
-			dy_reg10 <= dy_reg9;
-			dy_reg11 <= dy_reg10;
-			dy_reg12 <= dy_reg11;
-			dy_reg13 <= dy_reg12;
-			dy_out <= dy_reg13;								// Output port
-			dy_delay <= dy_reg3;
+			dy_reg1      <= dy;
+			dy_reg2      <= dy_reg1;
+			dy_reg3      <= dy_reg2;
+			dy_reg4      <= dy_reg3;
+			dy_reg5      <= dy_reg4;
+			dy_reg6      <= dy_reg5;
+			dy_reg7      <= dy_reg6;
+			dy_reg8      <= dy_reg7;
+			dy_reg9      <= dy_reg8;
+			dy_reg10     <= dy_reg9;
+			dy_reg11     <= dy_reg10;
+			dy_reg12     <= dy_reg11;
+			dy_reg13     <= dy_reg12;
+			d_out.data_y <= dy_reg13;								// Output port
+			dy_delay     <= dy_reg3;
 			// delay registers to propage the dz value to output along with r2
-			dz_reg1 <= dz;
-			dz_reg2 <= dz_reg1;
-			dz_reg3 <= dz_reg2;
-			dz_reg4 <= dz_reg3;
-			dz_reg5 <= dz_reg4;
-			dz_reg6 <= dz_reg5;
-			dz_reg7 <= dz_reg6;
-			dz_reg8 <= dz_reg7;
-			dz_reg9 <= dz_reg8;
-			dz_reg10 <= dz_reg9;
-			dz_reg11 <= dz_reg10;
-			dz_reg12 <= dz_reg11;
-			dz_reg13 <= dz_reg12;
-			dz_out <= dz_reg13;								// Output port
-			dz_delay <= dz_reg8;
+			dz_reg1      <= dz;
+			dz_reg2      <= dz_reg1;
+			dz_reg3      <= dz_reg2;
+			dz_reg4      <= dz_reg3;
+			dz_reg5      <= dz_reg4;
+			dz_reg6      <= dz_reg5;
+			dz_reg7      <= dz_reg6;
+			dz_reg8      <= dz_reg7;
+			dz_reg9      <= dz_reg8;
+			dz_reg10     <= dz_reg9;
+			dz_reg11     <= dz_reg10;
+			dz_reg12     <= dz_reg11;
+			dz_reg13     <= dz_reg12;
+			d_out.data_z <= dz_reg13;								// Output port
+			dz_delay     <= dz_reg8;
 			end
 		end
 

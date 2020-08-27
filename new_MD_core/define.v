@@ -6,7 +6,7 @@
 `define POS_CACHE_INSTANCE(XPOS, YPOS, ZPOS) \
 Pos_Cache_x_y_z                              \
 #(                                           \
-      .DATA_WIDTH(DATA_WIDTH),               \
+      .DATA_WIDTH(OFFSET_WIDTH),               \
       .PARTICLE_NUM(NUM_PARTICLE_PER_CELL),  \
       .ADDR_WIDTH(PARTICLE_ID_WIDTH),        \
       .CELL_ID_WIDTH(CELL_ID_WIDTH),         \

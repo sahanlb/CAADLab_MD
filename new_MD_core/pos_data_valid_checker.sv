@@ -2,17 +2,14 @@
 // This module checks if the reference particle is valid, and checks
 // if a home cell particle is valid as a neighbor particle. 
 /////////////////////////////////////////////////////////////////////
+import md_pkg::*;
 
-module pos_data_valid_checker
-#(
-	parameter PARTICLE_ID_WIDTH = 7
-)
-(
+module pos_data_valid_checker(
 	input phase, 
 	input reading_particle_num, 
-	input [PARTICLE_ID_WIDTH-1:0] ref_id, 
-	input [PARTICLE_ID_WIDTH-1:0] particle_id, 
-	input [PARTICLE_ID_WIDTH-1:0] ref_particle_count, 
+	input particle_id_t ref_id, 
+	input particle_id_t particle_id, 
+	input particle_id_t ref_particle_count, 
 	
 	output ref_particle_read, 
 	output reading_done, 

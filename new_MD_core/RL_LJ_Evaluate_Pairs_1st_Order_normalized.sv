@@ -49,34 +49,25 @@
 // Created by:
 //				Chen Yang 10/01/2018 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+import md_pkg::*;
 
-module RL_LJ_Evaluate_Pairs_1st_Order_normalized
-#(
-	parameter DATA_WIDTH 				= 32,
-	parameter SEGMENT_NUM				= 9,
-	parameter SEGMENT_WIDTH				= 4,
-	parameter BIN_NUM						= 256,
-	parameter BIN_WIDTH					= 8,
-	parameter LOOKUP_NUM					= SEGMENT_NUM * BIN_NUM,			// SEGMENT_NUM * BIN_NUM
-	parameter LOOKUP_ADDR_WIDTH		= SEGMENT_WIDTH + BIN_WIDTH		// log LOOKUP_NUM / log 2
-)
-(
+module RL_LJ_Evaluate_Pairs_1st_Order_normalized(
 	input  clk,
 	input  rst,
 	input  r2_valid,
 	input  [DATA_WIDTH-1:0] r2,										// in IEEE floating point
-	input  [DATA_WIDTH-1:0] dx,										// in IEEE floating point
-	input  [DATA_WIDTH-1:0] dy,										// in IEEE floating point
-	input  [DATA_WIDTH-1:0] dz,										// in IEEE floating point
-	input  [DATA_WIDTH-1:0] p_a,										// in IEEE floating point
-	input  [DATA_WIDTH-1:0] p_b,										// in IEEE floating point
-	input  [DATA_WIDTH-1:0] p_qq,										// in IEEE floating point
+  input  data_tuple_t d_in,                     // in IEEE floating point
+	input  [DATA_WIDTH-1:0] p_a,									// in IEEE floating point
+	input  [DATA_WIDTH-1:0] p_b,				  				// in IEEE floating point
+	input  [DATA_WIDTH-1:0] p_qq,									// in IEEE floating point
 	
-	output [DATA_WIDTH-1:0] LJ_Force_X,								// in IEEE floating point
-	output [DATA_WIDTH-1:0] LJ_Force_Y,								// in IEEE floating point
-	output [DATA_WIDTH-1:0] LJ_Force_Z,								// in IEEE floating point
+  output data_tuple_t LJ_Force_out,             // in IEEE floating point
 	output reg LJ_force_valid
 );
+
+localparam LOOKUP_NUM				 = SEGMENT_NUM * BIN_NUM;			// SEGMENT_NUM * BIN_NUM
+localparam LOOKUP_ADDR_WIDTH = SEGMENT_WIDTH + BIN_WIDTH;	// log LOOKUP_NUM / log 2
+
 
 	wire table_rden;														// Table lookup enable
 	wire [LOOKUP_ADDR_WIDTH - 1:0] rdaddr;							// Table lookup address
@@ -156,9 +147,9 @@ module RL_LJ_Evaluate_Pairs_1st_Order_normalized
 	
 	// Simple filter based on the r2_value, but the force is still evaluated whether within cutoff or not
 	// assign output force (if exceed cutoff, then set as 0)
-	assign LJ_Force_X = LJ_Force_X_wire;
-	assign LJ_Force_Y = LJ_Force_Y_wire;
-	assign LJ_Force_Z = LJ_Force_Z_wire;
+	assign LJ_Force_out.data_x = LJ_Force_X_wire;
+	assign LJ_Force_out.data_y = LJ_Force_Y_wire;
+	assign LJ_Force_out.data_z = LJ_Force_Z_wire;
 	
 	// Generate table lookup address
 	assign rdaddr = {segment_id, bin_id};							// asssign the table lookup address
@@ -275,7 +266,7 @@ module RL_LJ_Evaluate_Pairs_1st_Order_normalized
 			LJ_force_valid <= level3_en_reg3;
 			
 			// 10 cycle delay between the input of dx, dy, dz before it used for calculate LJ force components
-			dx_reg1 <= dx;
+			dx_reg1 <= d_in.data_x;
 			dx_reg2 <= dx_reg1;
 			dx_reg3 <= dx_reg2;
 			dx_reg4 <= dx_reg3;
@@ -286,7 +277,7 @@ module RL_LJ_Evaluate_Pairs_1st_Order_normalized
 			dx_reg9 <= dx_reg8;
 			dx_delay <= dx_reg9;
 			
-			dy_reg1 <= dy;
+			dy_reg1 <= d_in.data_y;
 			dy_reg2 <= dy_reg1;
 			dy_reg3 <= dy_reg2;
 			dy_reg4 <= dy_reg3;
@@ -297,7 +288,7 @@ module RL_LJ_Evaluate_Pairs_1st_Order_normalized
 			dy_reg9 <= dy_reg8;
 			dy_delay <= dy_reg9;
 			
-			dz_reg1 <= dz;
+			dz_reg1 <= d_in.data_z;
 			dz_reg2 <= dz_reg1;
 			dz_reg3 <= dz_reg2;
 			dz_reg4 <= dz_reg3;
