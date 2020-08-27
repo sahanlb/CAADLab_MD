@@ -102,9 +102,9 @@ always@(posedge clk)
 			// Phase 1 to phase 0 transition, meaning a ref particle has just been processed
 			if (prev_phase == 1'b1 && phase == 1'b0)
 				begin
-				ref_x <= next_ref_x;
-				ref_y <= next_ref_y;
-				ref_z <= next_ref_z;
+				ref_x <= {cell_id.idx, next_ref_x[0 +: OFFSET_WIDTH]};
+				ref_y <= {cell_id.idy, next_ref_y[0 +: OFFSET_WIDTH]};
+				ref_z <= {cell_id.idz, next_ref_z[0 +: OFFSET_WIDTH]};
 				end
 			else
 				begin
@@ -115,7 +115,7 @@ always@(posedge clk)
 					next_ref_z <= home_pos_z;
 					end
 				// Mainly used for the 1st ref data, because there's no next_ref data at the beginning
-				else if (ref_id == particle_id)
+				else if ((ref_id == particle_id) & (ref_id == 1))
 					begin
 					ref_x <= home_pos_x;
 					ref_y <= home_pos_y;
