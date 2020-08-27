@@ -33,9 +33,9 @@ module ref_data_extractor
 	output reg [DATA_WIDTH-1:0] ref_z
 );
 
-reg [DATA_WIDTH-1:0] next_ref_x;
-reg [DATA_WIDTH-1:0] next_ref_y;
-reg [DATA_WIDTH-1:0] next_ref_z;
+reg [DATA_WIDTH-1:0] next_ref_x0, next_ref_x1;
+reg [DATA_WIDTH-1:0] next_ref_y0, next_ref_y1;
+reg [DATA_WIDTH-1:0] next_ref_z0, next_ref_z1;
 wire [DATA_WIDTH-1:0] home_pos_x;
 wire [DATA_WIDTH-1:0] home_pos_y;
 wire [DATA_WIDTH-1:0] home_pos_z;
@@ -78,52 +78,59 @@ assign home_pos_x = {cell_id.idx, raw_home_pos_x};
 assign home_pos_y = {cell_id.idy, raw_home_pos_y};
 assign home_pos_z = {cell_id.idz, raw_home_pos_z};
 
-always@(posedge clk)
-	begin
-	if (rst)
-		begin
+always@(posedge clk)begin
+	if(rst)begin
 		ref_x <= 0;
 		ref_y <= 0;
 		ref_z <= 0;
-		next_ref_x <= 0;
-		next_ref_y <= 0;
-		next_ref_z <= 0;
+		next_ref_x0 <= 0;
+		next_ref_y0 <= 0;
+		next_ref_z0 <= 0;
+		next_ref_x1 <= 0;
+		next_ref_y1 <= 0;
+		next_ref_z1 <= 0;
 		ref_particle_count <= 0;
-		end
-	else 
-		begin
-		if (reading_particle_num)
+	end
+	else begin
+		if(reading_particle_num)
 			begin
 			// Pick the lowest 7 bits as the number of particles
 			ref_particle_count <= raw_home_pos_x[PARTICLE_ID_WIDTH-1:0];
-			end
-		else
-			begin
+		end
+		else begin
 			// Phase 1 to phase 0 transition, meaning a ref particle has just been processed
-			if (prev_phase == 1'b1 && phase == 1'b0)
-				begin
-				ref_x <= {cell_id.idx, next_ref_x[0 +: OFFSET_WIDTH]};
-				ref_y <= {cell_id.idy, next_ref_y[0 +: OFFSET_WIDTH]};
-				ref_z <= {cell_id.idz, next_ref_z[0 +: OFFSET_WIDTH]};
+			if(prev_phase == 1'b1 && phase == 1'b0)begin
+				ref_x <= {cell_id.idx, next_ref_x0[0 +: OFFSET_WIDTH]};
+				ref_y <= {cell_id.idy, next_ref_y0[0 +: OFFSET_WIDTH]};
+				ref_z <= {cell_id.idz, next_ref_z0[0 +: OFFSET_WIDTH]};
+			end
+			else if(prev_phase == 1'b0 && phase == 1'b1)begin
+				ref_x <= {cell_id.idx, next_ref_x1[0 +: OFFSET_WIDTH]};
+				ref_y <= {cell_id.idy, next_ref_y1[0 +: OFFSET_WIDTH]};
+				ref_z <= {cell_id.idz, next_ref_z1[0 +: OFFSET_WIDTH]};
+			end
+			else begin
+				if(ref_id + 1'b1 == particle_id)begin
+          if(!phase)begin
+					  next_ref_x0 <= home_pos_x;
+					  next_ref_y0 <= home_pos_y;
+					  next_ref_z0 <= home_pos_z;
+          end
+          else begin
+					  next_ref_x1 <= home_pos_x;
+					  next_ref_y1 <= home_pos_y;
+					  next_ref_z1 <= home_pos_z;
+          end
 				end
-			else
-				begin
-				if (ref_id + 1'b1 == particle_id)
-					begin
-					next_ref_x <= home_pos_x;
-					next_ref_y <= home_pos_y;
-					next_ref_z <= home_pos_z;
-					end
 				// Mainly used for the 1st ref data, because there's no next_ref data at the beginning
-				else if ((ref_id == particle_id) & (ref_id == 1))
-					begin
+				else if((ref_id == particle_id) & (ref_id == 1))begin
 					ref_x <= home_pos_x;
 					ref_y <= home_pos_y;
 					ref_z <= home_pos_z;
-					end
 				end
 			end
 		end
 	end
+end
 
 endmodule
