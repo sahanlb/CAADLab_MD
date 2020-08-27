@@ -1,4 +1,5 @@
 //////////////////////////////////////////////////////////////
+// Module: force_distributor.sv
 // Functionality:
 // Capture the force values from RL_LJ_Evaluation_Unit
 // Send out neighbor particle force directly to be written back 
@@ -22,7 +23,7 @@ module force_distributor(
 	input ready, 
 	
 	output force_wb_t wb_out, 
-	output reg wb_valid,
+	output wb_valid,
   output reg all_ref_wb_issued 
 );
 
@@ -42,11 +43,30 @@ data_tuple_t [NUM_NEIGHBOR_CELLS:0] force_reg;
 full_id_t [NUM_NEIGHBOR_CELLS   :0] force_id_reg;
 logic [NUM_NEIGHBOR_CELLS       :0] force_reg_valid;
 
+// Assign outputs
+assign wb_out = rst ? 0 : (state == WB_REF) ? {force_id_reg[counter], force_reg[counter]} :
+                {nb_id, force_in.data_z, force_in.data_y, force_in.data_x};
+
+assign wb_valid = rst ? 0 : (state == WB_REF) ? force_reg_valid[counter] : force_valid;
+
+// Cell ID values to be compared with input particle IDs.
+full_cell_id_t [6:0] cell_id1, cell_id2;
+
+always_comb begin
+  {cell_id1[0], cell_id2[0]} = {CELL_2, CELL_2, CELL_2, CELL_3, CELL_1, CELL_3};
+  {cell_id1[1], cell_id2[1]} = {CELL_2, CELL_2, CELL_3, CELL_3, CELL_2, CELL_1};
+  {cell_id1[2], cell_id2[2]} = {CELL_2, CELL_3, CELL_1, CELL_3, CELL_2, CELL_2};
+  {cell_id1[3], cell_id2[3]} = {CELL_2, CELL_3, CELL_2, CELL_3, CELL_2, CELL_3};
+  {cell_id1[4], cell_id2[4]} = {CELL_2, CELL_3, CELL_3, CELL_3, CELL_3, CELL_1};
+  {cell_id1[5], cell_id2[5]} = {CELL_3, CELL_1, CELL_1, CELL_3, CELL_3, CELL_2};
+  {cell_id1[6], cell_id2[6]} = {CELL_3, CELL_1, CELL_2, CELL_3, CELL_3, CELL_3};
+end
+
+
+
 //state machine
 always_ff @(posedge clk)begin
   if(rst)begin
-    wb_out            <= 0;
-    wb_valid          <= 0; 
     all_ref_wb_issued <= 0;
     force_reg         <= 0;
     force_id_reg      <= 0;
@@ -58,12 +78,10 @@ always_ff @(posedge clk)begin
     case(state)
       ACTIVE:begin
         all_ref_wb_issued <= 1'b0;
-        wb_valid          <= force_valid;
-        wb_out            <= {nb_id, force_in};
         //capture force on reference particles
         for(i=0; i<NUM_FILTER; i++)begin
           if(ref_force_valid[i])begin
-            if(ref_id[0].cell_id == CELL_222)begin //phase 0
+            if(ref_id[i].cell_id == cell_id1[i])begin //phase 0
               force_reg[i]       <= {ref_force[i].data_z, ref_force[i].data_y, ref_force[i].data_x};
               force_id_reg[i]    <= ref_id[i];
               force_reg_valid[i] <= 1'b1;
@@ -85,8 +103,6 @@ always_ff @(posedge clk)begin
         end
       end
       WAIT:begin // Make sure no more writebacks intended for the home cell foce cache are left in the pipeline
-        wb_valid <= force_valid;
-        wb_out   <= {nb_id, force_in};
         if(force_valid)begin
           counter <= 0;
           state   <= WAIT;
@@ -101,10 +117,9 @@ always_ff @(posedge clk)begin
         end
       end
       WB_REF:begin
-        wb_valid <= force_reg_valid[counter];
-        wb_out   <= {force_id_reg[counter], force_reg[counter]};
         if(ready & counter == 13)begin
           all_ref_wb_issued <= 1'b1;
+          force_reg_valid   <= 0;
           state             <= ACTIVE;
         end
         else if(ready)
@@ -124,8 +139,5 @@ always @(negedge clk)begin
     $stop();
   end
 end
-
-
-
 
 endmodule

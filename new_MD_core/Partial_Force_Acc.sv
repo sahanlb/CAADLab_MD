@@ -112,19 +112,6 @@ full_id_t cur_particle_id;
     end
   end
 
-/* // For scattered selection
-  always_comb begin
-    case(ACC_ID)
-      0: {cell_id1, cell_id2} = {CELL_2, CELL_2, CELL_2, CELL_1, CELL_1, CELL_1};
-      1: {cell_id1, cell_id2} = {CELL_3, CELL_2, CELL_1, CELL_1, CELL_2, CELL_1};
-      2: {cell_id1, cell_id2} = {CELL_2, CELL_3, CELL_3, CELL_1, CELL_3, CELL_2};
-      3: {cell_id1, cell_id2} = {CELL_1, CELL_1, CELL_2, CELL_2, CELL_3, CELL_1};
-      4: {cell_id1, cell_id2} = {CELL_1, CELL_3, CELL_1, CELL_2, CELL_2, CELL_3};
-      5: {cell_id1, cell_id2} = {CELL_1, CELL_3, CELL_3, CELL_2, CELL_1, CELL_2};
-      6: {cell_id1, cell_id2} = {CELL_1, CELL_1, CELL_3, CELL_3, CELL_2, CELL_2};
-    endcase
-  end
-*/
   // For half shell neighbor selection  
   always_comb begin
     case(ACC_ID)
@@ -153,14 +140,14 @@ full_id_t cur_particle_id;
 			out_particle_acc_force.data_y <= acc_value_out_y;
 			out_particle_acc_force.data_z <= acc_value_out_z;
       if(~particle_id_match)begin // next ref particle
-        out_acc_force_valid         <= valid_wb_value;  
-        start_wb                    <= (cur_particle_id.particle_id != 0);
+        out_acc_force_valid      <= (cur_particle_id.particle != 0) & (in_id.particle != 1);
+        start_wb                 <= (cur_particle_id.particle != 0) & (in_id.particle != 1);
+        // Additional conditions to prevent module issuing fake start_wb signals.
         cur_particle_id.particle_id <= in_particle_id.particle_id;
         cur_particle_id.cell_id     <= cell_id1;
       end
       else if(phase_change)begin // switch from phase 0 to 1
-        out_acc_force_valid      <= valid_wb_value;
-        // Don't writeback accumulated value if the reference particle is from the home cell.
+        out_acc_force_valid      <= 1'b1;
         cur_particle_id.cell_id  <= cell_id2;
       end
       else begin
