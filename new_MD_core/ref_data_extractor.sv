@@ -105,9 +105,16 @@ always@(posedge clk)begin
 				ref_z <= {cell_id.idz, next_ref_z0[0 +: OFFSET_WIDTH]};
 			end
 			else if(prev_phase == 1'b0 && phase == 1'b1)begin
-				ref_x <= {cell_id.idx, next_ref_x1[0 +: OFFSET_WIDTH]};
-				ref_y <= {cell_id.idy, next_ref_y1[0 +: OFFSET_WIDTH]};
-				ref_z <= {cell_id.idz, next_ref_z1[0 +: OFFSET_WIDTH]};
+        if((ref_id == 1) & (ref_id == particle_id))begin
+				  ref_x <= home_pos_x;
+				  ref_y <= home_pos_y;
+				  ref_z <= home_pos_z;
+        end
+        else begin
+				  ref_x <= {cell_id.idx, next_ref_x1[0 +: OFFSET_WIDTH]};
+				  ref_y <= {cell_id.idy, next_ref_y1[0 +: OFFSET_WIDTH]};
+				  ref_z <= {cell_id.idz, next_ref_z1[0 +: OFFSET_WIDTH]};
+        end
 			end
 			else begin
 				if(ref_id + 1'b1 == particle_id)begin
