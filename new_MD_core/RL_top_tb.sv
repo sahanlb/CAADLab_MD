@@ -968,7 +968,7 @@ end
 
 // 4. values going out of motion update unit to position and velocity caches
 always @(negedge clk)begin
-  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b000_000_000)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_001_001)begin
     //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
     $fdisplay(file_mu_pos0, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
     $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a);
@@ -976,7 +976,7 @@ always @(negedge clk)begin
 end
 
 always @(negedge clk)begin
-  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b000_000_000)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_001_001)begin
     $fdisplay(file_mu_vel0, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
     `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
@@ -1259,7 +1259,7 @@ end
 
 // 4. values going out of motion update unit to position and velocity caches
 always @(negedge clk)begin
-  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_011_011)begin //{x,y,z} cell order
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_100_100)begin //{x,y,z} cell order
     //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
     $fdisplay(file_mu_pos61, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
     $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a);
@@ -1267,7 +1267,7 @@ always @(negedge clk)begin
 end
 
 always @(negedge clk)begin
-  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_011_011)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_100_100)begin
     $fdisplay(file_mu_vel61, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
     `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
@@ -1551,7 +1551,7 @@ end
 
 // 4. values going out of motion update unit to position and velocity caches
 always @(negedge clk)begin
-  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_010_001)begin //{x,y,z} cell order
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_011_010)begin //{x,y,z} cell order
     //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
     $fdisplay(file_mu_pos27, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
     $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a);
@@ -1559,7 +1559,7 @@ always @(negedge clk)begin
 end
 
 always @(negedge clk)begin
-  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_010_001)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_011_010)begin
     $fdisplay(file_mu_vel27, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
     `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
@@ -1843,7 +1843,7 @@ end
 
 // 4. values going out of motion update unit to position and velocity caches
 always @(negedge clk)begin
-  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_010_010)begin //{x,y,z} cell order
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_011_011)begin //{x,y,z} cell order
     //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
     $fdisplay(file_mu_pos42, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
     $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a);
@@ -1851,7 +1851,7 @@ always @(negedge clk)begin
 end
 
 always @(negedge clk)begin
-  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_010_010)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_011_011)begin
     $fdisplay(file_mu_vel42, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
     `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
