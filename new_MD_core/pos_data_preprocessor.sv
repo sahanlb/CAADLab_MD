@@ -58,32 +58,43 @@ typedef struct packed{
 }pos_data_t;
 
 genvar i;
+int k;
 
 reg prev_pause_reading;
 reg prev_reading_particle_num;
 reg [NUM_NEIGHBOR_CELLS:0] prev_broadcast_done;
 offset_tuple_t [NUM_NEIGHBOR_CELLS:0] prev_rd_nb_position;
 
-reg [PARTICLE_ID_WIDTH-1:0] home_particle_count;
+particle_id_t home_particle_count;
 
 wire [NUM_FILTER-1:0] ref_particle_read;
 wire [NUM_FILTER-1:0] ref_valid;
 
 wire broadcast_done;
 
-// Internal wires connected to ref_particle_count ports of ref_data_extractors
-wire [NUM_FILTER-1:0][PARTICLE_ID_WIDTH-1:0] i_ref_particle_count; 
+// ref_particle_counts
+particle_id_t [NUM_FILTER-1:0] i_ref_particle_count; 
 
-// Capture particle count for the home cell.
+// Register particle counts for all neighbor cells
+particle_id_t [NUM_NEIGHBOR_CELLS:0] cell_particle_count;
+
+// Capture particle count for all neighbor cells (including home cell)
 always_ff @(posedge clk)begin
-  if(rst)
-    home_particle_count <= 0;
-  else if(prev_reading_particle_num & prev_phase == 0)
-    home_particle_count <= i_ref_particle_count[0];
-    // In phase 0, filter 0 gets the home cell.
-  else
-    home_particle_count <= home_particle_count;
+  if(rst)begin
+    cell_particle_count <= 0;
+  end
+  else if(reading_particle_num & ~phase)begin
+    for(k=0; k<=NUM_NEIGHBOR_CELLS; k++)begin
+      cell_particle_count[k] <= rd_nb_position[k].offset_x[PARTICLE_ID_WIDTH-1:0];
+    end
+  end
 end
+
+// Particle count for the home cell.
+assign home_particle_count = cell_particle_count[0];
+
+// particle_counts for neighbors currently processed
+assign i_ref_particle_count = cell_particle_count[phase*NUM_FILTER +: NUM_FILTER];
 
 // Set reading_done and broadcast_done
 assign broadcast_done = (particle_id > home_particle_count) & (home_particle_count != 0);
@@ -137,7 +148,7 @@ generate
     	.particle_id(particle_id),
     	.ref_id(ref_id),
     	
-    	.ref_particle_count(i_ref_particle_count[i]), 
+    	.ref_particle_count(), 
     	.ref_x(ref_x[i]),
     	.ref_y(ref_y[i]),
     	.ref_z(ref_z[i])

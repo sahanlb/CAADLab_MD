@@ -24,6 +24,6 @@ assign ref_particle_read = (particle_id > ref_id);
 
 assign reading_done = (ref_id > ref_particle_count) & (ref_particle_count != 0);
 // If reading number of particles, all pairs should be invalid 
-assign ref_valid = ref_id < ref_particle_count & ~reading_particle_num;
+assign ref_valid = (ref_id <= ref_particle_count) & ~reading_particle_num;
 
 endmodule

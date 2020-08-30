@@ -7,6 +7,8 @@ parameter CELL_ID_WIDTH     = 3;
 parameter PARTICLE_ID_WIDTH = 7;
 parameter NODE_ID_WIDTH     = $clog2(NUM_CELLS);
 
+//particle ID
+typedef logic [PARTICLE_ID_WIDTH-1:0] particle_id_t;
 
 // Full cell ID {cell_id_z, cell_id_y, cell_id_x}
 typedef struct packed{
