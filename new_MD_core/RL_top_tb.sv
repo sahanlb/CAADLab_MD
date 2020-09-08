@@ -32,6 +32,7 @@ parameter ALL_POSITION_WIDTH = (NUM_NEIGHBOR_CELLS+1)*POS_CACHE_WIDTH;
 reg clk; 
 reg rst; 
 reg start;
+integer iter_count;
 
 // Output from PE
 wire [NUM_CELLS-1:0] reading_done; 
@@ -59,11 +60,11 @@ end
 
 
 // Stop simulation after motion update is completed in the first iteration
-initial begin
-  wait(RL_top.MU_done);
-  #10000;
-  $stop();
-end
+//initial begin
+//  wait(RL_top.MU_done);
+//  #10000;
+//  $stop();
+//end
 
 
 `ifdef PRINT_PARTIAL_FORCES
@@ -970,8 +971,8 @@ end
 always @(negedge clk)begin
   if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_001_001)begin
     //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
-    $fdisplay(file_mu_pos0, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
-    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a);
+    $fdisplay(file_mu_pos0, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
   end
 end
 
@@ -1261,8 +1262,8 @@ end
 always @(negedge clk)begin
   if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_100_100)begin //{x,y,z} cell order
     //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
-    $fdisplay(file_mu_pos61, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
-    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a);
+    $fdisplay(file_mu_pos61, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
   end
 end
 
@@ -1553,8 +1554,8 @@ end
 always @(negedge clk)begin
   if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_011_010)begin //{x,y,z} cell order
     //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
-    $fdisplay(file_mu_pos27, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
-    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a);
+    $fdisplay(file_mu_pos27, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
   end
 end
 
@@ -1845,8 +1846,8 @@ end
 always @(negedge clk)begin
   if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_011_011)begin //{x,y,z} cell order
     //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
-    $fdisplay(file_mu_pos42, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
-    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a);
+    $fdisplay(file_mu_pos42, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
   end
 end
 
@@ -3300,9 +3301,131 @@ always @(negedge clk)begin
 end
 
 
+// Print motion update completed message
+always @(negedge clk)begin
+  if(`MUC.out_motion_update_done)begin
+  // cell 0
+    $fdisplay(file619, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file6110, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file6111, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file6112, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file6113, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb61, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fci61, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fco61, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos61, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel61, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    // cell 27
+    $fdisplay(file270, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file271, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file272, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file273, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file274, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file275, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file276, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file277, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file278, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file279, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file2710, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file2711, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file2712, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file2713, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb27, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fci27, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fco27, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos27, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel27, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    // cell 42
+    $fdisplay(file420, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file421, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file422, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file423, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file424, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file425, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file426, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file427, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file428, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file429, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file4210, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file4211, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file4212, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file4213, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb42, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fci42, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fco42, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos42, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel42, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    // other cells
+    $fdisplay(file_fdb1, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb2, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb3, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb4, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb5, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb6, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb7, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb8, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb9, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb10, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb11, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb12, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb13, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb14, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb15, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb16, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb17, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb18, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb19, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb20, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb21, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb22, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb23, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb24, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb25, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb26, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb28, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb29, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb30, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb31, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb32, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb33, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb34, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb35, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb36, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb37, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb38, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb39, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb40, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb41, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb43, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb44, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb45, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb46, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb47, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb48, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb49, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb50, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb51, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb52, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb53, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb54, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb55, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb56, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb57, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb58, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb59, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb60, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb62, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb63, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+
+    iter_count++;
+  end
+end
+
+
 // End simulation when motion update is done.
 initial begin
-  wait(`MUC.out_motion_update_done);
+  iter_count = 0;
+  wait(iter_count == 5);
   #10;
   $display("Ending simulation.");
   // cell 0
