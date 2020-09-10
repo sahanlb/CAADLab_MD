@@ -3304,7 +3304,36 @@ end
 // Print motion update completed message
 always @(negedge clk)begin
   if(`MUC.out_motion_update_done)begin
-  // cell 0
+    // cell 0
+    $fdisplay(file00, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file01, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file02, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file03, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file04, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file05, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file06, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file07, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file08, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file09, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file010, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file011, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file012, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file013, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb0, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fci0, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_fco0, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos0, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel0, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    // cell 61
+    $fdisplay(file610, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file611, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file612, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file613, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file614, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file615, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file616, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file617, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file618, "\n\nIteration %0d over.\n\n\n\n", iter_count);
     $fdisplay(file619, "\n\nIteration %0d over.\n\n\n\n", iter_count);
     $fdisplay(file6110, "\n\nIteration %0d over.\n\n\n\n", iter_count);
     $fdisplay(file6111, "\n\nIteration %0d over.\n\n\n\n", iter_count);
