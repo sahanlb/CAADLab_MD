@@ -471,6 +471,21 @@ integer file_fdb1, file_fdb2, file_fdb3, file_fdb4, file_fdb5, file_fdb6, file_f
         file_fdb51, file_fdb52, file_fdb53, file_fdb54, file_fdb55, file_fdb56, file_fdb57, file_fdb58, file_fdb59, file_fdb60,
         file_fdb62, file_fdb63;
 
+integer file_mu_pos1, file_mu_pos2, file_mu_pos3, file_mu_pos4, file_mu_pos5, file_mu_pos6, file_mu_pos7, file_mu_pos8, file_mu_pos9, file_mu_pos10,
+        file_mu_pos11, file_mu_pos12, file_mu_pos13, file_mu_pos14, file_mu_pos15, file_mu_pos16, file_mu_pos17, file_mu_pos18, file_mu_pos19, file_mu_pos20,
+        file_mu_pos21, file_mu_pos22, file_mu_pos23, file_mu_pos24, file_mu_pos25, file_mu_pos26, file_mu_pos28, file_mu_pos29, file_mu_pos30,
+        file_mu_pos31, file_mu_pos32, file_mu_pos33, file_mu_pos34, file_mu_pos35, file_mu_pos36, file_mu_pos37, file_mu_pos38, file_mu_pos39, file_mu_pos40,
+        file_mu_pos41, file_mu_pos43, file_mu_pos44, file_mu_pos45, file_mu_pos46, file_mu_pos47, file_mu_pos48, file_mu_pos49, file_mu_pos50,
+        file_mu_pos51, file_mu_pos52, file_mu_pos53, file_mu_pos54, file_mu_pos55, file_mu_pos56, file_mu_pos57, file_mu_pos58, file_mu_pos59, file_mu_pos60,
+        file_mu_pos62, file_mu_pos63;
+
+integer file_mu_vel1, file_mu_vel2, file_mu_vel3, file_mu_vel4, file_mu_vel5, file_mu_vel6, file_mu_vel7, file_mu_vel8, file_mu_vel9, file_mu_vel10,
+        file_mu_vel11, file_mu_vel12, file_mu_vel13, file_mu_vel14, file_mu_vel15, file_mu_vel16, file_mu_vel17, file_mu_vel18, file_mu_vel19, file_mu_vel20,
+        file_mu_vel21, file_mu_vel22, file_mu_vel23, file_mu_vel24, file_mu_vel25, file_mu_vel26, file_mu_vel28, file_mu_vel29, file_mu_vel30,
+        file_mu_vel31, file_mu_vel32, file_mu_vel33, file_mu_vel34, file_mu_vel35, file_mu_vel36, file_mu_vel37, file_mu_vel38, file_mu_vel39, file_mu_vel40,
+        file_mu_vel41, file_mu_vel43, file_mu_vel44, file_mu_vel45, file_mu_vel46, file_mu_vel47, file_mu_vel48, file_mu_vel49, file_mu_vel50,
+        file_mu_vel51, file_mu_vel52, file_mu_vel53, file_mu_vel54, file_mu_vel55, file_mu_vel56, file_mu_vel57, file_mu_vel58, file_mu_vel59, file_mu_vel60,
+        file_mu_vel62, file_mu_vel63;
 
 // cell 0
 initial begin
@@ -667,6 +682,130 @@ initial begin
   file_fdb62 = $fopen("force_distributor_62_output.dat", "w");
   file_fdb63 = $fopen("force_distributor_63_output.dat", "w");
 
+  file_mu_pos1  = $fopen("mu_position_cell1.dat", "w");
+  file_mu_pos2  = $fopen("mu_position_cell2.dat", "w");
+  file_mu_pos3  = $fopen("mu_position_cell3.dat", "w");
+  file_mu_pos4  = $fopen("mu_position_cell4.dat", "w");
+  file_mu_pos5  = $fopen("mu_position_cell5.dat", "w");
+  file_mu_pos6  = $fopen("mu_position_cell6.dat", "w");
+  file_mu_pos7  = $fopen("mu_position_cell7.dat", "w");
+  file_mu_pos8  = $fopen("mu_position_cell8.dat", "w");
+  file_mu_pos9  = $fopen("mu_position_cell9.dat", "w");
+  file_mu_pos10 = $fopen("mu_position_cell10.dat", "w");
+  file_mu_pos11 = $fopen("mu_position_cell11.dat", "w");
+  file_mu_pos12 = $fopen("mu_position_cell12.dat", "w");
+  file_mu_pos13 = $fopen("mu_position_cell13.dat", "w");
+  file_mu_pos14 = $fopen("mu_position_cell14.dat", "w");
+  file_mu_pos15 = $fopen("mu_position_cell15.dat", "w");
+  file_mu_pos16 = $fopen("mu_position_cell16.dat", "w");
+  file_mu_pos17 = $fopen("mu_position_cell17.dat", "w");
+  file_mu_pos18 = $fopen("mu_position_cell18.dat", "w");
+  file_mu_pos19 = $fopen("mu_position_cell19.dat", "w");
+  file_mu_pos20 = $fopen("mu_position_cell20.dat", "w");
+  file_mu_pos21 = $fopen("mu_position_cell21.dat", "w");
+  file_mu_pos22 = $fopen("mu_position_cell22.dat", "w");
+  file_mu_pos23 = $fopen("mu_position_cell23.dat", "w");
+  file_mu_pos24 = $fopen("mu_position_cell24.dat", "w");
+  file_mu_pos25 = $fopen("mu_position_cell25.dat", "w");
+  file_mu_pos26 = $fopen("mu_position_cell26.dat", "w");
+  file_mu_pos28 = $fopen("mu_position_cell28.dat", "w");
+  file_mu_pos29 = $fopen("mu_position_cell29.dat", "w");
+  file_mu_pos30 = $fopen("mu_position_cell30.dat", "w");
+  file_mu_pos31 = $fopen("mu_position_cell31.dat", "w");
+  file_mu_pos32 = $fopen("mu_position_cell32.dat", "w");
+  file_mu_pos33 = $fopen("mu_position_cell33.dat", "w");
+  file_mu_pos34 = $fopen("mu_position_cell34.dat", "w");
+  file_mu_pos35 = $fopen("mu_position_cell35.dat", "w");
+  file_mu_pos36 = $fopen("mu_position_cell36.dat", "w");
+  file_mu_pos37 = $fopen("mu_position_cell37.dat", "w");
+  file_mu_pos38 = $fopen("mu_position_cell38.dat", "w");
+  file_mu_pos39 = $fopen("mu_position_cell39.dat", "w");
+  file_mu_pos40 = $fopen("mu_position_cell40.dat", "w");
+  file_mu_pos41 = $fopen("mu_position_cell41.dat", "w");
+  file_mu_pos43 = $fopen("mu_position_cell43.dat", "w");
+  file_mu_pos44 = $fopen("mu_position_cell44.dat", "w");
+  file_mu_pos45 = $fopen("mu_position_cell45.dat", "w");
+  file_mu_pos46 = $fopen("mu_position_cell46.dat", "w");
+  file_mu_pos47 = $fopen("mu_position_cell47.dat", "w");
+  file_mu_pos48 = $fopen("mu_position_cell48.dat", "w");
+  file_mu_pos49 = $fopen("mu_position_cell49.dat", "w");
+  file_mu_pos50 = $fopen("mu_position_cell50.dat", "w");
+  file_mu_pos51 = $fopen("mu_position_cell51.dat", "w");
+  file_mu_pos52 = $fopen("mu_position_cell52.dat", "w");
+  file_mu_pos53 = $fopen("mu_position_cell53.dat", "w");
+  file_mu_pos54 = $fopen("mu_position_cell54.dat", "w");
+  file_mu_pos55 = $fopen("mu_position_cell55.dat", "w");
+  file_mu_pos56 = $fopen("mu_position_cell56.dat", "w");
+  file_mu_pos57 = $fopen("mu_position_cell57.dat", "w");
+  file_mu_pos58 = $fopen("mu_position_cell58.dat", "w");
+  file_mu_pos59 = $fopen("mu_position_cell59.dat", "w");
+  file_mu_pos60 = $fopen("mu_position_cell60.dat", "w");
+  file_mu_pos62 = $fopen("mu_position_cell62.dat", "w");
+  file_mu_pos63 = $fopen("mu_position_cell63.dat", "w");
+
+
+  file_mu_vel1  = $fopen("mu_velocity_cell1.dat", "w");
+  file_mu_vel2  = $fopen("mu_velocity_cell2.dat", "w");
+  file_mu_vel3  = $fopen("mu_velocity_cell3.dat", "w");
+  file_mu_vel4  = $fopen("mu_velocity_cell4.dat", "w");
+  file_mu_vel5  = $fopen("mu_velocity_cell5.dat", "w");
+  file_mu_vel6  = $fopen("mu_velocity_cell6.dat", "w");
+  file_mu_vel7  = $fopen("mu_velocity_cell7.dat", "w");
+  file_mu_vel8  = $fopen("mu_velocity_cell8.dat", "w");
+  file_mu_vel9  = $fopen("mu_velocity_cell9.dat", "w");
+  file_mu_vel10 = $fopen("mu_velocity_cell10.dat", "w");
+  file_mu_vel11 = $fopen("mu_velocity_cell11.dat", "w");
+  file_mu_vel12 = $fopen("mu_velocity_cell12.dat", "w");
+  file_mu_vel13 = $fopen("mu_velocity_cell13.dat", "w");
+  file_mu_vel14 = $fopen("mu_velocity_cell14.dat", "w");
+  file_mu_vel15 = $fopen("mu_velocity_cell15.dat", "w");
+  file_mu_vel16 = $fopen("mu_velocity_cell16.dat", "w");
+  file_mu_vel17 = $fopen("mu_velocity_cell17.dat", "w");
+  file_mu_vel18 = $fopen("mu_velocity_cell18.dat", "w");
+  file_mu_vel19 = $fopen("mu_velocity_cell19.dat", "w");
+  file_mu_vel20 = $fopen("mu_velocity_cell20.dat", "w");
+  file_mu_vel21 = $fopen("mu_velocity_cell21.dat", "w");
+  file_mu_vel22 = $fopen("mu_velocity_cell22.dat", "w");
+  file_mu_vel23 = $fopen("mu_velocity_cell23.dat", "w");
+  file_mu_vel24 = $fopen("mu_velocity_cell24.dat", "w");
+  file_mu_vel25 = $fopen("mu_velocity_cell25.dat", "w");
+  file_mu_vel26 = $fopen("mu_velocity_cell26.dat", "w");
+  file_mu_vel28 = $fopen("mu_velocity_cell28.dat", "w");
+  file_mu_vel29 = $fopen("mu_velocity_cell29.dat", "w");
+  file_mu_vel30 = $fopen("mu_velocity_cell30.dat", "w");
+  file_mu_vel31 = $fopen("mu_velocity_cell31.dat", "w");
+  file_mu_vel32 = $fopen("mu_velocity_cell32.dat", "w");
+  file_mu_vel33 = $fopen("mu_velocity_cell33.dat", "w");
+  file_mu_vel34 = $fopen("mu_velocity_cell34.dat", "w");
+  file_mu_vel35 = $fopen("mu_velocity_cell35.dat", "w");
+  file_mu_vel36 = $fopen("mu_velocity_cell36.dat", "w");
+  file_mu_vel37 = $fopen("mu_velocity_cell37.dat", "w");
+  file_mu_vel38 = $fopen("mu_velocity_cell38.dat", "w");
+  file_mu_vel39 = $fopen("mu_velocity_cell39.dat", "w");
+  file_mu_vel40 = $fopen("mu_velocity_cell40.dat", "w");
+  file_mu_vel41 = $fopen("mu_velocity_cell41.dat", "w");
+  file_mu_vel43 = $fopen("mu_velocity_cell43.dat", "w");
+  file_mu_vel44 = $fopen("mu_velocity_cell44.dat", "w");
+  file_mu_vel45 = $fopen("mu_velocity_cell45.dat", "w");
+  file_mu_vel46 = $fopen("mu_velocity_cell46.dat", "w");
+  file_mu_vel47 = $fopen("mu_velocity_cell47.dat", "w");
+  file_mu_vel48 = $fopen("mu_velocity_cell48.dat", "w");
+  file_mu_vel49 = $fopen("mu_velocity_cell49.dat", "w");
+  file_mu_vel50 = $fopen("mu_velocity_cell50.dat", "w");
+  file_mu_vel51 = $fopen("mu_velocity_cell51.dat", "w");
+  file_mu_vel52 = $fopen("mu_velocity_cell52.dat", "w");
+  file_mu_vel53 = $fopen("mu_velocity_cell53.dat", "w");
+  file_mu_vel54 = $fopen("mu_velocity_cell54.dat", "w");
+  file_mu_vel55 = $fopen("mu_velocity_cell55.dat", "w");
+  file_mu_vel56 = $fopen("mu_velocity_cell56.dat", "w");
+  file_mu_vel57 = $fopen("mu_velocity_cell57.dat", "w");
+  file_mu_vel58 = $fopen("mu_velocity_cell58.dat", "w");
+  file_mu_vel59 = $fopen("mu_velocity_cell59.dat", "w");
+  file_mu_vel60 = $fopen("mu_velocity_cell60.dat", "w");
+  file_mu_vel62 = $fopen("mu_velocity_cell62.dat", "w");
+  file_mu_vel63 = $fopen("mu_velocity_cell63.dat", "w");
+
+
   if(!file_fdb1  | !file_fdb2  | !file_fdb3  | !file_fdb4  | !file_fdb5  | !file_fdb6  | !file_fdb7  | !file_fdb8  | !file_fdb9  | !file_fdb10 |
      !file_fdb11 | !file_fdb12 | !file_fdb13 | !file_fdb14 | !file_fdb15 | !file_fdb16 | !file_fdb17 | !file_fdb18 | !file_fdb19 | !file_fdb20 |
      !file_fdb21 | !file_fdb22 | !file_fdb23 | !file_fdb24 | !file_fdb25 | !file_fdb26 |               !file_fdb28 | !file_fdb29 | !file_fdb30 |
@@ -678,6 +817,298 @@ initial begin
     $display("Error opening output files.");
     $stop();
   end
+
+  if(!file_mu_pos1  | !file_mu_pos2  | !file_mu_pos3  | !file_mu_pos4  | !file_mu_pos5  | !file_mu_pos6  | !file_mu_pos7  | !file_mu_pos8  | !file_mu_pos9  | !file_mu_pos10 |
+     !file_mu_pos11 | !file_mu_pos12 | !file_mu_pos13 | !file_mu_pos14 | !file_mu_pos15 | !file_mu_pos16 | !file_mu_pos17 | !file_mu_pos18 | !file_mu_pos19 | !file_mu_pos20 |
+     !file_mu_pos21 | !file_mu_pos22 | !file_mu_pos23 | !file_mu_pos24 | !file_mu_pos25 | !file_mu_pos26 |               !file_mu_pos28 | !file_mu_pos29 | !file_mu_pos30 |
+     !file_mu_pos31 | !file_mu_pos32 | !file_mu_pos33 | !file_mu_pos34 | !file_mu_pos35 | !file_mu_pos36 | !file_mu_pos37 | !file_mu_pos38 | !file_mu_pos39 | !file_mu_pos40 |
+     !file_mu_pos41 |               !file_mu_pos43 | !file_mu_pos44 | !file_mu_pos45 | !file_mu_pos46 | !file_mu_pos47 | !file_mu_pos48 | !file_mu_pos49 | !file_mu_pos50 |
+     !file_mu_pos51 | !file_mu_pos52 | !file_mu_pos53 | !file_mu_pos54 | !file_mu_pos55 | !file_mu_pos56 | !file_mu_pos57 | !file_mu_pos58 | !file_mu_pos59 | !file_mu_pos60 |
+                   !file_mu_pos62 | !file_mu_pos63 
+  )begin
+    $display("Error opening output files.");
+    $stop();
+  end
+
+  if(!file_mu_vel1  | !file_mu_vel2  | !file_mu_vel3  | !file_mu_vel4  | !file_mu_vel5  | !file_mu_vel6  | !file_mu_vel7  | !file_mu_vel8  | !file_mu_vel9  | !file_mu_vel10 |
+     !file_mu_vel11 | !file_mu_vel12 | !file_mu_vel13 | !file_mu_vel14 | !file_mu_vel15 | !file_mu_vel16 | !file_mu_vel17 | !file_mu_vel18 | !file_mu_vel19 | !file_mu_vel20 |
+     !file_mu_vel21 | !file_mu_vel22 | !file_mu_vel23 | !file_mu_vel24 | !file_mu_vel25 | !file_mu_vel26 |               !file_mu_vel28 | !file_mu_vel29 | !file_mu_vel30 |
+     !file_mu_vel31 | !file_mu_vel32 | !file_mu_vel33 | !file_mu_vel34 | !file_mu_vel35 | !file_mu_vel36 | !file_mu_vel37 | !file_mu_vel38 | !file_mu_vel39 | !file_mu_vel40 |
+     !file_mu_vel41 |               !file_mu_vel43 | !file_mu_vel44 | !file_mu_vel45 | !file_mu_vel46 | !file_mu_vel47 | !file_mu_vel48 | !file_mu_vel49 | !file_mu_vel50 |
+     !file_mu_vel51 | !file_mu_vel52 | !file_mu_vel53 | !file_mu_vel54 | !file_mu_vel55 | !file_mu_vel56 | !file_mu_vel57 | !file_mu_vel58 | !file_mu_vel59 | !file_mu_vel60 |
+                   !file_mu_vel62 | !file_mu_vel63 
+  )begin
+    $display("Error opening output files.");
+    $stop();
+  end
+
+// Print start up message
+    // cell 0
+    $fdisplay(file00, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file01, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file02, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file03, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file04, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file05, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file06, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file07, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file08, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file09, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file010, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file011, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file012, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file013, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb0, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fci0, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fco0, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos0, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel0, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    // cell 61
+    $fdisplay(file610, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file611, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file612, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file613, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file614, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file615, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file616, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file617, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file618, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file619, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file6110, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file6111, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file6112, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file6113, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb61, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fci61, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fco61, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos61, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel61, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    // cell 27
+    $fdisplay(file270, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file271, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file272, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file273, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file274, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file275, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file276, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file277, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file278, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file279, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file2710, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file2711, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file2712, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file2713, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb27, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fci27, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fco27, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos27, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel27, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    // cell 42
+    $fdisplay(file420, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file421, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file422, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file423, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file424, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file425, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file426, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file427, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file428, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file429, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file4210, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file4211, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file4212, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file4213, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb42, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fci42, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fco42, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos42, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel42, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    // other cells
+    $fdisplay(file_fdb1, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb2, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb3, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb4, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb5, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb6, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb7, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb8, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb9, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb10, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb11, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb12, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb13, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb14, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb15, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb16, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb17, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb18, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb19, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb20, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb21, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb22, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb23, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb24, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb25, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb26, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb28, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb29, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb30, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb31, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb32, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb33, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb34, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb35, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb36, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb37, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb38, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb39, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb40, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb41, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb43, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb44, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb45, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb46, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb47, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb48, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb49, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb50, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb51, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb52, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb53, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb54, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb55, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb56, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb57, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb58, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb59, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb60, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb62, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_fdb63, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+
+    $fdisplay(file_mu_pos1, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos2, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos3, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos4, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos5, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos6, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos7, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos8, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos9, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos10, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos11, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos12, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos13, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos14, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos15, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos16, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos17, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos18, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos19, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos20, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos21, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos22, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos23, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos24, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos25, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos26, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos28, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos29, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos30, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos31, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos32, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos33, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos34, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos35, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos36, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos37, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos38, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos39, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos40, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos41, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos43, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos44, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos45, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos46, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos47, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos48, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos49, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos50, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos51, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos52, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos53, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos54, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos55, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos56, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos57, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos58, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos59, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos60, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos62, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos63, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+
+    $fdisplay(file_mu_vel1, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel2, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel3, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel4, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel5, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel6, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel7, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel8, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel9, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel10, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel11, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel12, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel13, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel14, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel15, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel16, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel17, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel18, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel19, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel20, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel21, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel22, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel23, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel24, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel25, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel26, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel28, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel29, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel30, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel31, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel32, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel33, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel34, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel35, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel36, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel37, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel38, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel39, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel40, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel41, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel43, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel44, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel45, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel46, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel47, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel48, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel49, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel50, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel51, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel52, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel53, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel54, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel55, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel56, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel57, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel58, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel59, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel60, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel62, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel63, "\n\nIteration %0d starting.\n\n\n\n", iter_count);
+
+
+
 end
 
 
@@ -1260,7 +1691,7 @@ end
 
 // 4. values going out of motion update unit to position and velocity caches
 always @(negedge clk)begin
-  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_100_100)begin //{x,y,z} cell order
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_100_010)begin //{z,y,x} cell order
     //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
     $fdisplay(file_mu_pos61, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
     $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
@@ -1268,7 +1699,7 @@ always @(negedge clk)begin
 end
 
 always @(negedge clk)begin
-  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_100_100)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_100_010)begin
     $fdisplay(file_mu_vel61, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
     `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
@@ -1552,7 +1983,7 @@ end
 
 // 4. values going out of motion update unit to position and velocity caches
 always @(negedge clk)begin
-  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_011_010)begin //{x,y,z} cell order
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_011_100)begin //{z,y,x} cell order
     //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
     $fdisplay(file_mu_pos27, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
     $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
@@ -1560,7 +1991,7 @@ always @(negedge clk)begin
 end
 
 always @(negedge clk)begin
-  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_011_010)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_011_100)begin
     $fdisplay(file_mu_vel27, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
     `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
@@ -1844,7 +2275,7 @@ end
 
 // 4. values going out of motion update unit to position and velocity caches
 always @(negedge clk)begin
-  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_011_011)begin //{x,y,z} cell order
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_011_011)begin //{z,y,x} cell order
     //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
     $fdisplay(file_mu_pos42, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
     $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
@@ -1859,7 +2290,7 @@ always @(negedge clk)begin
 end
 
 
-// Record data sent out of the force distributor for rest of the cells
+// Record data for rest of the cells
 // cell 1
 always @(negedge clk)begin
   if(`FD1.state.name() == "ACTIVE")begin // ACTIVE state
@@ -1881,6 +2312,21 @@ always @(negedge clk)begin
     if(`FD1.ready & `FD1.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb1, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_001_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos1, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_001_010)begin
+    $fdisplay(file_mu_vel1, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -1907,6 +2353,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_001_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos2, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_001_011)begin
+    $fdisplay(file_mu_vel2, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 3
 always @(negedge clk)begin
@@ -1929,6 +2390,21 @@ always @(negedge clk)begin
     if(`FD3.ready & `FD3.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb3, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_001_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos3, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_001_100)begin
+    $fdisplay(file_mu_vel3, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -1955,6 +2431,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_010_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos4, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_010_001)begin
+    $fdisplay(file_mu_vel4, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 5
 always @(negedge clk)begin
@@ -1977,6 +2468,21 @@ always @(negedge clk)begin
     if(`FD5.ready & `FD5.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb5, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_010_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos5, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_010_010)begin
+    $fdisplay(file_mu_vel5, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2003,6 +2509,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_010_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos6, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_010_011)begin
+    $fdisplay(file_mu_vel6, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 7
 always @(negedge clk)begin
@@ -2025,6 +2546,21 @@ always @(negedge clk)begin
     if(`FD7.ready & `FD7.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb7, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_010_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos7, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_010_100)begin
+    $fdisplay(file_mu_vel7, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2051,6 +2587,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_011_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos8, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_011_001)begin
+    $fdisplay(file_mu_vel8, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 9
 always @(negedge clk)begin
@@ -2073,6 +2624,21 @@ always @(negedge clk)begin
     if(`FD9.ready & `FD9.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb9, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_011_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos9, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_011_010)begin
+    $fdisplay(file_mu_vel9, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2099,6 +2665,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_011_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos10, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_011_011)begin
+    $fdisplay(file_mu_vel10, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 11
 always @(negedge clk)begin
@@ -2121,6 +2702,21 @@ always @(negedge clk)begin
     if(`FD11.ready & `FD11.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb11, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_011_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos11, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_011_100)begin
+    $fdisplay(file_mu_vel11, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2147,6 +2743,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_100_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos12, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_100_001)begin
+    $fdisplay(file_mu_vel12, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 13
 always @(negedge clk)begin
@@ -2169,6 +2780,21 @@ always @(negedge clk)begin
     if(`FD13.ready & `FD13.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb13, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_100_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos13, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_100_010)begin
+    $fdisplay(file_mu_vel13, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2195,6 +2821,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_100_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos14, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_100_011)begin
+    $fdisplay(file_mu_vel14, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 15
 always @(negedge clk)begin
@@ -2217,6 +2858,21 @@ always @(negedge clk)begin
     if(`FD15.ready & `FD15.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb15, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_100_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos15, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b001_100_100)begin
+    $fdisplay(file_mu_vel15, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2243,6 +2899,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_001_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos16, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_001_001)begin
+    $fdisplay(file_mu_vel16, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 17
 always @(negedge clk)begin
@@ -2265,6 +2936,21 @@ always @(negedge clk)begin
     if(`FD17.ready & `FD17.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb17, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_001_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos17, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_001_010)begin
+    $fdisplay(file_mu_vel17, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2291,6 +2977,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_001_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos18, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_001_011)begin
+    $fdisplay(file_mu_vel18, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 19
 always @(negedge clk)begin
@@ -2313,6 +3014,21 @@ always @(negedge clk)begin
     if(`FD19.ready & `FD19.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb19, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_001_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos19, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_001_100)begin
+    $fdisplay(file_mu_vel19, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2339,6 +3055,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_010_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos20, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_010_001)begin
+    $fdisplay(file_mu_vel20, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 21
 always @(negedge clk)begin
@@ -2361,6 +3092,21 @@ always @(negedge clk)begin
     if(`FD21.ready & `FD21.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb21, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_010_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos21, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_010_010)begin
+    $fdisplay(file_mu_vel21, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2387,6 +3133,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_010_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos22, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_010_011)begin
+    $fdisplay(file_mu_vel22, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 23
 always @(negedge clk)begin
@@ -2409,6 +3170,21 @@ always @(negedge clk)begin
     if(`FD23.ready & `FD23.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb23, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_010_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos23, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_010_100)begin
+    $fdisplay(file_mu_vel23, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2435,6 +3211,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_011_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos24, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_011_001)begin
+    $fdisplay(file_mu_vel24, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 25
 always @(negedge clk)begin
@@ -2457,6 +3248,21 @@ always @(negedge clk)begin
     if(`FD25.ready & `FD25.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb25, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_011_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos25, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_011_010)begin
+    $fdisplay(file_mu_vel25, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2483,6 +3289,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_011_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos26, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_011_011)begin
+    $fdisplay(file_mu_vel26, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 28
 always @(negedge clk)begin
@@ -2505,6 +3326,21 @@ always @(negedge clk)begin
     if(`FD28.ready & `FD28.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb28, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_100_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos28, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_100_001)begin
+    $fdisplay(file_mu_vel28, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2531,6 +3367,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_100_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos29, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_100_010)begin
+    $fdisplay(file_mu_vel29, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 30
 always @(negedge clk)begin
@@ -2553,6 +3404,21 @@ always @(negedge clk)begin
     if(`FD30.ready & `FD30.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb30, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_100_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos30, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_100_011)begin
+    $fdisplay(file_mu_vel30, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2579,6 +3445,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_100_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos31, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b010_100_100)begin
+    $fdisplay(file_mu_vel31, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 32
 always @(negedge clk)begin
@@ -2601,6 +3482,21 @@ always @(negedge clk)begin
     if(`FD32.ready & `FD32.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb32, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_001_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos32, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_001_001)begin
+    $fdisplay(file_mu_vel32, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2627,6 +3523,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_001_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos33, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_001_010)begin
+    $fdisplay(file_mu_vel33, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 34
 always @(negedge clk)begin
@@ -2649,6 +3560,21 @@ always @(negedge clk)begin
     if(`FD34.ready & `FD34.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb34, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_001_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos34, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_001_011)begin
+    $fdisplay(file_mu_vel34, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2675,6 +3601,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_001_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos35, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_001_100)begin
+    $fdisplay(file_mu_vel35, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 36
 always @(negedge clk)begin
@@ -2697,6 +3638,21 @@ always @(negedge clk)begin
     if(`FD36.ready & `FD36.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb36, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_010_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos36, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_010_001)begin
+    $fdisplay(file_mu_vel36, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2723,6 +3679,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_010_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos37, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_010_010)begin
+    $fdisplay(file_mu_vel37, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 38
 always @(negedge clk)begin
@@ -2745,6 +3716,21 @@ always @(negedge clk)begin
     if(`FD38.ready & `FD38.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb38, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_010_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos38, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_010_011)begin
+    $fdisplay(file_mu_vel38, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2771,6 +3757,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_010_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos39, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_010_100)begin
+    $fdisplay(file_mu_vel39, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 40
 always @(negedge clk)begin
@@ -2793,6 +3794,21 @@ always @(negedge clk)begin
     if(`FD40.ready & `FD40.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb40, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_011_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos40, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_011_001)begin
+    $fdisplay(file_mu_vel40, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2819,6 +3835,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_011_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos41, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_011_010)begin
+    $fdisplay(file_mu_vel41, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 43
 always @(negedge clk)begin
@@ -2841,6 +3872,21 @@ always @(negedge clk)begin
     if(`FD43.ready & `FD43.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb43, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_011_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos43, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_011_100)begin
+    $fdisplay(file_mu_vel43, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2867,6 +3913,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_100_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos44, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_100_001)begin
+    $fdisplay(file_mu_vel44, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 45
 always @(negedge clk)begin
@@ -2889,6 +3950,21 @@ always @(negedge clk)begin
     if(`FD45.ready & `FD45.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb45, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_100_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos45, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_100_010)begin
+    $fdisplay(file_mu_vel45, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2915,6 +3991,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_100_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos46, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_100_011)begin
+    $fdisplay(file_mu_vel46, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 47
 always @(negedge clk)begin
@@ -2937,6 +4028,21 @@ always @(negedge clk)begin
     if(`FD47.ready & `FD47.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb47, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_100_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos47, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b011_100_100)begin
+    $fdisplay(file_mu_vel47, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -2963,6 +4069,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_001_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos48, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_001_001)begin
+    $fdisplay(file_mu_vel48, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 49
 always @(negedge clk)begin
@@ -2985,6 +4106,21 @@ always @(negedge clk)begin
     if(`FD49.ready & `FD49.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb49, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_001_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos49, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_001_010)begin
+    $fdisplay(file_mu_vel49, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -3011,6 +4147,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_001_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos50, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_001_011)begin
+    $fdisplay(file_mu_vel50, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 51
 always @(negedge clk)begin
@@ -3033,6 +4184,21 @@ always @(negedge clk)begin
     if(`FD51.ready & `FD51.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb51, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_001_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos51, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_001_100)begin
+    $fdisplay(file_mu_vel51, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -3059,6 +4225,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_010_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos52, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_010_001)begin
+    $fdisplay(file_mu_vel52, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 53
 always @(negedge clk)begin
@@ -3081,6 +4262,21 @@ always @(negedge clk)begin
     if(`FD53.ready & `FD53.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb53, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_010_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos53, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_010_010)begin
+    $fdisplay(file_mu_vel53, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -3107,6 +4303,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_010_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos54, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_010_011)begin
+    $fdisplay(file_mu_vel54, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 55
 always @(negedge clk)begin
@@ -3129,6 +4340,21 @@ always @(negedge clk)begin
     if(`FD55.ready & `FD55.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb55, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_010_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos55, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_010_100)begin
+    $fdisplay(file_mu_vel55, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -3155,6 +4381,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_011_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos56, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_011_001)begin
+    $fdisplay(file_mu_vel56, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 57
 always @(negedge clk)begin
@@ -3177,6 +4418,21 @@ always @(negedge clk)begin
     if(`FD57.ready & `FD57.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb57, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_011_010)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos57, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_011_010)begin
+    $fdisplay(file_mu_vel57, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -3203,6 +4459,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_011_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos58, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_011_011)begin
+    $fdisplay(file_mu_vel58, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 59
 always @(negedge clk)begin
@@ -3225,6 +4496,21 @@ always @(negedge clk)begin
     if(`FD59.ready & `FD59.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb59, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_011_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos59, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_011_100)begin
+    $fdisplay(file_mu_vel59, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -3251,6 +4537,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_100_001)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos60, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_100_001)begin
+    $fdisplay(file_mu_vel60, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 62
 always @(negedge clk)begin
@@ -3275,6 +4576,21 @@ always @(negedge clk)begin
     end
   end
 end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_100_011)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos62, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_100_011)begin
+    $fdisplay(file_mu_vel62, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
+  end
+end
 
 // cell 63
 always @(negedge clk)begin
@@ -3297,6 +4613,21 @@ always @(negedge clk)begin
     if(`FD63.ready & `FD63.counter == 13)begin // end of one ref ID
       $fdisplay(file_fdb63, "\n\nChange ref ID.\n");
     end
+  end
+end
+// values going out of motion update unit to position and velocity caches
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_100_100)begin //{z,y,x} cell order
+    //time  diff_x(float) diff_y  diff_z  old_pos_x(fixed)  new_pos_x(fixed) pos_y pos_z
+    $fdisplay(file_mu_pos63, "t=%0t\t\t%x\t%x\t%x\t\t%x\t%x\t%x\t\t%x\t%x\t%x",
+    $time, `MUX.b, `MUY.b, `MUZ.b, `MUX.a, `MUY.a, `MUZ.a, `MUC.out_position_data[28:0], `MUC.out_position_data[57:29], `MUC.out_position_data[86:58]);
+  end
+end
+
+always @(negedge clk)begin
+  if(mu_started & `MUC.out_data_valid & `MUC.out_dst_cell == 9'b100_100_100)begin
+    $fdisplay(file_mu_vel63, "t=%0t\t\t%x\t%x\t%x", $time, `MUC.out_velocity_data[31:0], 
+    `MUC.out_velocity_data[63:32], `MUC.out_velocity_data[95:64]);
   end
 end
 
@@ -3445,6 +4776,128 @@ always @(negedge clk)begin
     $fdisplay(file_fdb60, "\n\nIteration %0d over.\n\n\n\n", iter_count);
     $fdisplay(file_fdb62, "\n\nIteration %0d over.\n\n\n\n", iter_count);
     $fdisplay(file_fdb63, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+
+    $fdisplay(file_mu_pos1, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos2, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos3, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos4, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos5, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos6, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos7, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos8, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos9, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos10, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos11, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos12, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos13, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos14, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos15, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos16, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos17, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos18, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos19, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos20, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos21, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos22, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos23, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos24, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos25, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos26, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos28, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos29, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos30, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos31, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos32, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos33, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos34, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos35, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos36, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos37, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos38, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos39, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos40, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos41, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos43, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos44, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos45, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos46, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos47, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos48, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos49, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos50, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos51, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos52, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos53, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos54, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos55, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos56, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos57, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos58, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos59, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos60, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos62, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_pos63, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+
+    $fdisplay(file_mu_vel1, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel2, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel3, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel4, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel5, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel6, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel7, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel8, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel9, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel10, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel11, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel12, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel13, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel14, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel15, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel16, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel17, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel18, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel19, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel20, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel21, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel22, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel23, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel24, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel25, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel26, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel28, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel29, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel30, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel31, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel32, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel33, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel34, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel35, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel36, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel37, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel38, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel39, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel40, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel41, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel43, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel44, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel45, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel46, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel47, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel48, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel49, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel50, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel51, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel52, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel53, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel54, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel55, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel56, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel57, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel58, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel59, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel60, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel62, "\n\nIteration %0d over.\n\n\n\n", iter_count);
+    $fdisplay(file_mu_vel63, "\n\nIteration %0d over.\n\n\n\n", iter_count);
 
     iter_count++;
   end
@@ -3598,6 +5051,129 @@ initial begin
   $fclose(file_fdb60);
   $fclose(file_fdb62);
   $fclose(file_fdb63);
+
+  $fclose(file_mu_pos1);
+  $fclose(file_mu_pos2);
+  $fclose(file_mu_pos3);
+  $fclose(file_mu_pos4);
+  $fclose(file_mu_pos5);
+  $fclose(file_mu_pos6);
+  $fclose(file_mu_pos7);
+  $fclose(file_mu_pos8);
+  $fclose(file_mu_pos9);
+  $fclose(file_mu_pos10);
+  $fclose(file_mu_pos11);
+  $fclose(file_mu_pos12);
+  $fclose(file_mu_pos13);
+  $fclose(file_mu_pos14);
+  $fclose(file_mu_pos15);
+  $fclose(file_mu_pos16);
+  $fclose(file_mu_pos17);
+  $fclose(file_mu_pos18);
+  $fclose(file_mu_pos19);
+  $fclose(file_mu_pos20);
+  $fclose(file_mu_pos21);
+  $fclose(file_mu_pos22);
+  $fclose(file_mu_pos23);
+  $fclose(file_mu_pos24);
+  $fclose(file_mu_pos25);
+  $fclose(file_mu_pos26);
+  $fclose(file_mu_pos28);
+  $fclose(file_mu_pos29);
+  $fclose(file_mu_pos30);
+  $fclose(file_mu_pos31);
+  $fclose(file_mu_pos32);
+  $fclose(file_mu_pos33);
+  $fclose(file_mu_pos34);
+  $fclose(file_mu_pos35);
+  $fclose(file_mu_pos36);
+  $fclose(file_mu_pos37);
+  $fclose(file_mu_pos38);
+  $fclose(file_mu_pos39);
+  $fclose(file_mu_pos40);
+  $fclose(file_mu_pos41);
+  $fclose(file_mu_pos43);
+  $fclose(file_mu_pos44);
+  $fclose(file_mu_pos45);
+  $fclose(file_mu_pos46);
+  $fclose(file_mu_pos47);
+  $fclose(file_mu_pos48);
+  $fclose(file_mu_pos49);
+  $fclose(file_mu_pos50);
+  $fclose(file_mu_pos51);
+  $fclose(file_mu_pos52);
+  $fclose(file_mu_pos53);
+  $fclose(file_mu_pos54);
+  $fclose(file_mu_pos55);
+  $fclose(file_mu_pos56);
+  $fclose(file_mu_pos57);
+  $fclose(file_mu_pos58);
+  $fclose(file_mu_pos59);
+  $fclose(file_mu_pos60);
+  $fclose(file_mu_pos62);
+  $fclose(file_mu_pos63);
+
+  $fclose(file_mu_vel1);
+  $fclose(file_mu_vel2);
+  $fclose(file_mu_vel3);
+  $fclose(file_mu_vel4);
+  $fclose(file_mu_vel5);
+  $fclose(file_mu_vel6);
+  $fclose(file_mu_vel7);
+  $fclose(file_mu_vel8);
+  $fclose(file_mu_vel9);
+  $fclose(file_mu_vel10);
+  $fclose(file_mu_vel11);
+  $fclose(file_mu_vel12);
+  $fclose(file_mu_vel13);
+  $fclose(file_mu_vel14);
+  $fclose(file_mu_vel15);
+  $fclose(file_mu_vel16);
+  $fclose(file_mu_vel17);
+  $fclose(file_mu_vel18);
+  $fclose(file_mu_vel19);
+  $fclose(file_mu_vel20);
+  $fclose(file_mu_vel21);
+  $fclose(file_mu_vel22);
+  $fclose(file_mu_vel23);
+  $fclose(file_mu_vel24);
+  $fclose(file_mu_vel25);
+  $fclose(file_mu_vel26);
+  $fclose(file_mu_vel28);
+  $fclose(file_mu_vel29);
+  $fclose(file_mu_vel30);
+  $fclose(file_mu_vel31);
+  $fclose(file_mu_vel32);
+  $fclose(file_mu_vel33);
+  $fclose(file_mu_vel34);
+  $fclose(file_mu_vel35);
+  $fclose(file_mu_vel36);
+  $fclose(file_mu_vel37);
+  $fclose(file_mu_vel38);
+  $fclose(file_mu_vel39);
+  $fclose(file_mu_vel40);
+  $fclose(file_mu_vel41);
+  $fclose(file_mu_vel43);
+  $fclose(file_mu_vel44);
+  $fclose(file_mu_vel45);
+  $fclose(file_mu_vel46);
+  $fclose(file_mu_vel47);
+  $fclose(file_mu_vel48);
+  $fclose(file_mu_vel49);
+  $fclose(file_mu_vel50);
+  $fclose(file_mu_vel51);
+  $fclose(file_mu_vel52);
+  $fclose(file_mu_vel53);
+  $fclose(file_mu_vel54);
+  $fclose(file_mu_vel55);
+  $fclose(file_mu_vel56);
+  $fclose(file_mu_vel57);
+  $fclose(file_mu_vel58);
+  $fclose(file_mu_vel59);
+  $fclose(file_mu_vel60);
+  $fclose(file_mu_vel62);
+  $fclose(file_mu_vel63);
+
   $stop();
 end
 

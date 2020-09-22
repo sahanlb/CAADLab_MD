@@ -54,9 +54,9 @@ reg [CELL_ID_WIDTH-1:0] dst_cell_x;
 reg [CELL_ID_WIDTH-1:0] dst_cell_y;
 reg [CELL_ID_WIDTH-1:0] dst_cell_z;
 // {x,y,z}, in accordance with pos and velocity caches
-assign out_dst_cell[3*CELL_ID_WIDTH-1:2*CELL_ID_WIDTH] = dst_cell_x;
+assign out_dst_cell[3*CELL_ID_WIDTH-1:2*CELL_ID_WIDTH] = dst_cell_z;
 assign out_dst_cell[2*CELL_ID_WIDTH-1:CELL_ID_WIDTH] = dst_cell_y;
-assign out_dst_cell[CELL_ID_WIDTH-1:0] = dst_cell_z;
+assign out_dst_cell[CELL_ID_WIDTH-1:0] = dst_cell_x;
 
 reg [FORCE_CACHE_WIDTH-1:0] in_force_data;
 reg [VELOCITY_CACHE_WIDTH-1:0] in_velocity_data;

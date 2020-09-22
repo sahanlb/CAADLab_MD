@@ -78,7 +78,7 @@ module Pos_Cache_x_y_z
 	assign cur_cell_z = CELL_Z;
 	// Check if the incoming particle is targeting the current cell
 	wire data_valid;
-	assign data_valid = in_data_valid && (in_data_dst_cell == {cur_cell_x, cur_cell_y, cur_cell_z});
+	assign data_valid = in_data_valid && (in_data_dst_cell == {cur_cell_z, cur_cell_y, cur_cell_x});
 	always@(posedge clk)
 		begin
 		if(rst)

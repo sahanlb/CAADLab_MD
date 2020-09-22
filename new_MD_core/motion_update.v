@@ -232,13 +232,13 @@ module motion_update
 							cell_counter <= cell_counter+1'b1;
 							state <= READ_PARTICLE_NUM;
 							end
-						if (cell_z < Z_DIM)
+						if (cell_x < X_DIM)
 							begin
-							cell_z <= cell_z+1'b1;
+							cell_x <= cell_x+1'b1;
 							end
 						else
 							begin
-							cell_z <= 1;
+							cell_x <= 1;
 							if (cell_y < Y_DIM)
 								begin
 								cell_y <= cell_y+1'b1;
@@ -246,13 +246,13 @@ module motion_update
 							else
 								begin
 								cell_y <= 1;
-								if (cell_x < X_DIM)
+								if (cell_z < Z_DIM)
 									begin
-									cell_x <= cell_x+1'b1;
+									cell_z <= cell_z+1'b1;
 									end
 								else
 									begin
-									cell_x <= 1;
+									cell_z <= 1;
 									end
 								end
 							end
