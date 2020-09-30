@@ -51,6 +51,7 @@ if {$make_assignments} {
 	set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
 	set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 	set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+  set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
 
   # Source Files
 set_global_assignment -name SYSTEMVERILOG_FILE ../new_MD_core/md_pkg.sv
@@ -103,6 +104,7 @@ set_global_assignment -name VERILOG_FILE ../new_MD_core/lut0_8.v
 set_global_assignment -name VERILOG_FILE ../new_MD_core/lut1_8.v
 set_global_assignment -name VERILOG_FILE ../new_MD_core/pos_data_valid_checker.v
 set_global_assignment -name VERILOG_FILE ../new_MD_core/FP_ACC.v
+set_global_assignment -name SDC_FILE ./RL_top.sdc
 
 
 	# Commit assignments

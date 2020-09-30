@@ -11,7 +11,7 @@
 #$ -j y
 #
 ## Ask for desired number of threads
-#$ -pe omp 8
+#$ -pe omp 16
 
 # Want more flags? Look here:
 # http://www.bu.edu/tech/support/research/system-usage/running-jobs/submitting-jobs/
