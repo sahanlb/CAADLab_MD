@@ -3,7 +3,7 @@
 `define WINDOWS_PATH 1
 
 //text macro to instantiate position caches
-`define POS_CACHE_INSTANCE(ZPOS, YPOS, XPOS) \
+`define POS_CACHE_INSTANCE(XPOS, YPOS, ZPOS) \
 Pos_Cache_x_y_z                              \
 #(                                           \
       .DATA_WIDTH(DATA_WIDTH),               \
@@ -13,9 +13,9 @@ Pos_Cache_x_y_z                              \
       .CELL_X(XPOS),                         \
       .CELL_Y(YPOS),                         \
       .CELL_Z(ZPOS),                         \
-      .POSITION_FILE(`"/home/sahanb/1-MD_sim/1-old_design/new_MD_core/pos_init/hex_files/cell_ini_file_``ZPOS``_``YPOS``_``XPOS``.hex`") \
+      .POSITION_FILE(`"/home/sahanb/1-MD_sim/1-old_design/new_MD_core/pos_init/hex_files/cell_ini_file_``XPOS``_``YPOS``_``ZPOS``.hex`") \
 )                                                                      \
-cell_``ZPOS``_``YPOS``_``XPOS``                                        \
+cell_``XPOS``_``YPOS``_``ZPOS``                                        \
 (                                                                      \
       .clk(clk),                                                       \
       .rst(rst),                                                       \

@@ -4907,7 +4907,7 @@ end
 // End simulation when motion update is done.
 initial begin
   iter_count = 0;
-  wait(iter_count == 5);
+  wait(iter_count == 2);
   #10;
   $display("Ending simulation.");
   // cell 0
