@@ -51,6 +51,9 @@ if {$make_assignments} {
 	set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
 	set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 	set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+  set_global_assignment -name OPTIMIZATION_MODE "OPTIMIZE NETLIST FOR ROUTABILITY"
+  set_global_assignment -name FITTER_AGGRESSIVE_ROUTABILITY_OPTIMIZATION ALWAYS
+  # set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
 
   # Source Files
 set_global_assignment -name SYSTEMVERILOG_FILE ../new_MD_core/md_pkg.sv
@@ -70,11 +73,14 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../new_MD_core/RL_Force_Evaluatio
 set_global_assignment -name SYSTEMVERILOG_FILE ../new_MD_core/filter_bank.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../new_MD_core/force_distributor.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../new_MD_core/ref_data_extractor.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../new_MD_core/all_velocity_caches.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../new_MD_core/Velocity_Cache_x_y_z.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../new_MD_core/velocity_x_y_z.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../new_MD_core/Partial_Force_Acc.sv
 set_global_assignment -name VERILOG_FILE ../new_MD_core/all_force_caches.v
 set_global_assignment -name VERILOG_FILE ../new_MD_core/Pos_Cache_x_y_z.v
 set_global_assignment -name VERILOG_FILE ../new_MD_core/cell_x_y_z.v
 set_global_assignment -name VERILOG_FILE ../new_MD_core/cell_empty.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/all_velocity_caches.v
 set_global_assignment -name VERILOG_FILE ../new_MD_core/motion_update_control.v
 set_global_assignment -name VERILOG_FILE ../new_MD_core/motion_update.v
 set_global_assignment -name VERILOG_FILE ../new_MD_core/float2fixed.v
@@ -99,139 +105,8 @@ set_global_assignment -name VERILOG_FILE ../new_MD_core/lut1_14.v
 set_global_assignment -name VERILOG_FILE ../new_MD_core/lut0_8.v
 set_global_assignment -name VERILOG_FILE ../new_MD_core/lut1_8.v
 set_global_assignment -name VERILOG_FILE ../new_MD_core/pos_data_valid_checker.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/Partial_Force_Acc.v
 set_global_assignment -name VERILOG_FILE ../new_MD_core/FP_ACC.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_1_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_1_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_1_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_1_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_1_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_1_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_1_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_1_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_2_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_2_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_2_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_2_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_2_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_2_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_2_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_2_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_3_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_3_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_3_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_3_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_3_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_3_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_3_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_3_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_4_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_4_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_4_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_4_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_4_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_4_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_1_4_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_1_4_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_1_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_1_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_1_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_1_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_1_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_1_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_1_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_1_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_2_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_2_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_2_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_2_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_2_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_2_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_2_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_2_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_3_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_3_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_3_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_3_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_3_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_3_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_3_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_3_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_4_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_4_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_4_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_4_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_4_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_4_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_2_4_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_2_4_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_1_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_1_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_1_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_1_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_1_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_1_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_1_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_1_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_2_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_2_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_2_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_2_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_2_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_2_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_2_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_2_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_3_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_3_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_3_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_3_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_3_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_3_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_3_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_3_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_4_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_4_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_4_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_4_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_4_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_4_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_3_4_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_3_4_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_1_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_1_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_1_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_1_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_1_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_1_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_1_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_1_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_2_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_2_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_2_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_2_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_2_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_2_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_2_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_2_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_3_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_3_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_3_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_3_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_3_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_3_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_3_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_3_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_4_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_4_1.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_4_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_4_2.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_4_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_4_3.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/Velocity_Cache_4_4_4.v
-set_global_assignment -name VERILOG_FILE ../new_MD_core/velocity_init/velocity_4_4_4.v
-
-
-
+set_global_assignment -name SDC_FILE ./RL_top.sdc
 
 
 	# Commit assignments
