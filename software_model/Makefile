@@ -9,3 +9,9 @@ cleanout :
 
 cleanlog :
 	rm -rf log*
+
+run : main.cpp main.h
+	rm -rf Output*
+	rm -rf log*
+	g++ main.cpp -std=c++11 -o MD_golden
+	./MD_golden > log
