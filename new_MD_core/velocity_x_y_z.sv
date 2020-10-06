@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Module: velocity_z_y_x.sv
+// Module: velocity_x_y_z.sv
 //
 //	Function:
 //				Memory modules holding the initial velocity information of each cells
@@ -29,7 +29,7 @@
 
 `timescale 1 ns / 1 ns
 
-module velocity_z_y_x
+module velocity_x_y_z
 #(
 	parameter DATA_WIDTH = 32*3,
 	parameter PARTICLE_NUM = 220,

@@ -25,13 +25,13 @@ cell_``XPOS``_``YPOS``_``ZPOS``                                        \
       .in_data_dst_cell(MU_dst_cell),                                  \
       .in_data_valid(MU_wr_data_valid),                                \
       .in_rden(Motion_Update_enable ? MU_rden : 1'b1),                 \
-      .out_particle_info(pos_data_out[(25*(ZPOS-1)+5*(YPOS-1)+(XPOS-1))])\
+      .out_particle_info(pos_data_out[(16*(ZPOS-1)+4*(YPOS-1)+(XPOS-1))])\
 );
 
 
 // Text macro to instantiate velocity caches
-`define VELOCITY_CACHE_INSTANCE(ZPOS, YPOS, XPOS)                          \
-Velocity_Cache_z_y_x                                                       \
+`define VELOCITY_CACHE_INSTANCE(XPOS, YPOS, ZPOS)                          \
+Velocity_Cache_x_y_z                                                       \
 #(                                                                         \
   .DATA_WIDTH(DATA_WIDTH),                                                 \
   .PARTICLE_NUM(NUM_PARTICLE_PER_CELL),                                    \
@@ -42,7 +42,7 @@ Velocity_Cache_z_y_x                                                       \
   .CELL_Z(ZPOS),                                                           \
   .VELOCITY_FILE("")                                                       \
 )                                                                          \
-Velocity_Cache_``ZPOS``_``YPOS``_``XPOS``                                  \
+Velocity_Cache_``XPOS``_``YPOS``_``ZPOS``                                  \
 (                                                                          \
 	.clk(clk),                                                               \
 	.rst(rst),                                                               \
@@ -52,6 +52,6 @@ Velocity_Cache_``ZPOS``_``YPOS``_``XPOS``                                  \
 	.in_data_dst_cell(MU_dst_cell),                                          \
 	.in_data_valid(MU_wr_data_valid),                                        \
 	.in_rden(MU_rden),                                                       \
-	.out_particle_info(velocity_data_out[(25*(ZPOS-1)+5*(YPOS-1)+(XPOS-1))]) \
+	.out_particle_info(velocity_data_out[(16*(ZPOS-1)+4*(YPOS-1)+(XPOS-1))]) \
 );
 
