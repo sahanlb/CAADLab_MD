@@ -776,7 +776,7 @@ int main() {
 					  // - For first 7 neighbors
 					  for(filter_id = 0; filter_id < NUM_FILTER; filter_id++){
               // Continue if the neighbor cell have less than ref_particle_index particles.
-              if(neighbor_particle_count[filter_id] < ref_particle_index){
+              if(neighbor_particle_count[filter_id] <= ref_particle_index){
                 continue;
               }
 
@@ -804,14 +804,31 @@ int main() {
 								r2 = dx * dx + dy * dy + dz * dz;
 								float inv_r2 = 1.0 / r2;
 
+                if(PRINT_PAIRS && home_cell_x == 2 && home_cell_y == 2 && home_cell_z == 2 && sim_iter == 1){
+                  cout << setprecision(12) << endl;
+                  cout << "refID: " << ref_particle_index + 1 << "\tnbID: " << nb_particle_index + 1 << endl;
+                  cout << "home_cell: " << home_cell_id << "\tnb_cell: " << neighbor_cell_id[filter_id] << "\tfilter: " << filter_id << endl;
+                  cout << "Neighbor cell particle count: " << neighbor_particle_count[filter_id] << endl;
+                  cout << "P1:\t" << ref_pos_x << "\t" << ref_pos_y << "\t" << ref_pos_z << endl;
+                  cout << "P2:\t" << nb_pos_x << "\t" << nb_pos_y << "\t" << nb_pos_z << endl;
+                  cout << "Diff:\t" << dx << "\t" << dy << "\t" << dz << endl;
+                  cout << "R2:\t" << r2 << "\t" << inv_r2 << endl;
+								  if (r2 >= EXCLUSION_2 && r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
+                    cout << "Filter PASS" << endl;
+                  }
+                  else{
+                    cout << "Filter FAIL" << endl;
+                  }
+                }
+
 								// Pass the filter
 								// Also check for particle_id > ref_id for home cell
-								//if (r2 >= EXCLUSION_2 && r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
+								if (r2 >= EXCLUSION_2 && r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
 								//if (r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
-								if (abs(dx) < CUTOFF_RADIUS && abs(dy) < CUTOFF_RADIUS &&  abs(dz) < CUTOFF_RADIUS &&
-                    abs(dx)+abs(dy) < sqrt(2)*CUTOFF_RADIUS && abs(dx)+abs(dz) < sqrt(2)*CUTOFF_RADIUS && abs(dy)+abs(dz) < sqrt(2)*CUTOFF_RADIUS &&
-                    abs(dx)+abs(dy)+abs(dz) < sqrt(3)*CUTOFF_RADIUS &&
-                    (filter_id > 0 | nb_particle_index > ref_particle_index)){
+								//if (abs(dx) < CUTOFF_RADIUS && abs(dy) < CUTOFF_RADIUS &&  abs(dz) < CUTOFF_RADIUS &&
+                //    abs(dx)+abs(dy) < sqrt(2)*CUTOFF_RADIUS && abs(dx)+abs(dz) < sqrt(2)*CUTOFF_RADIUS && abs(dy)+abs(dz) < sqrt(2)*CUTOFF_RADIUS &&
+                //    abs(dx)+abs(dy)+abs(dz) < sqrt(3)*CUTOFF_RADIUS &&
+                //    (filter_id > 0 | nb_particle_index > ref_particle_index)){
 									tmp_counter_particles_within_cutoff += 1;
 									float vdw_14, vdw_8, vdw_12, vdw_6;
 									int lut_index;
@@ -909,7 +926,7 @@ int main() {
 										cout << "dz: " << dz << endl;
 										cout << "r2: " << r2 << endl;
 										cout << "filter: " << filter_id << endl;
-										cout << "ref_index: " << ref_particle_index << endl;
+										cout << "ref_index: " << ref_particle_index + 1 << endl; // +1 to match RTL
 										cout << "nb_index: " << nb_particle_index + 1 << endl; // +1 to match RTL
 										cout << endl;
 									}
@@ -929,12 +946,19 @@ int main() {
                   cell_particle[4][home_cell_id][nb_particle_index] += neg_F_LJ_y;
                   cell_particle[5][home_cell_id][nb_particle_index] += neg_F_LJ_z;
 
-                  if(PRINT_SINGLE_PARTICLE && home_cell_x == 0 && home_cell_y == 0 && home_cell_z == 0 && nb_particle_index == 0){
+                  // {XYZ} {000 = 0} {321 = 27} {222 = 42} {133 = 61}
+                  if(PRINT_SINGLE_PARTICLE && home_cell_x == 2 && home_cell_y == 2 && home_cell_z == 2 && nb_particle_index == 0 && sim_iter == 0){
                     cout << setprecision(12) << std::dec;
+                    //cout << endl;
+                    //cout << "refPos:\t" << ref_pos_x << "\t" << ref_pos_y << "\t" << ref_pos_z << endl;
+                    //cout << "nbPos:\t" << nb_pos_x << "\t" << nb_pos_y << "\t" << nb_pos_z << endl;
+                    //cout << "Diff:\t" << dx << "\t" << dy << "\t" << dz << endl;
+                    //cout << "R2:\t" << r2 << "\t" << inv_r2 << endl;
                     cout << "nbPID=" << nb_particle_index+1 << "\t" << neg_F_LJ_x/MASS_Nav << "\t" << neg_F_LJ_y/MASS_Nav << "\t" << neg_F_LJ_z/MASS_Nav << endl;
                   }
                   
-                  if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 && sim_iter == 0 && ref_particle_index == 2){
+                  //if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 && sim_iter == 1 && ref_particle_index == 0){
+                  if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 2 && home_cell_y == 2 && home_cell_x == 2){
                     cout << "nbPID=" << nb_particle_index + 1 << "\t" << neg_F_LJ_x/MASS_Nav << "\t" << neg_F_LJ_y/MASS_Nav << "\t" << neg_F_LJ_z/MASS_Nav << endl;
                   }
 
@@ -1001,7 +1025,7 @@ int main() {
 					  // - For second  7 neighbors
 					  for(filter_id = NUM_FILTER; filter_id < 2*NUM_FILTER; filter_id++){
               // Continue if the neighbor cell have less than ref_particle_index particles.
-              if(neighbor_particle_count[filter_id] < ref_particle_index){
+              if(neighbor_particle_count[filter_id] <= ref_particle_index){
                 continue;
               }
 
@@ -1029,14 +1053,31 @@ int main() {
 								r2 = dx * dx + dy * dy + dz * dz;
 								float inv_r2 = 1.0 / r2;
 
+                if(PRINT_PAIRS && home_cell_x == 2 && home_cell_y == 2 && home_cell_z == 2 && sim_iter == 1){
+                  cout << setprecision(12) << endl;
+                  cout << "refID: " << ref_particle_index + 1 << "\tnbID: " << nb_particle_index + 1 << endl;
+                  cout << "home_cell: " << home_cell_id << "\tnb_cell: " << neighbor_cell_id[filter_id] << "\tfilter: " << filter_id << endl;
+                  cout << "Neighbor cell particle count: " << neighbor_particle_count[filter_id] << endl;
+                  cout << "P1:\t" << ref_pos_x << "\t" << ref_pos_y << "\t" << ref_pos_z << endl;
+                  cout << "P2:\t" << nb_pos_x << "\t" << nb_pos_y << "\t" << nb_pos_z << endl;
+                  cout << "Diff:\t" << dx << "\t" << dy << "\t" << dz << endl;
+                  cout << "R2:\t" << r2 << "\t" << inv_r2 << endl;
+								  if (r2 >= EXCLUSION_2 && r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
+                    cout << "Filter PASS" << endl;
+                  }
+                  else{
+                    cout << "Filter FAIL" << endl;
+                  }
+                }
+
 								// Pass the filter
 								// Also check for particle_id > ref_id for home cell
-								//if (r2 >= EXCLUSION_2 && r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
+								if (r2 >= EXCLUSION_2 && r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
 								//if (r2 < CUTOFF_RADIUS_2 && (filter_id > 0 | nb_particle_index > ref_particle_index)){
-								if (abs(dx) < CUTOFF_RADIUS && abs(dy) < CUTOFF_RADIUS &&  abs(dz) < CUTOFF_RADIUS &&
-                    abs(dx)+abs(dy) < sqrt(2)*CUTOFF_RADIUS && abs(dx)+abs(dz) < sqrt(2)*CUTOFF_RADIUS && abs(dy)+abs(dz) < sqrt(2)*CUTOFF_RADIUS &&
-                    abs(dx)+abs(dy)+abs(dz) < sqrt(3)*CUTOFF_RADIUS &&
-                    (filter_id > 0 | nb_particle_index > ref_particle_index)){
+								//if (abs(dx) < CUTOFF_RADIUS && abs(dy) < CUTOFF_RADIUS &&  abs(dz) < CUTOFF_RADIUS &&
+                //    abs(dx)+abs(dy) < sqrt(2)*CUTOFF_RADIUS && abs(dx)+abs(dz) < sqrt(2)*CUTOFF_RADIUS && abs(dy)+abs(dz) < sqrt(2)*CUTOFF_RADIUS &&
+                //    abs(dx)+abs(dy)+abs(dz) < sqrt(3)*CUTOFF_RADIUS &&
+                //    (filter_id > 0 | nb_particle_index > ref_particle_index)){
 									tmp_counter_particles_within_cutoff += 1;
 									float vdw_14, vdw_8, vdw_12, vdw_6;
 									int lut_index;
@@ -1134,7 +1175,7 @@ int main() {
 										cout << "dz: " << dz << endl;
 										cout << "r2: " << r2 << endl;
 										cout << "filter: " << filter_id << endl;
-										cout << "ref_index: " << ref_particle_index << endl;
+										cout << "ref_index: " << ref_particle_index + 1 << endl; // +1 to match RTL
 										cout << "nb_index: " << nb_particle_index + 1 << endl; // +1 to match RTL
 										cout << endl;
 									}
@@ -1153,12 +1194,19 @@ int main() {
                   cell_particle[4][home_cell_id][nb_particle_index] += neg_F_LJ_y;
                   cell_particle[5][home_cell_id][nb_particle_index] += neg_F_LJ_z;
 
-                  if(PRINT_SINGLE_PARTICLE && home_cell_x == 0 && home_cell_y == 0 && home_cell_z == 0 && nb_particle_index == 0){
+                  // {XYZ} {000 = 0} {321 = 27} {222 = 42} {133 = 61}
+                  if(PRINT_SINGLE_PARTICLE && home_cell_x == 2 && home_cell_y == 2 && home_cell_z == 2 && nb_particle_index == 0 && sim_iter == 0){
                     cout << setprecision(12) << std::dec;
+                    //cout << endl;
+                    //cout << "refPos:\t" << ref_pos_x << "\t" << ref_pos_y << "\t" << ref_pos_z << endl;
+                    //cout << "nbPos:\t" << nb_pos_x << "\t" << nb_pos_y << "\t" << nb_pos_z << endl;
+                    //cout << "Diff:\t" << dx << "\t" << dy << "\t" << dz << endl;
+                    //cout << "R2:\t" << r2 << "\t" << inv_r2 << endl;
                     cout << "nbPID=" << nb_particle_index+1 << "\t" << neg_F_LJ_x/MASS_Nav << "\t" << neg_F_LJ_y/MASS_Nav << "\t" << neg_F_LJ_z/MASS_Nav << endl;
                   }
 
-                  if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 && sim_iter == 0 && ref_particle_index == 2){
+                  //if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 && sim_iter == 1 && ref_particle_index == 0){
+                  if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 2 && home_cell_y == 2 && home_cell_x == 2){
                     cout << "nbPID=" << nb_particle_index + 1 << "\t" << neg_F_LJ_x/MASS_Nav << "\t" << neg_F_LJ_y/MASS_Nav << "\t" << neg_F_LJ_z/MASS_Nav << endl;
                   }
 
@@ -1227,19 +1275,22 @@ int main() {
               cell_particle[4][neighbor_cell_id[i]][ref_particle_index] += ref_force_y_acc[i];
               cell_particle[5][neighbor_cell_id[i]][ref_particle_index] += ref_force_z_acc[i];
 
-              if(PRINT_SINGLE_PARTICLE && home_cell_x == 0 && home_cell_y == 0 && home_cell_z == 0 && ref_particle_index == 0 && i == 0){
-                cout << setprecision(12) << std::dec;
+              // {XYZ} {000 = 0} {321 = 27} {222 = 42} {133 = 61}
+              if(PRINT_SINGLE_PARTICLE && home_cell_x == 2 && home_cell_y == 2 && home_cell_z == 2 && ref_particle_index == 0 && i == 0 && sim_iter == 0){
+                cout << setprecision(12) << std::dec << endl;
                 cout << "refPID=" << ref_particle_index+1 << "\t" << ref_force_x_acc[i]/MASS_Nav << "\t" << ref_force_y_acc[i]/MASS_Nav << "\t" << ref_force_z_acc[i]/MASS_Nav << endl;
                 //cout << "\nChange ref ID. Next ID=" << ref_particle_index+2 << endl;
               }
             }
 
-            if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 && sim_iter == 0 && ref_particle_index == 2){
+            //if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0 && sim_iter == 1 && ref_particle_index == 0){
+            if(PRINT_FORCE_DISTRIBUTOR_OUTPUT && home_cell_z == 2 && home_cell_y == 2 && home_cell_x == 2){
               cout << "\nStart writing back forces ref particles." << endl;
               cout << setprecision(12) << std::dec << endl;
               for(i=0; i<14; i++){
                 cout << "neighbor=" << i << "\t" << ref_force_x_acc[i]/MASS_Nav << "\t" << ref_force_y_acc[i]/MASS_Nav << "\t" << ref_force_z_acc[i]/MASS_Nav << endl;
               }
+              cout << "\nChange ref ID " << ref_particle_index + 1 << "\n" << endl;
             }
 
 						if (PRINT_FORCE && home_cell_z == 0 && home_cell_y == 0 && home_cell_x == 0){
@@ -1274,9 +1325,15 @@ int main() {
               cout << endl;
             }
 
-            if(PRINT_SINGLE_PARTICLE && home_cell_x == 0 && home_cell_y == 0 && home_cell_z == 0){
+            // {XYZ} {000 = 0} {321 = 27} {222 = 42} {133 = 61}
+            if(PRINT_SINGLE_PARTICLE && home_cell_x == 2 && home_cell_y == 2 && home_cell_z == 2 && sim_iter == 0){
               cout << "\nChange ref ID. Next ID=" << ref_particle_index+2 << endl;
             }
+
+            if(PRINT_PAIRS && home_cell_x == 2 && home_cell_y == 2 && home_cell_z == 2){
+              cout << "\n\nChange ref ID. Next ID=" << ref_particle_index+2 << endl;
+            }
+
 					} // Iterate ref_particle_index
 					
 
@@ -1345,16 +1402,19 @@ int main() {
     }
 
 		// Traverse all cells
-		for (home_cell_x = 0; home_cell_x < CELL_COUNT_X; home_cell_x++) {
-			float x_min = home_cell_x * CUTOFF_RADIUS;
-			float x_max = (home_cell_x + 1) * CUTOFF_RADIUS;
+		for (home_cell_z = 0; home_cell_z < CELL_COUNT_Z; home_cell_z++) {
+			float z_min = home_cell_z * CUTOFF_RADIUS;
+			float z_max = (home_cell_z + 1) * CUTOFF_RADIUS;
 			for (home_cell_y = 0; home_cell_y < CELL_COUNT_Y; home_cell_y++) {
 				float y_min = home_cell_y * CUTOFF_RADIUS;
 				float y_max = (home_cell_y + 1) * CUTOFF_RADIUS;
-				for (home_cell_z = 0; home_cell_z < CELL_COUNT_Z; home_cell_z++) {
-					float z_min = home_cell_z * CUTOFF_RADIUS;
-					float z_max = (home_cell_z + 1) * CUTOFF_RADIUS;
+				for (home_cell_x = 0; home_cell_x < CELL_COUNT_X; home_cell_x++) {
+					float x_min = home_cell_x * CUTOFF_RADIUS;
+					float x_max = (home_cell_x + 1) * CUTOFF_RADIUS;
 					int cell_id = cell_index_calculator(home_cell_x, home_cell_y, home_cell_z);
+          if(CELL_MAP_DEBUG && home_cell_z == 1 & home_cell_y == 2 && home_cell_x == 3){
+            cout << cell_id << "\t\t" << home_cell_z << "\t" << home_cell_y << "\t" << home_cell_x << "\t" << particle_in_cell_counter[home_cell_z][home_cell_y][home_cell_x] <<endl;
+          }
 					int particle_index;
 
 					// Traverse each particle in cell
@@ -1370,7 +1430,11 @@ int main() {
 						float v_y = cell_particle[7][cell_id][particle_index];
 						float v_z = cell_particle[8][cell_id][particle_index];
 
-            if(PRINT_FULL_FORCES && home_cell_x == 0 && home_cell_y == 0 && home_cell_z == 0 && sim_iter == 0){
+            if(CELL_MAP_DEBUG && home_cell_z == 1 & home_cell_y == 2 && home_cell_x == 3){
+              cout << "original => nbID=" << particle_index << "\t" << pos_z << "\t" << pos_y << "\t" << pos_x << endl;
+            }
+
+            if(PRINT_FULL_FORCES && home_cell_x == 3 && home_cell_y == 2 && home_cell_z == 1 && sim_iter == 1){
               cout << setprecision(12) << std::dec;
               cout << "PID=" << particle_index + 1; // +1 to match the indexing in RTL
               cout << "\t" << force_x / MASS_Nav << "\t";
@@ -1399,6 +1463,9 @@ int main() {
 						pos_x < 0 ? pos_x = fmod(pos_x, -1 * BOUNDING_BOX_SIZE_X) + BOUNDING_BOX_SIZE_X : pos_x = fmod(pos_x, BOUNDING_BOX_SIZE_X);
 						pos_y < 0 ? pos_y = fmod(pos_y, -1 * BOUNDING_BOX_SIZE_Y) + BOUNDING_BOX_SIZE_Y : pos_y = fmod(pos_y, BOUNDING_BOX_SIZE_Y);
 						pos_z < 0 ? pos_z = fmod(pos_z, -1 * BOUNDING_BOX_SIZE_Z) + BOUNDING_BOX_SIZE_Z : pos_z = fmod(pos_z, BOUNDING_BOX_SIZE_Z);
+            if(CELL_MAP_DEBUG && home_cell_z == 1 & home_cell_y == 2 && home_cell_x == 3){
+              cout << "updated => nbID=" << particle_index << "\t" << pos_z << "\t" << pos_y << "\t" << pos_x << endl;
+            }
 
 						// In case the small number is eaten by the big number so the position = bounding box size
 						if (pos_x == BOUNDING_BOX_SIZE_X) {
@@ -1415,6 +1482,15 @@ int main() {
 						int target_cell_x = (int)(pos_x / CUTOFF_RADIUS);
 						int target_cell_y = (int)(pos_y / CUTOFF_RADIUS);
 						int target_cell_z = (int)(pos_z / CUTOFF_RADIUS);
+            /********************* Testing new cell mapping **********************************/
+						//int target_cell_x = (int)(pos_z / CUTOFF_RADIUS);
+						//int target_cell_y = (int)(pos_y / CUTOFF_RADIUS);
+						//int target_cell_z = (int)(pos_x / CUTOFF_RADIUS);
+            /********************* Testing new cell mapping **********************************/
+
+            if(CELL_MAP_DEBUG && home_cell_z == 1 & home_cell_y == 2 && home_cell_x == 3){
+              cout << "target => nbID=" << particle_index << "\t" << target_cell_z << "\t" << target_cell_y << "\t" << target_cell_x << endl;
+            }
 
 						// Assign particles to new cells
 						int new_particle_index = tmp_particle_in_cell_counter[target_cell_z][target_cell_y][target_cell_x];
@@ -1431,6 +1507,17 @@ int main() {
 						tmp_cell_particle[7][target_cell_id][new_particle_index] = v_y;
 						tmp_cell_particle[8][target_cell_id][new_particle_index] = v_z;
 
+            if(PRINT_MU_POS && target_cell_id == 61 && sim_iter == 1){
+              cout << setprecision(12);
+              cout << "nbID=" << new_particle_index + 1 << "\t" << pos_x << "\t" << pos_y << "\t" << pos_z << endl; //+1 to match RTL
+              //cout << target_cell_x  << "\t" << target_cell_y << "\t" << target_cell_z << endl;
+            }
+
+            if(PRINT_MU_VEL && target_cell_id == 61 && sim_iter == 1){
+              cout << setprecision(12);
+              cout << "nbID=" << new_particle_index + 1 << "\t" << v_x << "\t" << v_y << "\t" << v_z << endl; //+1 to match RTL
+            }
+
 						// Update the # of particles in the new cell
 						tmp_particle_in_cell_counter[target_cell_z][target_cell_y][target_cell_x] += 1;
 
@@ -1442,6 +1529,18 @@ int main() {
       cout << "Finished motion calculation." << endl;
     }
 
+    //debug print
+    //for(i=0; i<CELL_COUNT_Z; i++){
+    //  for(j=0; j<CELL_COUNT_Y; j++){
+    //    for(k=0; k<CELL_COUNT_X; k++){
+    //      cout << "cell_ID:" << i*CELL_COUNT_Y*CELL_COUNT_X + j*CELL_COUNT_X + k << "\t" << tmp_particle_in_cell_counter[i][j][k] << endl;
+    //    }
+    //  }
+    //}
+
+    if(PRINT_FORCE_DISTRIBUTOR_OUTPUT){
+      cout << "\nIteration " << sim_iter << " over\n" << endl;
+    }
 
 		/* Update the cell list from motion update tmp arrays */
 		update(cell_particle, tmp_cell_particle, CELL_PARTICLE_MAX, CELL_COUNT_TOTAL, 12);
@@ -1518,6 +1617,12 @@ void map_to_cells(float** pos_data, float*** cell_particle, int*** particle_in_c
 		cell_x = pos_data[0][i] / CUTOFF_RADIUS;
 		cell_y = pos_data[1][i] / CUTOFF_RADIUS;
 		cell_z = pos_data[2][i] / CUTOFF_RADIUS;
+    /*********************** Test new cell mapping ********************/
+		//cell_x = pos_data[2][i] / CUTOFF_RADIUS;
+		//cell_y = pos_data[1][i] / CUTOFF_RADIUS;
+		//cell_z = pos_data[0][i] / CUTOFF_RADIUS;
+    /*********************** Test new cell mapping ********************/
+
 
 		// Write the particle information to cell list
 		if (cell_x >= 0 && cell_x < CELL_COUNT_X &&
@@ -1529,6 +1634,13 @@ void map_to_cells(float** pos_data, float*** cell_particle, int*** particle_in_c
 					continue;
 				}
 			}
+
+      //if(PRINT_POS_DATA && cell_x == 3 && cell_y == 2 && cell_z == 1){
+      if(PRINT_POS_DATA){
+        cout << setprecision(12) << "pos " << pos_data[0][i] << "\t" << pos_data[1][i] << "\t" << pos_data[2][i] << endl;
+        cout << "cell " << cell_x << "\t" << cell_y << "\t" << cell_z << "\n" << endl;
+      }
+
 			// Start from 0
 			cell_id = cell_index_calculator(cell_x, cell_y, cell_z);
 			cell_particle[0][cell_id][counter] = pos_data[0][i];
