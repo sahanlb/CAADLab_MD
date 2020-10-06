@@ -14,3 +14,4 @@
 *.txt
 **/log
 **/MD_golden
+sim/add*

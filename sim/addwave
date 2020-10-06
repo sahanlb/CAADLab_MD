@@ -1,9 +1,26 @@
 add wave vsim:/RL_top_tb/RL_top/clk
-add wave vsim:/RL_top_tb/RL_top/rst
-add wave vsim:/RL_top_tb/RL_top/start
 add wave vsim:/RL_top_tb/RL_top/delay_phase
 add wave vsim:/RL_top_tb/RL_top/delay_pause_reading
 add wave vsim:/RL_top_tb/RL_top/delay_reading_particle_num
-add wave vsim:/RL_top_tb/RL_top/delay_particle_id
-add wave vsim:/RL_top_tb/RL_top/delay_ref_id
-add wave vsim:/RL_top_tb/RL_top/rd_nb_position_splitted
+add wave -radix unsigned vsim:/RL_top_tb/RL_top/delay_ref_id
+add wave -radix unsigned vsim:/RL_top_tb/RL_top/delay_particle_id
+
+# preprocessor input
+add wave -group preproc_in {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/phase}
+add wave -group preproc_in {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/pause_reading}
+add wave -group preproc_in {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/reading_particle_num}
+add wave -group preproc_in {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/rd_nb_position}
+add wave -group preproc_in -radix unsigned {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/ref_id}
+add wave -group preproc_in -radix unsigned {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/particle_id}
+
+# preprocessor output
+add wave -group preproc_out {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/ref_x}
+add wave -group preproc_out {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/ref_y}
+add wave -group preproc_out {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/ref_z}
+add wave -group preproc_out {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/assembled_position}
+add wave -group preproc_out {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/pair_valid}
+add wave -group preproc_out {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/prev_phase}
+add wave -group preproc_out -radix unsigned {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/prev_ref_id}
+add wave -group preproc_out -radix unsigned {vsim:/RL_top_tb/RL_top/PE_collection[0]/single_PE/pos_data_preprocessor/prev_particle_id}
+
+

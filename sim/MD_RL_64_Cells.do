@@ -11,16 +11,10 @@ set TOP_LEVEL_NAME RL_top_tb
 elab
 
 
-add wave -r -depth 5 *
+add wave -r -depth 3 *
 
 
-#add wave sim:/RL_top_tb/RL_top/all_position_caches/*
-#add wave sim:/RL_top_tb/RL_top/PE_collection\[0\]/single_PE/*
-#add wave sim:/RL_top_tb/RL_top/PE_collection\[0\]/single_PE/pos_data_preprocessor/*
-#add wave sim:/RL_top_tb/RL_top/PE_collection\[0\]/single_PE/pos_data_preprocessor/ref_extractor_inst\[0\]/ref_data_extractor/*
-
-
-run 200000ns
+run 300000ns
 
 exit -code 0
 
