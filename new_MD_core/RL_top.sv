@@ -1,6 +1,5 @@
 import md_pkg::*;
 
-
 module RL_top
 #(
 	parameter NUM_CELLS = 64, 
@@ -183,26 +182,9 @@ always@(posedge clk)
 
 genvar i;
 generate
-	for (i = 0; i < NUM_CELLS; i = i + 1)
-		begin: PE_collection
+	for (i = 0; i < NUM_CELLS; i = i + 1)begin: PE_collection
 		PE_wrapper
-		#(
-			.OFFSET_WIDTH(OFFSET_WIDTH),
-			.DATA_WIDTH(DATA_WIDTH),
-			.CELL_ID_WIDTH(CELL_ID_WIDTH),
-			.DECIMAL_ADDR_WIDTH(DECIMAL_ADDR_WIDTH),
-			.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
-			.BODY_BITS(BODY_BITS),
-			.ID_WIDTH(ID_WIDTH),
-			.FULL_CELL_ID_WIDTH(FULL_CELL_ID_WIDTH),
-			.FILTER_BUFFER_DATA_WIDTH(FILTER_BUFFER_DATA_WIDTH),
-			.FORCE_BUFFER_WIDTH(FORCE_BUFFER_WIDTH),
-			.NUM_FILTER(NUM_FILTER),
-			.ARBITER_MSB(ARBITER_MSB),
-			.NUM_NEIGHBOR_CELLS(NUM_NEIGHBOR_CELLS)
-		)
-		single_PE
-		(
+		single_PE(
 			.clk(clk),
 			.rst(rst),
 			.phase(delay_phase),
@@ -222,16 +204,11 @@ generate
 			.output_force_valid(force_valid[i]),
       .all_ref_wb_issued(ref_wb_issued[i])
 		);
-		end
+	end
 endgenerate
 	
 broadcast_controller
-#(
-	.NUM_CELLS(NUM_CELLS),
-	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH)
-)
-broadcast_controller
-(
+broadcast_controller(
 	.clk(clk),
 	.rst(rst),
 	.iter_start(start || MU_done),
@@ -271,15 +248,8 @@ position_cache_to_PE_mapping
 
 
 // destination ID map
-destination_id_map #(
-  .NUM_CELLS(NUM_CELLS),
-  .DATA_WIDTH(DATA_WIDTH),
-	.CELL_ID_WIDTH(CELL_ID_WIDTH), 
-  .PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
-  .XSIZE(X_DIM),
-  .YSIZE(Y_DIM),
-  .ZSIZE(Z_DIM)
-) dest_map (
+destination_id_map
+dest_map (
   .wb_in(force_data),
   
   .pkt_out(packets_to_ring) 
@@ -287,11 +257,8 @@ destination_id_map #(
 
 
 // Ring interconnect
-ring #(
-  .NUM_CELLS(NUM_CELLS),
-  .DATA_WIDTH(DATA_WIDTH),
-  .PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH)
-) ring_interconnect (
+ring
+ring_interconnect (
   .clk(clk),
   .rst(rst),
   .packet_in(packets_to_ring),
@@ -304,16 +271,7 @@ ring #(
 
 
 all_force_caches
-#(
-	.NUM_CELLS(NUM_CELLS),
-	.DATA_WIDTH(DATA_WIDTH),
-	.FORCE_CACHE_WIDTH(FORCE_CACHE_WIDTH),
-	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH),
-	.FORCE_CACHE_DEPTH(NUM_PARTICLE_PER_CELL),
-	.FORCE_DATA_WIDTH(FORCE_DATA_WIDTH)
-)
-all_force_caches
-(
+all_force_caches(
 	.clk(clk),
 	.rst(rst),
 	.motion_updata_rd_request(MU_force_rd_request),
@@ -328,15 +286,7 @@ all_force_caches
 );
 
 all_position_caches
-#(
-	.NUM_CELLS(NUM_CELLS),
-	.DATA_WIDTH(OFFSET_WIDTH),
-	.CELL_ID_WIDTH(CELL_ID_WIDTH),
-	.NUM_PARTICLE_PER_CELL(NUM_PARTICLE_PER_CELL),
-	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH)
-)
-all_position_caches
-(
+all_position_caches(
 	.clk(clk),
 	.rst(rst),
 	.rd_addr(particle_id),

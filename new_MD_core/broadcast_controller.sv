@@ -1,13 +1,10 @@
-module broadcast_controller
-#(
-	parameter NUM_CELLS = 64, 
-	parameter PARTICLE_ID_WIDTH = 7
-)
-(
+import md_pkg::*;
+
+module broadcast_controller(
 	input clk, 
 	input rst, 
 	input iter_start, 
-	input [NUM_CELLS-1:0][PARTICLE_ID_WIDTH-1:0] particle_num,
+	input particle_id_t [NUM_CELLS-1:0] particle_num,
 	input [NUM_CELLS-1:0] back_pressure, 
 	input [NUM_CELLS-1:0] filter_buffer_empty, 
 	// Returned from PEs, if ref id > particle num
@@ -19,8 +16,8 @@ module broadcast_controller
 	// Partial flag for motion update start
 	output all_reading_done, 
 	output all_filter_buffer_empty, 
-	output reg [PARTICLE_ID_WIDTH-1:0] particle_id, 
-	output reg [PARTICLE_ID_WIDTH-1:0] ref_id, 
+	output particle_id_t particle_id, 
+	output particle_id_t ref_id, 
 	output reg phase, 
 	// Tell the data receiving end that the data is the number of particles
 	output reg reading_particle_num, 
@@ -242,11 +239,7 @@ generate
 	for (i = 0; i < NUM_CELLS; i = i + 1)
 		begin: broadcast_done_check
 		check_broadcast_done
-		#(
-			.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH)
-		)
-		check_broadcast_done
-		(
+		check_broadcast_done(
 			.particle_count(particle_num[i]), 
 			.particle_id(particle_id), 
 			

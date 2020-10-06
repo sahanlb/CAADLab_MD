@@ -8,16 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 import md_pkg::*;
 
-module destination_id_map #(
-  parameter NUM_CELLS         = 64,
-  parameter DATA_WIDTH        = 32,
-	parameter CELL_ID_WIDTH     = 3, 
-  parameter PARTICLE_ID_WIDTH = 7,
-  parameter XSIZE             = 4,
-  parameter YSIZE             = 4,
-  parameter ZSIZE             = 4,
-  parameter NODE_ID_WIDTH     = $clog2(NUM_CELLS)
-)(
+module destination_id_map (
   input force_wb_t [NUM_CELLS-1:0] wb_in,
   
   output packet_t [NUM_CELLS-1:0] pkt_out 
@@ -31,26 +22,18 @@ loops are used to assign the correct values to home cell location parameters.
 Cell indexing starts from 1 instead of 0 because that is the indexing convention used throughout the design.
 */
 generate
-  for(k=0; k<ZSIZE; k++)begin: zloop
-    for(j=0; j<YSIZE; j++)begin: yloop
-      for(i=0; i<XSIZE; i++)begin: xloop
+  for(k=0; k<Z_DIM; k++)begin: zloop
+    for(j=0; j<Y_DIM; j++)begin: yloop
+      for(i=0; i<X_DIM; i++)begin: xloop
         cell_to_dest_id_map #(
-          .NUM_CELLS(NUM_CELLS),
-        	.DATA_WIDTH(DATA_WIDTH), 
-        	.CELL_ID_WIDTH(CELL_ID_WIDTH), 
-        	.PARTICLE_ID_WIDTH(PARTICLE_ID_WIDTH), 
-          .NODE_ID_WIDTH(NODE_ID_WIDTH),
-          .HOME_CELL_ID(k*XSIZE*YSIZE + j*XSIZE + i),
+          .HOME_CELL_ID(k*X_DIM*Y_DIM + j*X_DIM + i),
           .HOME_X(i+1),
           .HOME_Y(j+1),
-          .HOME_Z(k+1),
-          .NX(XSIZE),
-          .NY(YSIZE),
-          .NZ(ZSIZE)
+          .HOME_Z(k+1)
         ) map_inst (
-          .wb_in(wb_in[k*XSIZE*YSIZE + j*XSIZE + i]),
+          .wb_in(wb_in[k*X_DIM*Y_DIM + j*X_DIM + i]),
 
-          .pkt_out(pkt_out[k*XSIZE*YSIZE + j*XSIZE + i])
+          .pkt_out(pkt_out[k*X_DIM*Y_DIM + j*X_DIM + i])
         );
       end
     end
