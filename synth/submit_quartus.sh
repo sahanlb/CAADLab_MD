@@ -5,7 +5,7 @@
 #$ -l h_rt=48:00:00
 #
 ## Give the job a name.
-#$ -N quartus_run
+#$ -N q_125_virtual
 #
 ## Redirect error output to standard output
 #$ -j y
