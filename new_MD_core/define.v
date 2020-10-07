@@ -1,6 +1,7 @@
 // defines
 
 `define WINDOWS_PATH 1
+`define MODELSIM 1  // For RTL simulation using Modelsim. (Paths have to be relative to the simulation directory.
 
 // Text macro to instantiate position caches
 `define POS_CACHE_INSTANCE(XPOS, YPOS, ZPOS) \
@@ -13,7 +14,11 @@ Pos_Cache_x_y_z                              \
       .CELL_X(XPOS),                         \
       .CELL_Y(YPOS),                         \
       .CELL_Z(ZPOS),                         \
+      `ifdef MODELSIM                        \
+      .POSITION_FILE(`"../new_MD_core/pos_init/hex_files/cell_ini_file_``XPOS``_``YPOS``_``ZPOS``.hex`") \
+      `else                                                                                 \
       .POSITION_FILE(`"./pos_init/hex_files/cell_ini_file_``XPOS``_``YPOS``_``ZPOS``.hex`") \
+      `endif                                                                                \
 )                                                                      \
 cell_``XPOS``_``YPOS``_``ZPOS``                                        \
 (                                                                      \
