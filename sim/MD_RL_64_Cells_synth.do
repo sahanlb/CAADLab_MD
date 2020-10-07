@@ -5,9 +5,6 @@ source $QSYS_SIMDIR/mentor/msim_setup.tcl
 #vlog -work work ../new_MD_core/md_pkg.sv
 vlog -work work ../new_MD_core/*.v
 vlog -work work -sv ../new_MD_core/*.sv
-vlog -work work ../new_MD_core/velocity_init/*.v
-
-
 
 exit -code 0
 
